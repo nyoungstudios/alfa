@@ -8,17 +8,17 @@ on:
       - '.github/workflows/publish-docker.yml'
 
 jobs:
-  docker:
+  build:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
       fail-fast: false
-      matrix:
-        image-name: ['gitpod/workspace-base:latest', 'gitpod/workspace-full:latest']
-    env:
-      'gitpod/workspace-base:latest': '${{ secrets.DOCKER_USERNAME }}/zshpod:base'
-      'gitpod/workspace-full:latest': '${{ secrets.DOCKER_USERNAME }}/zshpod:full,${{ secrets.DOCKER_USERNAME }}/zshpod:latest'
-
+      matrix: 
+        include:
+          - image: gitpod/workspace-base:latest
+            tags: '${{ secrets.DOCKER_USERNAME }}/zshpod:base'
+          - image: gitpod/workspace-full:latest
+            tags: '${{ secrets.DOCKER_USERNAME }}/zshpod:full,${{ secrets.DOCKER_USERNAME }}/zshpod:latest'
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
@@ -31,8 +31,8 @@ jobs:
 
       - name: Echo matrix
         run: |
-          echo ${{ matrix.image-name }}
-          echo ${{ fromJSON(env.${{ matrix.image-name }}) }}
+          echo ${{ matrix.image }}
+          echo ${{ matrix.tags }}
 
 
       
