@@ -2,7 +2,7 @@
 
 command_exists() {
   # tests if command exists
-	command -v "$@" >/dev/null 2>&1
+  command -v "$@" >/dev/null 2>&1
 }
 
 install_brew() {
