@@ -1,4 +1,7 @@
-FROM gitpod/workspace-base:latest
+# pass in image name as a build argument lile this:
+# docker build --build-arg imagename=gitpod/workspace-full:latest .
+ARG imagename
+FROM $imagename
 
 # installs oh my zsh
 ARG RUNZSH="no"
