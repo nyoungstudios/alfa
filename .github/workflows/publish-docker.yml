@@ -16,9 +16,9 @@ jobs:
       matrix: 
         include:
           - image: gitpod/workspace-base:latest
-            tags: '${{ secrets.DOCKER_USERNAME }}/zshpod:base'
+            tags: "${{ secrets.DOCKER_USERNAME }}/zshpod:base"
           - image: gitpod/workspace-full:latest
-            tags: '${{ secrets.DOCKER_USERNAME }}/zshpod:full,${{ secrets.DOCKER_USERNAME }}/zshpod:latest'
+            tags: "${{ secrets.DOCKER_USERNAME }}/zshpod:full,${{ secrets.DOCKER_USERNAME }}/zshpod:latest"
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
