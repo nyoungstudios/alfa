@@ -5,7 +5,7 @@ on:
     branches: [ main ]
     paths:
       - 'templates/**'
-      - '.github/publish-docker.yml'
+      - '.github/workflows/publish-docker.yml'
 
 jobs:
   docker:
