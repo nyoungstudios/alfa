@@ -6,6 +6,9 @@ on:
     paths:
       - 'templates/**'
       - '.github/workflows/publish-docker.yml'
+  schedule:
+      # on the 1st and 15th of every month
+      - cron: '0 0 1,15 * *'
 
 jobs:
   build:
