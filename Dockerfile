@@ -15,6 +15,8 @@ RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTO
     sed -i '1 e cat /tmp/templates/p10k_init.zsh && cat /tmp/templates/zshrc_disable_flag.zsh' ~/.zshrc && \
     sed -i 's+ZSH_THEME="robbyrussell"+ZSH_THEME="powerlevel10k/powerlevel10k"+g' ~/.zshrc && \
     echo "" >> ~/.zshrc && \
+    echo 'for i in $(ls $HOME/.bashrc.d/* | grep -v node); do source $i; done' >> ~/.zshrc && \
+    echo "" >> ~/.zshrc && \
     cat /tmp/templates/p10k_config.zsh >> ~/.zshrc && \
     mv /tmp/templates/.p10k.zsh ~/.p10k.zsh && \
     rm -rf /tmp/templates
