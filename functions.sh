@@ -31,6 +31,14 @@ install_ohmyzsh() {
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 }
 
+install_ohmyzsh_plugins() {
+  # installs plugins for ohmyzsh
+  for repo in "$@"
+  do
+    git -C ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins clone --depth=1 "$repo"
+  done
+}
+
 prettify_terminal() {
   # clone Powerlevel10k repo and copy .p10k.zsh config file
   echo "Cloning Powerlevel10k theme"
