@@ -125,6 +125,12 @@ install_atom_packages() {
   done
 }
 
+install_sdkman() {
+  # installs sdkman
+  curl -s "https://get.sdkman.io?rcupdate=false" | bash
+  cat templates/sdkman.zsh >> ~/.zshrc
+}
+
 run_zsh() {
   # runs zsh so you can see all the new changes
   exec zsh -l
