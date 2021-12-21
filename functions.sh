@@ -28,8 +28,7 @@ brew_install_cask() {
 
 install_ohmyzsh() {
   # install ohmyzsh
-  export RUNZSH="no"
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 }
 
 prettify_terminal() {
@@ -80,7 +79,7 @@ git_clone_repo() {
 install_anaconda3() {
   # installs anaconda3
   echo "Installing Anaconda3..."
-  curl https://repo.anaconda.com/archive/Anaconda3-2021.05-MacOSX-x86_64.sh -o ~/anaconda3.sh
+  curl https://repo.anaconda.com/archive/Anaconda3-2021.11-MacOSX-x86_64.sh -o ~/anaconda3.sh
   chmod +x ~/anaconda3.sh
   bash ~/anaconda3.sh -b -p ~/anaconda3
   rm ~/anaconda3.sh
