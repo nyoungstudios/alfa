@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
 for arg in "$@"
 do
-  /bin/sh -exuc "source functions.sh; $arg"
+  /bin/bash -exuc "source functions.sh; $arg"
 done

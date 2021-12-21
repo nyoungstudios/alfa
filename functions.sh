@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 command_exists() {
   # tests if command exists
