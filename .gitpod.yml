@@ -2,19 +2,20 @@ image: nateateteen/zshpod
 
 tasks:
   - name: Dart
-    init: >
-      sudo apt-get update &&
-      sudo apt-get install -y apt-transport-https && 
-      sudo sh -c 'wget -qO- https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -' && 
-      sudo sh -c 'wget -qO- https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list' && 
-      sudo apt-get update && 
-      sudo apt-get install -y dart && 
-      echo 'export PATH="$PATH:/usr/lib/dart/bin"' >> ~/.zshrc && 
+    init: |
+      sudo apt-get update
+      sudo apt-get install -y apt-transport-https
+      sudo sh -c 'wget -qO- https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -'
+      sudo sh -c 'wget -qO- https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list'
+      sudo apt-get update
+      sudo apt-get install -y dart
+      echo 'export PATH="$PATH:/usr/lib/dart/bin"' >> ~/.zshrc
       echo 'export PATH="$PATH:/usr/lib/dart/bin"' >> ~/.bashrc
+      /usr/bin/gp sync-done dart
 
   - name: Install Dart Dependencies
   - init: |
-      /usr/bin/gp sync-await sudo
+      /usr/bin/gp sync-await dart
       dart pub get
 
 vscode:
