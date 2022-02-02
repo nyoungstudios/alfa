@@ -16,6 +16,7 @@ tasks:
   - name: Install Dart Dependencies
   - init: |
       /usr/bin/gp sync-await dart
+      dart --disable-analytics
       dart pub get
 
 vscode:
