@@ -9,8 +9,8 @@ tasks:
       sudo sh -c 'wget -qO- https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list'
       sudo apt-get update
       sudo apt-get install -y dart
-      echo 'export PATH="$PATH:/usr/lib/dart/bin"' >> ~/.zshrc
-      echo 'export PATH="$PATH:/usr/lib/dart/bin"' >> ~/.bashrc
+      echo 'export PATH="$PATH:/usr/lib/dart/bin"' >> /home/gitpod/.zshrc
+      echo 'export PATH="$PATH:/usr/lib/dart/bin"' >> /home/gitpod/.bashrc
       /usr/bin/gp sync-done dart
 
   - name: Install Dart Dependencies
