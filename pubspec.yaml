@@ -1,0 +1,8 @@
+name: "dq"
+description: An example that demonstrates how decode a TOML document from a string.
+repository: "https://github.com/nyoungstudios/setup"
+publish_to: none
+environment:
+  sdk: '>=2.10.0 <3.0.0'
+dependencies:
+  toml: "^0.12.0"

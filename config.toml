@@ -1,0 +1,5 @@
+title = "Example"
+
+[colors]
+install = true
+ports = [ 8080, 8081 ]
