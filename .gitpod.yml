@@ -20,5 +20,6 @@ tasks:
 
 vscode:
   extensions:
+    - bungcip.better-toml
     - dart-code.dart-code
     - editorconfig.editorconfig
