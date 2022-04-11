@@ -1,5 +1,47 @@
-title = "Example"
+[ main ]
+title = "Nathaniel's Computer Setup"
+tags = [ 
+  "all", 
+  "java",
+  "nodejs",
+  "pkg-man", 
+  "python", 
+  "terminal",
+]
+os = [ "macos", "linux" ]
 
-[colors]
-install = true
-ports = [ 8080, 8081 ]
+[ git ]
+config = false
+# repos = [
+#   ""
+# ]
+
+[ ohmyzsh ]
+tags = [ "terminal" ]
+run_zsh = true
+# plugins = [
+#   ""
+# ]
+
+[ p10k ]
+tags = [ "terminal" ]
+
+[ vim ]
+tags = [ "terminal" ]
+
+[ brew ]
+tags = [ "pkg-man" ]
+
+[ anaconda ]
+tags = [ "python" ]
+
+[ nvm ]
+tags = [ "nodejs" ]
+
+[ node ]
+tags = [ "nodejs" ]
+lts = true
+# versions = [ 16 ]
+
+[ sdkman ]
+tags = [ "java" ]

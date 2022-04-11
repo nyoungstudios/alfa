@@ -1,5 +1,5 @@
-name: "dq"
-description: An example that demonstrates how decode a TOML document from a string.
+name: "alfa"
+description: A cli tool to kickstart your dev environment and set you up to soar!
 repository: "https://github.com/nyoungstudios/setup"
 publish_to: none
 environment:
