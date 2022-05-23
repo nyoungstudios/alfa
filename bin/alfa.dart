@@ -19,29 +19,51 @@ Future<String> check_os() async {
 }
 
 void main() async {
+  // gets operating system
+  var os_name = await check_os();
+  print("Running alfa on ${os_name}");
+
+  // loads config file
   var document = await TomlDocument.load('config.toml');
   var config = document.toMap();
 
-  var main = config['main'];
-  config.remove('main');
+  // var main = config['main'];
+  // config.remove('main');
   
-  var title = main['title'];
-  print('Running "$title" config');
+  // var title = main['title'];
+  // print('Running "$title" config');
 
-  print('This is stuff: $config');
+  // read config file
 
-  for (MapEntry e in config.entries) {
-    print("Key ${e.key}, Value ${e.value}");
+  // print('This is stuff: $config');
+
+  // for (MapEntry e in config.entries) {
+  //   print("Key ${e.key}, Value ${e.value}");
+  // }
+
+  // gets map for names to install functions
+  var dictionary_file = await TomlDocument.load('dictionary.toml');
+  var dictionary = dictionary_file.toMap();
+
+
+  // get items to install
+  var to_install = <String>{"vimrc"};
+
+  for (String name in to_install) {
+    await Process.run('/bin/bash', ['-euc', 'source functions.sh; ${dictionary[name]["install_function"]}'], runInShell: true).then((ProcessResult results) {
+      // if results has standard out, print it
+      if (!results.stdout.isEmpty) {
+        stdout.write(results.stdout);
+      }
+
+      // if results has standard error, print it
+      if (!results.stderr.isEmpty) {
+        stderr.write(results.stderr);
+      }
+      
+    });
   }
 
-// /bin/bash -euc "source functions.sh; $arg"
-  // Process.run('/bin/bash', ['-euc', 'source functions.sh; check_os'], runInShell: true).then((ProcessResult results) {
-  //   print(results.stdout);
-  //   print(results.stderr);
-  // });
-
-
-  var os_name = await check_os();
-  print(os_name);
+  print('This is dictionary: $dictionary');
 
 }

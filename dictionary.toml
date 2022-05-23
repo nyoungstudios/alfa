@@ -1,0 +1,28 @@
+# this file contains all of the options and references to the shell scripts in functions.sh
+
+[ brew ]
+install_function = "install_brew"
+options.packages.install_function = "brew_install"
+options.packages.arguments_name = "packages"
+options.cask_packages.install_function = "brew_install_cask"
+options.cask_packages.arguments_name = "packages"
+
+[ ohmyzsh ]
+install_function = "install_ohmyzsh"
+options.plugins.install_function = "install_ohmyzsh_plugins"
+options.plugins.arguments_name = "plugins"
+
+[ p10k ]
+install_function = "prettify_terminal"
+
+[ vimrc ]
+install_function = "install_vimrc"
+
+# [ gitclone ]
+# options.
+
+[ anaconda ]
+install_function = "install_anaconda3"
+
+[ nvm ]
+install_function = "install_nvm"

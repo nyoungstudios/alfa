@@ -1,47 +1,47 @@
-[ main ]
-title = "Nathaniel's Computer Setup"
-tags = [ 
-  "all", 
-  "java",
-  "nodejs",
-  "pkg-man", 
-  "python", 
-  "terminal",
-]
-os = [ "macos", "linux" ]
-
-[ git ]
-config = false
-# repos = [
-#   ""
+# [ main ]
+# title = "Nathaniel's Computer Setup"
+# tags = [ 
+#   "all", 
+#   "java",
+#   "nodejs",
+#   "pkg-man", 
+#   "python", 
+#   "terminal",
 # ]
+# os = [ "macos", "linux" ]
 
-[ ohmyzsh ]
+# [ git ]
+# config = false
+# # repos = [
+# #   ""
+# # ]
+
+# [ ohmyzsh ]
+# tags = [ "terminal" ]
+# run_zsh = true
+# # plugins = [
+# #   ""
+# # ]
+
+# [ p10k ]
+# tags = [ "terminal" ]
+
+[ vimrc ]
 tags = [ "terminal" ]
-run_zsh = true
-# plugins = [
-#   ""
-# ]
 
-[ p10k ]
-tags = [ "terminal" ]
+# [ brew ]
+# tags = [ "pkg-man" ]
 
-[ vim ]
-tags = [ "terminal" ]
+# [ anaconda ]
+# tags = [ "python" ]
 
-[ brew ]
-tags = [ "pkg-man" ]
+# [ nvm ]
+# tags = [ "nodejs" ]
 
-[ anaconda ]
-tags = [ "python" ]
+# [ node ]
+# tags = [ "nodejs" ]
+# lts = true
+# # versions = [ 16 ]
 
-[ nvm ]
-tags = [ "nodejs" ]
-
-[ node ]
-tags = [ "nodejs" ]
-lts = true
-# versions = [ 16 ]
-
-[ sdkman ]
-tags = [ "java" ]
+# [ sdkman ]
+# tags = [ "java" ]
