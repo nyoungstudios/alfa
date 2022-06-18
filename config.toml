@@ -1,27 +1,9 @@
-# [ main ]
-# title = "Nathaniel's Computer Setup"
-# tags = [ 
-#   "all", 
-#   "java",
-#   "nodejs",
-#   "pkg-man", 
-#   "python", 
-#   "terminal",
-# ]
-# os = [ "macos", "linux" ]
-
-# [ git ]
-# config = false
-# # repos = [
-# #   ""
-# # ]
-
 [ ohmyzsh ]
 tags = [ "terminal" ]
-# run_zsh = true
-# # plugins = [
-# #   ""
-# # ]
+
+[ ohmyzsh_plugins ]
+tags = [ "terminal" ]
+options = []
 
 [ p10k ]
 tags = [ "terminal" ]
@@ -32,16 +14,32 @@ tags = [ "terminal" ]
 [ brew ]
 tags = [ "pkg-man" ]
 
+[ brew_packages ]
+tags = [ "packages" ]
+options = [
+  "jq",
+  "kubectl"
+]
+
+[ brew_cask_packages ]
+tags = [ "packages" ]
+
 [ anaconda ]
 tags = [ "python" ]
 
 [ nvm ]
 tags = [ "nodejs" ]
 
-[ node ]
+[ node_lts ]
 tags = [ "nodejs" ]
-# lts = true
-# # versions = [ 16 ]
+
+[ node_version ]
+tags = []
+options = []
 
 [ sdkman ]
 tags = [ "java" ]
+
+[ git_clone ]
+tags = []
+options = []

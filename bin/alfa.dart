@@ -57,15 +57,27 @@ void main(List<String> args) async {
     }
   }
 
-  print("These are the things it is going to install");
-  print(names_to_install);
+  print("");
+  print("--------------------------------------------");
+  print("These are the things that will be installed:");
+  print(names_to_install.join(', '));
+  print("");
+  print("--------------------------------------------");
 
   // gets map of names to install functions
   var dictionary_file = await TomlDocument.load('dictionary.toml');
   var dictionary = dictionary_file.toMap();
 
   for (String name in names_to_install) {
-    await Process.run('/bin/bash', ['-euc', 'source functions.sh; ${dictionary[name]["install_function"]}'], runInShell: true).then((ProcessResult results) {
+    String command = 'source functions.sh; ${dictionary[name]}';
+
+    // checks if there are any options to pass when installing this
+    if (config[name].containsKey("options") && config[name]["options"].isNotEmpty) {
+      command += ' ${config[name]["options"].join(" ")}';
+    }
+
+    // executes shell command
+    await Process.run('/bin/bash', ['-euc', command], runInShell: true).then((ProcessResult results) {
       // if results has standard out, print it
       if (!results.stdout.isEmpty) {
         stdout.write(results.stdout);
@@ -78,7 +90,4 @@ void main(List<String> args) async {
       
     });
   }
-
-  print('This is dictionary: $dictionary');
-
 }

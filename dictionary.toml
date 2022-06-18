@@ -1,31 +1,22 @@
-# this file contains all of the options and references to the shell scripts in functions.sh
+# this file contains all names of things that you can install and the references to the appropriate shell function in functions.sh
+ohmyzsh = "install_ohmyzsh"
+ohmyzsh_plugins = "install_ohmyzsh_plugins"
+p10k = "prettify_terminal"
+vimrc = "install_vimrc"
 
-[ brew ]
-install_function = "install_brew"
-options.packages.install_function = "brew_install"
-options.packages.arguments_name = "packages"
-options.cask_packages.install_function = "brew_install_cask"
-options.cask_packages.arguments_name = "packages"
+brew = "install_brew"
+brew_packages = "brew_install"
+brew_cask_packages = "brew_install_cask"
 
-[ ohmyzsh ]
-install_function = "install_ohmyzsh"
-options.plugins.install_function = "install_ohmyzsh_plugins"
-options.plugins.arguments_name = "plugins"
+anaconda = "install_anaconda3"
 
-[ p10k ]
-install_function = "prettify_terminal"
+nvm = "install_nvm"
+node_lts = "install_node_lts"
+node_version = "install_node"
 
-[ vimrc ]
-install_function = "install_vimrc"
+sdkman = "install_sdkman"
 
-# [ gitclone ]
-# options.
+atom_packages = "install_atom_packages"
 
-[ anaconda ]
-install_function = "install_anaconda3"
-
-[ nvm ]
-install_function = "install_nvm"
-
-[ sdkman ]
-install_function = "install_sdkman"
+git_config = "create_git_config"
+git_clone = "git_clone_repo"
