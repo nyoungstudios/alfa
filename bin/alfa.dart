@@ -3,8 +3,7 @@ import 'dart:io';
 import 'package:toml/toml.dart';
 import 'package:args/args.dart';
 
-
-Future<String> check_os() async {
+Future<String> checkOs() async {
   var uname_results = await Process.run('uname', ['-s'], runInShell: true);
   if (uname_results.stdout.startsWith("Linux")) {
     return "linux";
@@ -22,69 +21,79 @@ Future<String> check_os() async {
 void main(List<String> args) async {
   // argument parser
   var parser = ArgParser();
-  parser.addOption('file', abbr: 'f');
+  parser.addOption('file',
+      abbr: 'f',
+      help: "Text file with items to install (names or tags",
+      mandatory: true);
+  parser.addOption('config',
+      abbr: 'c',
+      help: "Config toml file with mappings of names to tags and options",
+      mandatory: true);
 
-  var results = parser.parse(args);
+  var argResults = parser.parse(args);
 
   // gets operating system
-  var os_name = await check_os();
-  print("Running alfa on ${os_name}");
+  var osName = await checkOs();
+  print("Running alfa on ${osName}");
 
   // loads config file which maps the install keys to the tags
-  var config_file = await TomlDocument.load('config.toml');
-  var config = config_file.toMap();
+  var configFile = await TomlDocument.load(argResults['config']);
+  var config = configFile.toMap();
 
   // create a map of tag name to install keys
-  Map<String, List<String>> tag_to_install_key = {};
+  Map<String, List<String>> tagToInstallKey = {};
 
   for (MapEntry e in config.entries) {
     for (String tag in e.value['tags']) {
-      tag_to_install_key.putIfAbsent(tag, () => []).add(e.key);
+      tagToInstallKey.putIfAbsent(tag, () => []).add(e.key);
     }
   }
 
   // stores an ordered set of the names of the things to install
-  var names_to_install = Set<String>();
+  var namesToInstall = Set<String>();
 
   // reads input file
-  List<String> lines = await new File(results['file']).readAsLines();
+  List<String> lines = await new File(argResults['file']).readAsLines();
 
   for (String line in lines) {
-    if (tag_to_install_key.containsKey(line)) {
-      names_to_install.addAll(tag_to_install_key[line]);
+    if (tagToInstallKey.containsKey(line)) {
+      namesToInstall.addAll(tagToInstallKey[line]);
     } else {
-      names_to_install.add(line);
+      namesToInstall.add(line);
     }
   }
 
   print("");
   print("--------------------------------------------");
   print("These are the things that will be installed:");
-  print(names_to_install.join(', '));
+  print(namesToInstall.join(', '));
   print("");
   print("--------------------------------------------");
 
   // gets map of names to install functions
-  var dictionary_file = await TomlDocument.load('dictionary.toml');
-  var dictionary = dictionary_file.toMap();
+  var dictionaryFile = await TomlDocument.load('dictionary.toml');
+  var dictionary = dictionaryFile.toMap();
 
-  for (String name in names_to_install) {
+  for (String name in namesToInstall) {
     var function_name = dictionary[name];
 
-    // checks for the type, if it is not a String, then it is a Hashmap with os specific installation methods
+    // checks for the type, if it is not a String, then it is a Hashmap with os
+    // specific installation methods
     if (function_name.runtimeType != String) {
-      function_name = function_name[os_name];
+      function_name = function_name[osName];
     }
 
     String command = 'source functions.sh; ${function_name}';
 
     // checks if there are any options to pass when installing this
-    if (config[name].containsKey("options") && config[name]["options"].isNotEmpty) {
+    if (config[name].containsKey("options") &&
+        config[name]["options"].isNotEmpty) {
       command += ' ${config[name]["options"].join(" ")}';
     }
 
     // executes shell command
-    await Process.run('/bin/bash', ['-euc', command], runInShell: true).then((ProcessResult results) {
+    await Process.run('/bin/bash', ['-euc', command], runInShell: true)
+        .then((ProcessResult results) {
       // if results has standard out, print it
       if (!results.stdout.isEmpty) {
         stdout.write(results.stdout);
@@ -94,7 +103,6 @@ void main(List<String> args) async {
       if (!results.stderr.isEmpty) {
         stderr.write(results.stderr);
       }
-      
     });
   }
 }
