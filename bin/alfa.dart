@@ -4,14 +4,14 @@ import 'package:toml/toml.dart';
 import 'package:args/args.dart';
 
 Future<String> checkOs() async {
-  var uname_results = await Process.run('uname', ['-s'], runInShell: true);
-  if (uname_results.stdout.startsWith("Linux")) {
+  var unameResults = await Process.run('uname', ['-s'], runInShell: true);
+  if (unameResults.stdout.startsWith("Linux")) {
     return "linux";
-  } else if (uname_results.stdout.startsWith("Darwin")) {
+  } else if (unameResults.stdout.startsWith("Darwin")) {
     return "macos";
-  } else if (uname_results.stdout.startsWith("CYGWIN")) {
+  } else if (unameResults.stdout.startsWith("CYGWIN")) {
     return "cygwin";
-  } else if (uname_results.stdout.startsWith("MINGW")) {
+  } else if (unameResults.stdout.startsWith("MINGW")) {
     return "mingw";
   } else {
     return "unknown";
@@ -75,15 +75,15 @@ void main(List<String> args) async {
   var dictionary = dictionaryFile.toMap();
 
   for (String name in namesToInstall) {
-    var function_name = dictionary[name];
+    var functionName = dictionary[name];
 
     // checks for the type, if it is not a String, then it is a Hashmap with os
     // specific installation methods
-    if (function_name.runtimeType != String) {
-      function_name = function_name[osName];
+    if (functionName.runtimeType != String) {
+      functionName = functionName[osName];
     }
 
-    String command = 'source functions.sh; ${function_name}';
+    String command = 'source functions.sh; ${functionName}';
 
     // checks if there are any options to pass when installing this
     if (config[name].containsKey("options") &&
