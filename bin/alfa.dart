@@ -69,7 +69,14 @@ void main(List<String> args) async {
   var dictionary = dictionary_file.toMap();
 
   for (String name in names_to_install) {
-    String command = 'source functions.sh; ${dictionary[name]}';
+    var function_name = dictionary[name];
+
+    // checks for the type, if it is not a String, then it is a Hashmap with os specific installation methods
+    if (function_name.runtimeType != String) {
+      function_name = function_name[os_name];
+    }
+
+    String command = 'source functions.sh; ${function_name}';
 
     // checks if there are any options to pass when installing this
     if (config[name].containsKey("options") && config[name]["options"].isNotEmpty) {

@@ -1,7 +1,10 @@
 # this file contains all names of things that you can install and the references to the appropriate shell function in functions.sh
 ohmyzsh = "install_ohmyzsh"
 ohmyzsh_plugins = "install_ohmyzsh_plugins"
-p10k = "prettify_terminal"
+
+p10k.macos = "prettify_terminal"
+p10k.linux = "prettify_terminal_linux"
+
 vimrc = "install_vimrc"
 
 brew = "install_brew"
