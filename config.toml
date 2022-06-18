@@ -16,32 +16,32 @@
 # #   ""
 # # ]
 
-# [ ohmyzsh ]
-# tags = [ "terminal" ]
+[ ohmyzsh ]
+tags = [ "terminal" ]
 # run_zsh = true
 # # plugins = [
 # #   ""
 # # ]
 
-# [ p10k ]
-# tags = [ "terminal" ]
+[ p10k ]
+tags = [ "terminal" ]
 
 [ vimrc ]
 tags = [ "terminal" ]
 
-# [ brew ]
-# tags = [ "pkg-man" ]
+[ brew ]
+tags = [ "pkg-man" ]
 
-# [ anaconda ]
-# tags = [ "python" ]
+[ anaconda ]
+tags = [ "python" ]
 
-# [ nvm ]
-# tags = [ "nodejs" ]
+[ nvm ]
+tags = [ "nodejs" ]
 
-# [ node ]
-# tags = [ "nodejs" ]
+[ node ]
+tags = [ "nodejs" ]
 # lts = true
 # # versions = [ 16 ]
 
-# [ sdkman ]
-# tags = [ "java" ]
+[ sdkman ]
+tags = [ "java" ]

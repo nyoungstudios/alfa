@@ -1,6 +1,7 @@
 // run with dart run alfa
 import 'dart:io';
 import 'package:toml/toml.dart';
+import 'package:args/args.dart';
 
 
 Future<String> check_os() async {
@@ -18,38 +19,52 @@ Future<String> check_os() async {
   }
 }
 
-void main() async {
+void main(List<String> args) async {
+  // argument parser
+  var parser = ArgParser();
+  parser.addOption('file', abbr: 'f');
+
+  var results = parser.parse(args);
+
   // gets operating system
   var os_name = await check_os();
   print("Running alfa on ${os_name}");
 
-  // loads config file
-  var document = await TomlDocument.load('config.toml');
-  var config = document.toMap();
+  // loads config file which maps the install keys to the tags
+  var config_file = await TomlDocument.load('config.toml');
+  var config = config_file.toMap();
 
-  // var main = config['main'];
-  // config.remove('main');
-  
-  // var title = main['title'];
-  // print('Running "$title" config');
+  // create a map of tag name to install keys
+  Map<String, List<String>> tag_to_install_key = {};
 
-  // read config file
+  for (MapEntry e in config.entries) {
+    for (String tag in e.value['tags']) {
+      tag_to_install_key.putIfAbsent(tag, () => []).add(e.key);
+    }
+  }
 
-  // print('This is stuff: $config');
+  // stores an ordered set of the names of the things to install
+  var names_to_install = Set<String>();
 
-  // for (MapEntry e in config.entries) {
-  //   print("Key ${e.key}, Value ${e.value}");
-  // }
+  // reads input file
+  List<String> lines = await new File(results['file']).readAsLines();
 
-  // gets map for names to install functions
+  for (String line in lines) {
+    if (tag_to_install_key.containsKey(line)) {
+      names_to_install.addAll(tag_to_install_key[line]);
+    } else {
+      names_to_install.add(line);
+    }
+  }
+
+  print("These are the things it is going to install");
+  print(names_to_install);
+
+  // gets map of names to install functions
   var dictionary_file = await TomlDocument.load('dictionary.toml');
   var dictionary = dictionary_file.toMap();
 
-
-  // get items to install
-  var to_install = <String>{"vimrc"};
-
-  for (String name in to_install) {
+  for (String name in names_to_install) {
     await Process.run('/bin/bash', ['-euc', 'source functions.sh; ${dictionary[name]["install_function"]}'], runInShell: true).then((ProcessResult results) {
       // if results has standard out, print it
       if (!results.stdout.isEmpty) {

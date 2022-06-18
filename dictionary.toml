@@ -26,3 +26,6 @@ install_function = "install_anaconda3"
 
 [ nvm ]
 install_function = "install_nvm"
+
+[ sdkman ]
+install_function = "install_sdkman"
