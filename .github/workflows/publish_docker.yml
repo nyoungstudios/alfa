@@ -5,11 +5,12 @@ on:
     branches: [ main ]
     paths:
       - 'templates/**'
-      - '.github/workflows/publish-docker.yml'
+      - '.github/workflows/publish_docker.yml'
       - 'Dockerfile'
   schedule:
       # on the 1st and 15th of every month
       - cron: '0 0 1,15 * *'
+  workflow_dispatch:
 
 jobs:
   build:
@@ -21,8 +22,16 @@ jobs:
         include:
           - image: gitpod/workspace-base:latest
             tags: nateateteen/zshpod:base
+            min: no
           - image: gitpod/workspace-full:latest
             tags: nateateteen/zshpod:full,nateateteen/zshpod:latest
+            min: no
+          - image: gitpod/workspace-base:latest
+            tags: nateateteen/zshpod:base-min
+            min: yes
+          - image: gitpod/workspace-full:latest
+            tags: nateateteen/zshpod:full-min
+            min: yes
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
@@ -36,6 +45,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          build-args: imagename=${{ matrix.image }}
-          push: true
+          build-args: |
+            IMAGE_NAME=${{ matrix.image }}
+            MIN=${{ matrix.min }}
+          push: false
           tags: ${{ matrix.tags }}
