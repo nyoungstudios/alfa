@@ -1,4 +1,4 @@
-# pass in image name as a build argument lile this:
+# pass in image name as a build argument like this:
 # docker build --build-arg IMAGE_NAME=gitpod/workspace-full:latest .
 ARG IMAGE_NAME
 FROM $IMAGE_NAME
@@ -22,7 +22,7 @@ RUN if [ "$MIN" = "no" ]; then \
     fi && \
     echo "" >> ~/.zshrc && \
     cat /tmp/templates/gitpod_exports.zsh >> ~/.zshrc && \
-    echo 'for i in $(ls $HOME/.bashrc.d/* | grep -v node); do source $i; done' >> ~/.zshrc && \
+    echo 'for i in $(ls $HOME/.bashrc.d/ | grep -v node); do source $HOME/.bashrc.d/$i; done' >> ~/.zshrc && \
     echo "" >> ~/.zshrc && \
     if [ "$MIN" = "no" ]; then \
         cat /tmp/templates/p10k_config.zsh >> ~/.zshrc && \

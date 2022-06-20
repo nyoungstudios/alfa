@@ -6,9 +6,9 @@ FROM $IMAGE_NAME
 # sets user to root so that we can install stuff
 USER root
 
-# isntall dart
+# install dart
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends apt-transport-https && \
+    apt-get install -y --no-install-recommends gnupg2 curl git ca-certificates apt-transport-https openssh-client && \
     curl https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
     curl https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list && \
     apt-get update && \
@@ -22,7 +22,10 @@ RUN apt-get update && \
 	    /var/tmp/*
 
 # sets path
-ENV PATH="$PATH:/usr/lib/dart/bin"    
+ENV PATH="$PATH:/usr/lib/dart/bin"
+
+# copies dart dev config
+COPY dartdev.json /home/gitpod/.dart/dartdev.json
 
 # sets user back to gitpod
 USER gitpod
