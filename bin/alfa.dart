@@ -18,19 +18,41 @@ Future<String> checkOs() async {
   }
 }
 
+void printUsageMsg(ArgParser ap, String msg) {
+    print(msg);
+    print("");
+    print("Usage: alfa [arguments]");
+    print("");
+    print("Options:");
+    print(ap.usage);
+}
+
 void main(List<String> args) async {
   // argument parser
   var parser = ArgParser();
-  parser.addOption('file',
-      abbr: 'f',
-      help: "Text file with items to install (names or tags",
-      mandatory: true);
+  parser.addFlag('help',
+    abbr: 'h',
+    help: "Print this usage information.",
+    negatable: false);
   parser.addOption('config',
-      abbr: 'c',
-      help: "Config toml file with mappings of names to tags and options",
-      mandatory: true);
+    abbr: 'c',
+    help: "Config toml file with mappings of names to tags and options");
+  parser.addOption('file',
+    abbr: 'f',
+    help: "Text file with items to install (names or tags");
 
   var argResults = parser.parse(args);
+
+  if (argResults['help']) {
+    printUsageMsg(parser, "The alfa command-line utility");
+    exit(0);
+  } else if (argResults['config'] == null) {
+    printUsageMsg(parser, "Must pass a config file");
+    exit(1);
+  } else if (argResults['file'] == null) {
+    printUsageMsg(parser, "Must pass a text file with items to install");
+    exit(1);
+  }
 
   // gets operating system
   var osName = await checkOs();
