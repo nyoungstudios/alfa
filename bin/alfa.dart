@@ -41,7 +41,14 @@ void main(List<String> args) async {
     abbr: 'f',
     help: "Text file with items to install (names or tags");
 
-  var argResults = parser.parse(args);
+  var argResults;
+
+  try {
+    argResults = parser.parse(args);
+  } catch (e) {
+    printUsageMsg(parser, e.toString());
+    exit(1);
+  }
 
   if (argResults['help']) {
     printUsageMsg(parser, "The alfa command-line utility");
