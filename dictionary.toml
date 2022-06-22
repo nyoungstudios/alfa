@@ -11,7 +11,8 @@ brew = "install_brew"
 brew_packages = "brew_install"
 brew_cask_packages = "brew_install_cask"
 
-anaconda = "install_anaconda3"
+anaconda.macos = "install_anaconda3"
+anaconda.linux = "install_anaconda3_linux"
 
 nvm = "install_nvm"
 node_lts = "install_node_lts"
