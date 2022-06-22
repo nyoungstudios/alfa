@@ -3,6 +3,7 @@
 .packages
 build/
 pubspec.lock
+.pub-cache/
 
 # macOS
 .DS_Store
