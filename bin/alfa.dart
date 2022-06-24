@@ -85,10 +85,13 @@ void main(List<String> args) async {
   List<String> lines = await new File(argResults['file']).readAsLines();
 
   for (String line in lines) {
-    if (tagToInstallKey.containsKey(line)) {
-      namesToInstall.addAll(tagToInstallKey[line]);
-    } else {
-      namesToInstall.add(line);
+    if (!line.startsWith("#") && !line.startsWith('//')) {
+      // only continues if names to install that are not commented out
+      if (tagToInstallKey.containsKey(line)) {
+        namesToInstall.addAll(tagToInstallKey[line]);
+      } else {
+        namesToInstall.add(line);
+      }
     }
   }
 
@@ -104,7 +107,18 @@ void main(List<String> args) async {
   var dictionary = dictionaryFile.toMap();
 
   for (String name in namesToInstall) {
-    var functionName = dictionary[name];
+    var baseName = name.split('+')[0];
+
+    if (!dictionary.containsKey(baseName)) {
+      print("dictionary.toml does not have a reference for \"${baseName}\" to install.");
+      print("Installer exiting");
+      exit(1);
+    } else if (!config.containsKey(name)) {
+      print("${argResults['config']} does not have a reference for \"${name}\" to install.");
+      print("Installer exiting");
+      exit(1);
+    }
+    var functionName = dictionary[baseName];
 
     // checks for the type, if it is not a String, then it is a Hashmap with os
     // specific installation methods
