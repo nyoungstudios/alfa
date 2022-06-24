@@ -21,6 +21,7 @@ node_version = "install_node"
 sdkman = "install_sdkman"
 
 atom_packages = "install_atom_packages"
+vscode_extensions = "install_vscode_extensions"
 
 git_config = "create_git_config"
 git_clone = "git_clone_repo"

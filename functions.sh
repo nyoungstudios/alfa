@@ -161,6 +161,14 @@ install_atom_packages() {
   done
 }
 
+install_vscode_extensions() {
+  # installs vs code extensions
+  for extension in "$@"
+  do
+    code --install-extension "$extension"
+  done
+}
+
 install_sdkman() {
   # installs sdkman
   curl -s "https://get.sdkman.io?rcupdate=false" | bash

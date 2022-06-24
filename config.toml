@@ -17,12 +17,24 @@ tags = [ "pkg-man" ]
 [ brew_packages ]
 tags = [ "packages" ]
 options = [
+  "neofetch",
   "jq",
-  "kubectl"
+  "kubectl",
+  "mysql",
+  "rocksdb",
+  "sbt"
 ]
 
 [ brew_cask_packages ]
 tags = [ "packages" ]
+options = [
+  "visual-studio-code",
+  "pycharm-ce",
+  "intellij-idea-ce",
+  "docker",
+  "zoom",
+  "slack"
+]
 
 [ anaconda ]
 tags = [ "python" ]
@@ -43,3 +55,20 @@ tags = [ "java" ]
 [ git_clone ]
 tags = []
 options = []
+
+[ vscode_extensions ]
+tags = [ "editors" ]
+options = [
+  "akamud.vscode-theme-onedark",
+  "EditorConfig.EditorConfig",
+  "mohsen1.prettify-json",
+  "ms-azuretools.vscode-docker",
+  "ms-python.python",
+  "ms-python.vscode-pylance",
+  "ms-toolsai.jupyter",
+  "ms-toolsai.jupyter-keymap",
+  "ms-toolsai.jupyter-renderers",
+  "ms-vscode-remote.remote-containers",
+  "redhat.vscode-yaml",
+  "scala-lang.scala"
+]
