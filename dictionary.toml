@@ -25,3 +25,5 @@ vscode_extensions = "install_vscode_extensions"
 
 git_config = "create_git_config"
 git_clone = "git_clone_repo"
+
+apt_get_packages.linux = "apt_get_install"

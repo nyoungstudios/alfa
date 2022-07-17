@@ -7,6 +7,7 @@ command_exists() {
 
 install_brew() {
   # Installs homebrew
+  # NONINTERACTIVE=1
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 }
 
@@ -179,3 +180,9 @@ run_zsh() {
   # runs zsh so you can see all the new changes
   exec zsh -l
 }
+
+ apt_get_install() {
+  # installs apt-get packages
+  apt-get update
+  apt-get install -y "$@"
+ }

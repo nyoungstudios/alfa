@@ -3,7 +3,10 @@ tags = [ "terminal" ]
 
 [ ohmyzsh_plugins ]
 tags = [ "terminal" ]
-options = []
+options = [
+  "https://github.com/zsh-users/zsh-autosuggestions",
+  "https://github.com/zsh-users/zsh-syntax-highlighting"
+]
 
 [ p10k ]
 tags = [ "terminal" ]
@@ -71,4 +74,12 @@ options = [
   "ms-vscode-remote.remote-containers",
   "redhat.vscode-yaml",
   "scala-lang.scala"
+]
+
+[ apt_get_packages ]
+tags = []
+options = [
+  "--no-install-recommends",
+  "neofetch",
+  "vim"
 ]

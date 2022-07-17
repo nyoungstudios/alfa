@@ -19,27 +19,29 @@ Future<String> checkOs() async {
 }
 
 void printUsageMsg(ArgParser ap, String msg) {
-    print(msg);
-    print("");
-    print("Usage: alfa [arguments]");
-    print("");
-    print("Options:");
-    print(ap.usage);
+  print(msg);
+  print("");
+  print("Usage: alfa [arguments]");
+  print("");
+  print("Options:");
+  print(ap.usage);
 }
 
 void main(List<String> args) async {
   // argument parser
   var parser = ArgParser();
   parser.addFlag('help',
-    abbr: 'h',
-    help: "Print this usage information.",
-    negatable: false);
+      abbr: 'h', help: "Print this usage information.", negatable: false);
+  parser.addFlag('exit',
+      abbr: 'e',
+      help:
+          "Will exit immediately if any of the commands run has a non-zero exit status.",
+      negatable: false);
   parser.addOption('config',
-    abbr: 'c',
-    help: "Config toml file with mappings of names to tags and options");
+      abbr: 'c',
+      help: "Config toml file with mappings of names to tags and options");
   parser.addOption('file',
-    abbr: 'f',
-    help: "Text file with items to install (names or tags");
+      abbr: 'f', help: "Text file with items to install (names or tags)");
 
   var argResults;
 
@@ -110,11 +112,13 @@ void main(List<String> args) async {
     var baseName = name.split('+')[0];
 
     if (!dictionary.containsKey(baseName)) {
-      print("dictionary.toml does not have a reference for \"${baseName}\" to install.");
+      print(
+          "dictionary.toml does not have a reference for \"${baseName}\" to install.");
       print("Installer exiting");
       exit(1);
     } else if (!config.containsKey(name)) {
-      print("${argResults['config']} does not have a reference for \"${name}\" to install.");
+      print(
+          "${argResults['config']} does not have a reference for \"${name}\" to install.");
       print("Installer exiting");
       exit(1);
     }
@@ -135,17 +139,24 @@ void main(List<String> args) async {
     }
 
     // executes shell command
-    await Process.run('/bin/bash', ['-euc', command], runInShell: true)
-        .then((ProcessResult results) {
-      // if results has standard out, print it
-      if (!results.stdout.isEmpty) {
-        stdout.write(results.stdout);
-      }
+    var streams =
+        await Process.start('/bin/bash', ['-euc', command], runInShell: true)
+            .then((Process process) {
+      var outStream = stdout.addStream(process.stdout);
+      var errStream = stderr.addStream(process.stderr);
 
-      // if results has standard error, print it
-      if (!results.stderr.isEmpty) {
-        stderr.write(results.stderr);
-      }
+      return [process.exitCode, outStream, errStream];
     });
+
+    // waits for exit code
+    var exitCode = await streams[0];
+
+    // if running in strict mode and exit code is non-zero
+    if (argResults['exit'] && exitCode != 0) {
+      await streams[1];
+      await streams[2];
+      print("alfa exiting with code: ${exitCode}");
+      exit(exitCode);
+    }
   }
 }
