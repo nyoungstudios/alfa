@@ -181,8 +181,8 @@ run_zsh() {
   exec zsh -l
 }
 
- apt_get_install() {
+apt_get_install() {
   # installs apt-get packages
   apt-get update
   apt-get install -y "$@"
- }
+}
