@@ -16,7 +16,7 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install -y --no-install-recommends dart && \
     dart --disable-analytics && \
-    apt-get clean -y && \    
+    apt-get clean -y && \
     rm -rf \
 	    /var/cache/debconf/* \
 	    /var/lib/apt/lists/* \
