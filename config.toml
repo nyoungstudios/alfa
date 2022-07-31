@@ -113,3 +113,7 @@ tags = [ "slack" ]
 options = [
   "'https://downloads.slack-edge.com/releases/linux/4.27.156/prod/x64/slack-desktop-4.27.156-amd64.deb'"
 ]
+
+[ jetbrains_toolbox ]
+tags = [ "jetbrains" ]
+options = []
