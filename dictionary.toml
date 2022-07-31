@@ -31,3 +31,5 @@ apt_get_packages.linux = "apt_get_install"
 deb_package.linux = "install_deb_package"
 
 jetbrains_toolbox.linux = "install_jetbrains_toolbox"
+
+snap_package.linux = "install_snap_package"

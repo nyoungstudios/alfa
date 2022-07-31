@@ -208,3 +208,8 @@ install_jetbrains_toolbox() {
   popd
   rm -rf "$filepath" "$output_folder"
 }
+
+install_snap_package() {
+  # installs a single snap package
+  snap install "$@"
+}

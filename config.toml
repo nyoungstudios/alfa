@@ -117,3 +117,17 @@ options = [
 [ jetbrains_toolbox ]
 tags = [ "jetbrains" ]
 options = []
+
+[ "snap_package+kubectl" ]
+tags = [ "kubectl", "kubernetes", "k8s" ]
+options = [
+  "kubectl",
+  "--classic"
+]
+
+[ "snap_package+helm" ]
+tags = [ "helm", "kubernetes", "k8s" ]
+options = [
+  "helm",
+  "--classic"
+]
