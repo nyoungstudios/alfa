@@ -59,6 +59,12 @@ tags = [ "java" ]
 tags = []
 options = []
 
+[ "deb_package+vscode" ]
+tags = [ "vscode" ]
+options = [
+  "'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64'"
+]
+
 [ vscode_extensions ]
 tags = [ "editors" ]
 options = [
@@ -66,13 +72,24 @@ options = [
   "EditorConfig.EditorConfig",
   "mohsen1.prettify-json",
   "ms-azuretools.vscode-docker",
+  "ms-vscode-remote.remote-containers",
+  "redhat.vscode-yaml"
+]
+
+[ "vscode_extensions+python" ]
+tags = [ "python" ]
+options = [
   "ms-python.python",
   "ms-python.vscode-pylance",
   "ms-toolsai.jupyter",
   "ms-toolsai.jupyter-keymap",
   "ms-toolsai.jupyter-renderers",
-  "ms-vscode-remote.remote-containers",
-  "redhat.vscode-yaml",
+  "ms-vscode-remote.remote-containers"
+]
+
+[ "vscode_extensions+scala" ]
+tags = [ "scala" ]
+options = [
   "scala-lang.scala"
 ]
 
@@ -81,5 +98,18 @@ tags = []
 options = [
   "--no-install-recommends",
   "neofetch",
-  "vim"
+  "vim",
+  "curl"
+]
+
+[ "deb_package+chrome" ]
+tags = [ "chrome" ]
+options = [
+  "'https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb'"
+]
+
+[ "deb_package+slack" ]
+tags = [ "slack" ]
+options = [
+  "'https://downloads.slack-edge.com/releases/linux/4.27.156/prod/x64/slack-desktop-4.27.156-amd64.deb'"
 ]

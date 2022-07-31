@@ -166,7 +166,8 @@ install_vscode_extensions() {
   # installs vs code extensions
   for extension in "$@"
   do
-    code --install-extension "$extension"
+    echo $USERNAME
+    sudo -u $USER code --install-extension "$extension"
   done
 }
 
@@ -185,4 +186,12 @@ apt_get_install() {
   # installs apt-get packages
   apt-get update
   apt-get install -y "$@"
+}
+
+install_deb_package() {
+  # installs a deb package
+  filepath="/tmp/file_to_install.deb"
+  wget -O "$filepath" "$@"
+  apt-get install -y "$filepath"
+  rm -f "$filepath"
 }
