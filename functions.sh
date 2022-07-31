@@ -163,11 +163,10 @@ install_atom_packages() {
 }
 
 install_vscode_extensions() {
-  # installs vs code extensions
+  # installs vs code extensions (needs to be installed in non sudo mode)
   for extension in "$@"
   do
-    echo $USERNAME
-    sudo -u $USER code --install-extension "$extension"
+    code --install-extension "$extension"
   done
 }
 
