@@ -1,35 +1,66 @@
 # this file contains all names of things that you can install and the references to the appropriate shell function in functions.sh
-ohmyzsh = "install_ohmyzsh"
-ohmyzsh_plugins = "install_ohmyzsh_plugins"
+[ ohmyzsh ]
+install_function = "install_ohmyzsh"
 
-p10k.macos = "prettify_terminal"
-p10k.linux = "prettify_terminal_linux"
+[ ohmyzsh_plugins ]
+install_function = "install_ohmyzsh_plugins"
 
-vimrc = "install_vimrc"
+[ p10k ]
+macos.install_function = "prettify_terminal"
+linux.install_function = "prettify_terminal_linux"
 
-brew = "install_brew"
-brew_packages = "brew_install"
-brew_cask_packages = "brew_install_cask"
+[ vimrc ]
+install_function = "install_vimrc"
 
-anaconda.macos = "install_anaconda3"
-anaconda.linux = "install_anaconda3_linux"
+[ brew ]
+install_function = "install_brew"
+sudo = true
 
-nvm = "install_nvm"
-node_lts = "install_node_lts"
-node_version = "install_node"
+[ brew_packages ]
+install_function = "brew_install"
 
-sdkman = "install_sdkman"
+[ brew_cask_packages ]
+install_function = "brew_install_cask"
 
-atom_packages = "install_atom_packages"
-vscode_extensions = "install_vscode_extensions"
+[ anaconda ]
+macos.install_function = "install_anaconda3"
+linux.install_function = "install_anaconda3_linux"
 
-git_config = "create_git_config"
-git_clone = "git_clone_repo"
+[ nvm ]
+install_function = "install_nvm"
 
-apt_get_packages.linux = "apt_get_install"
+[ node_lts ]
+install_function = "install_node_lts"
 
-deb_package.linux = "install_deb_package"
+[ node_version ]
+install_function = "install_node"
 
-jetbrains_toolbox.linux = "install_jetbrains_toolbox"
+[ sdkman ]
+install_function = "install_sdkman"
 
-snap_package.linux = "install_snap_package"
+[ atom_packages ]
+install_function = "install_atom_packages"
+
+[ vscode_extensions ]
+install_function = "install_vscode_extensions"
+
+[ git_config ]
+install_function = "create_git_config"
+
+[ git_clone ]
+install_function = "git_clone_repo"
+
+[ apt_get_packages ]
+linux.install_function = "apt_get_install"
+linux.sudo = true
+
+[ deb_package ]
+linux.install_function = "install_deb_package"
+linux.sudo = true
+
+[ jetbrains_toolbox ]
+linux.install_function = "install_jetbrains_toolbox"
+
+[ snap_package ]
+linux.install_function = "install_snap_package"
+linux.sudo = true

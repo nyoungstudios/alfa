@@ -42,6 +42,7 @@ void main(List<String> args) async {
       help: "Config toml file with mappings of names to tags and options");
   parser.addOption('file',
       abbr: 'f', help: "Text file with items to install (names or tags)");
+  parser.addOption('user', abbr: 'u', help: "The user running the program");
 
   var argResults;
 
@@ -108,6 +109,14 @@ void main(List<String> args) async {
   var dictionaryFile = await TomlDocument.load('dictionary.toml');
   var dictionary = dictionaryFile.toMap();
 
+  // sets executable
+  String executable;
+  if (argResults['user'] == null) {
+    executable = "/bin/bash";
+  } else {
+    executable = "sudo";
+  }
+
   for (String name in namesToInstall) {
     var baseName = name.split('+')[0];
 
@@ -122,13 +131,14 @@ void main(List<String> args) async {
       print("Installer exiting");
       exit(1);
     }
-    var functionName = dictionary[baseName];
+    var functionMap = dictionary[baseName];
 
-    // checks for the type, if it is not a String, then it is a Hashmap with os
-    // specific installation methods
-    if (functionName.runtimeType != String) {
-      functionName = functionName[osName];
+    // if function map does not contain the install_function key, the install_function key should be nested within the os name key.
+    if (!functionMap.containsKey("install_function")) {
+      functionMap = functionMap[osName];
     }
+
+    var functionName = functionMap["install_function"];
 
     String command = 'source functions.sh; ${functionName}';
 
@@ -138,10 +148,22 @@ void main(List<String> args) async {
       command += ' ${config[name]["options"].join(" ")}';
     }
 
+    List<String> arguments = [];
+
+    if (argResults['user'] != null) {
+      if (!functionMap.containsKey("sudo") || !functionMap['sudo']) {
+        // run in user mode
+        arguments = ['-u', argResults['user']];
+      }
+
+      arguments.addAll(['--', '/bin/bash']);
+    }
+
+    arguments.addAll(['-euc', command]);
+
     // executes shell command
-    var streams =
-        await Process.start('/bin/bash', ['-euc', command], runInShell: true)
-            .then((Process process) {
+    var streams = await Process.start(executable, arguments, runInShell: true)
+        .then((Process process) {
       var outStream = stdout.addStream(process.stdout);
       var errStream = stderr.addStream(process.stderr);
 
