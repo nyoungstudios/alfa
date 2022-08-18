@@ -111,7 +111,7 @@ void main(List<String> args) async {
 
   // sets executable
   String executable;
-  if (argResults['user'] == null) {
+  if (argResults['user'] == null || argResults['user'] == 'root') {
     executable = "/bin/bash";
   } else {
     executable = "sudo";
@@ -150,7 +150,7 @@ void main(List<String> args) async {
 
     List<String> arguments = [];
 
-    if (argResults['user'] != null) {
+    if (argResults['user'] == null || argResults['user'] == 'root') {
       if (!functionMap.containsKey("sudo") || !functionMap['sudo']) {
         // run in user mode
         arguments = ['-u', argResults['user']];
