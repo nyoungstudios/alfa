@@ -42,6 +42,8 @@ void main(List<String> args) async {
       help: "Config toml file with mappings of names to tags and options");
   parser.addOption('file',
       abbr: 'f', help: "Text file with items to install (names or tags)");
+  parser.addFlag('run-zsh',
+      abbr: 'r', help: "Runs zsh at the end", negatable: false);
   parser.addOption('user', abbr: 'u', help: "The user running the program");
 
   var argResults;
