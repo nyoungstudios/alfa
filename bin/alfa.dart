@@ -150,7 +150,7 @@ void main(List<String> args) async {
 
     List<String> arguments = [];
 
-    if (argResults['user'] == null || argResults['user'] == 'root') {
+    if (argResults['user'] != null && argResults['user'] != 'root') {
       if (!functionMap.containsKey("sudo") || !functionMap['sudo']) {
         // run in user mode
         arguments = ['-u', argResults['user']];
