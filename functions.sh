@@ -117,7 +117,7 @@ install_anaconda3() {
 install_anaconda3_linux() {
   # installs anaconda3
   echo "Installing Anaconda3..."
-  curl https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh-o ~/anaconda3.sh
+  curl https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh -o ~/anaconda3.sh
   chmod +x ~/anaconda3.sh
   bash ~/anaconda3.sh -b -p ~/anaconda3
   rm ~/anaconda3.sh
@@ -139,6 +139,7 @@ install_nvm() {
 
 install_node() {
   # installs specfied version of node; otherwise, will install latest version
+  NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
   . $NVM_DIR/nvm.sh
   if [ -z "$1"];
   then
@@ -150,6 +151,7 @@ install_node() {
 
 install_node_lts() {
   # installs the latest node lts version
+  NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
   . $NVM_DIR/nvm.sh
   nvm install --lts
 }
@@ -174,6 +176,11 @@ install_sdkman() {
   # installs sdkman
   curl -s "https://get.sdkman.io?rcupdate=false" | bash
   cat templates/sdkman.zsh >> ~/.zshrc
+}
+
+change_shell_to_zsh() {
+  # changes default shell to zsh
+  chsh -s $(which zsh)
 }
 
 run_zsh() {

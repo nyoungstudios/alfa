@@ -64,3 +64,6 @@ linux.install_function = "install_jetbrains_toolbox"
 [ snap_package ]
 linux.install_function = "install_snap_package"
 linux.sudo = true
+
+[ change_to_zsh ]
+install_function = "change_shell_to_zsh"

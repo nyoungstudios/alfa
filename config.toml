@@ -1,3 +1,6 @@
+[ change_to_zsh ]
+tags = [ "terminal" ]
+
 [ ohmyzsh ]
 tags = [ "terminal" ]
 
@@ -97,6 +100,8 @@ options = [
 tags = []
 options = [
   "--no-install-recommends",
+  "git",
+  "zsh",
   "neofetch",
   "vim",
   "curl"
