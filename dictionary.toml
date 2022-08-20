@@ -14,7 +14,6 @@ install_function = "install_vimrc"
 
 [ brew ]
 install_function = "install_brew"
-sudo = true
 
 [ brew_packages ]
 install_function = "brew_install"
