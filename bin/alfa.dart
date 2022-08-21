@@ -115,7 +115,7 @@ void main(List<String> args) async {
     } else if (config[name].containsKey("os") &&
                !config[name]['os'].contains(osName)) {
       print(
-        "Skipping install of \"${name}\" since the operating system, ${osName}, is not in ${config[name]['os']}.");
+          "Skipping install of \"${name}\" since the operating system, ${osName}, is not in ${config[name]['os']}.");
     } else {
       filteredNamesToInstall.add(name);
     }
