@@ -2,11 +2,6 @@
 
 set -eu
 
-# if [ "$EUID" -eq 0 ]; then
-#   echo "Please do not run as root, this script will automatically call sudo when needed."
-#   exit
-# fi
-
 # checks if install.sh is run from the correct directory
 if [[ ! -f "functions.sh" ]]; then
   echo "install.sh must be run from the root directory of the alfa repo"
@@ -28,10 +23,15 @@ fi
 
 # runs the alfa command depending upon if sudo exists
 if ! command -v "sudo" > /dev/null 2>&1; then
-  # command doesn't exist
+  # sudo command doesn't exist
   ./$alfaCommand "$@"
 else
-  # command exists
+  # sudo command exists
+
+  if [ "$EUID" -eq 0 ]; then
+    echo "Some things will not install properly if this is called as root. This script will call sudo when needed."
+  fi
+
   export ALFA_USER="$(whoami)"; sudo --preserve-env=ALFA_USER ./$alfaCommand "$@"
 fi
 
