@@ -92,25 +92,13 @@ void main(List<String> args) async {
     }
   }
 
-  print("");
-  print("--------------------------------------------");
-  print("These are the things that will be installed:");
-  print(namesToInstall.join(', '));
-  print("");
-  print("--------------------------------------------");
-
   // gets map of names to install functions
   var dictionaryFile = await TomlDocument.load('dictionary.toml');
   var dictionary = dictionaryFile.toMap();
 
-  // sets executable
-  String executable;
-  if (user == null || user == 'root') {
-    executable = "/bin/bash";
-  } else {
-    executable = "sudo";
-  }
+  List<String> filteredNamesToInstall = [];
 
+  // filters invalid names to install
   for (String name in namesToInstall) {
     var baseName = name.split('+')[0];
 
@@ -124,7 +112,32 @@ void main(List<String> args) async {
           "${argResults['config']} does not have a reference for \"${name}\" to install.");
       print("Installer exiting");
       exit(1);
+    } else if (config[name].containsKey("os") &&
+               !config[name]['os'].contains(osName)) {
+      print(
+        "Skipping install of \"${name}\" since the operating system, ${osName}, is not in ${config[name]['os']}.");
+    } else {
+      filteredNamesToInstall.add(name);
     }
+  }
+
+  print("");
+  print("--------------------------------------------");
+  print("These are the things that will be installed:");
+  print(filteredNamesToInstall.join(', '));
+  print("");
+  print("--------------------------------------------");
+
+  // sets executable
+  String executable;
+  if (user == null || user == 'root') {
+    executable = "/bin/bash";
+  } else {
+    executable = "sudo";
+  }
+
+  for (String name in filteredNamesToInstall) {
+    var baseName = name.split('+')[0];
     var functionMap = dictionary[baseName];
 
     // if function map does not contain the install_function key, the install_function key should be nested within the os name key.

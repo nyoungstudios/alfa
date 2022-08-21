@@ -16,9 +16,11 @@ tags = [ "terminal" ]
 
 [ brew ]
 tags = [ "pkg-man" ]
+os = [ "macos" ]
 
 [ brew_packages ]
 tags = [ "packages" ]
+os = [ "macos" ]
 options = [
   "neofetch",
   "jq",
@@ -30,6 +32,7 @@ options = [
 
 [ brew_cask_packages ]
 tags = [ "packages" ]
+os = [ "macos" ]
 options = [
   "visual-studio-code",
   "pycharm-ce",
