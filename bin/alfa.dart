@@ -3,21 +3,6 @@ import 'dart:io';
 import 'package:toml/toml.dart';
 import 'package:args/args.dart';
 
-Future<String> checkOs() async {
-  var unameResults = await Process.run('uname', ['-s'], runInShell: true);
-  if (unameResults.stdout.startsWith("Linux")) {
-    return "linux";
-  } else if (unameResults.stdout.startsWith("Darwin")) {
-    return "macos";
-  } else if (unameResults.stdout.startsWith("CYGWIN")) {
-    return "cygwin";
-  } else if (unameResults.stdout.startsWith("MINGW")) {
-    return "mingw";
-  } else {
-    return "unknown";
-  }
-}
-
 void printUsageMsg(ArgParser ap, String msg) {
   print(msg);
   print("");
@@ -66,10 +51,15 @@ void main(List<String> args) async {
   }
 
   // gets environment variables
-  String user = Platform.environment['ALFA_USER'];
+  String user = Platform.environment['SUDO_USER'];
+  String alfaUser = Platform.environment['ALFA_USER'];
+  if (user == 'root' && alfaUser != '') {
+    user = alfaUser;
+  }
 
   // gets operating system
-  var osName = await checkOs();
+  // valid options (linux, macos)
+  var osName = Platform.operatingSystem;
   print("Running alfa on ${osName}");
 
   // loads config file which maps the install keys to the tags

@@ -29,10 +29,18 @@ else
   # sudo command exists
 
   if [ "$EUID" -eq 0 ]; then
-    echo "Some things will not install properly if this is called as root. This script will call sudo when needed."
+    echo "Some things may not install properly if this is called as root. This script will call sudo when needed."
   fi
 
-  export ALFA_USER="$(whoami)"; sudo --preserve-env=ALFA_USER ./$alfaCommand "$@"
+  sudo -v
+  # keep refreshing sudo in the background every 59 seconds
+  while :; do sudo -v; sleep 59; done &
+  loopPid="$!"
+
+  export ALFA_USER="${SUDO_USER:-}"; sudo --preserve-env=ALFA_USER ./$alfaCommand "$@"
+
+  kill "$loopPid"
+  wait "$loopPid" > /dev/null 2>&1
 fi
 
 hasHelp="0"
