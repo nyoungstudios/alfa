@@ -32,7 +32,7 @@ if ! command -v "sudo" > /dev/null 2>&1; then
   ./$alfaCommand "$@"
 else
   # command exists
-  sudo ./$alfaCommand -u "$(whoami)" "$@"
+  export ALFA_USER="$(whoami)"; sudo --preserve-env=ALFA_USER ./$alfaCommand "$@"
 fi
 
 hasHelp="0"

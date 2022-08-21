@@ -44,7 +44,6 @@ void main(List<String> args) async {
       abbr: 'f', help: "Text file with items to install (names or tags)");
   parser.addFlag('run-zsh',
       abbr: 'r', help: "Runs zsh at the end", negatable: false);
-  parser.addOption('user', abbr: 'u', help: "The user running the program");
 
   var argResults;
 
@@ -65,6 +64,9 @@ void main(List<String> args) async {
     printUsageMsg(parser, "Must pass a text file with items to install");
     exit(1);
   }
+
+  // gets environment variables
+  String user = Platform.environment['ALFA_USER'];
 
   // gets operating system
   var osName = await checkOs();
@@ -113,7 +115,7 @@ void main(List<String> args) async {
 
   // sets executable
   String executable;
-  if (argResults['user'] == null || argResults['user'] == 'root') {
+  if (user == null || user == 'root') {
     executable = "/bin/bash";
   } else {
     executable = "sudo";
@@ -152,10 +154,10 @@ void main(List<String> args) async {
 
     List<String> arguments = [];
 
-    if (argResults['user'] != null && argResults['user'] != 'root') {
+    if (user != null && user != 'root') {
       if (!functionMap.containsKey("sudo") || !functionMap['sudo']) {
         // run in user mode
-        arguments = ['-u', argResults['user']];
+        arguments = ['-u', user];
       }
 
       arguments.addAll(['--', '/bin/bash']);
