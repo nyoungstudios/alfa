@@ -4,11 +4,20 @@ tags = [ "terminal" ]
 [ zsh_successful_cmd_filter ]
 tags = [ "terminal" ]
 
-[ ohmyzsh_plugins ]
+[ install_ohmyzsh_plugins ]
 tags = [ "terminal" ]
 options = [
   "https://github.com/zsh-users/zsh-autosuggestions",
   "https://github.com/zsh-users/zsh-syntax-highlighting"
+]
+
+[ add_ohmyzsh_plugins ]
+tags = [ "terminal" ]
+options = [
+  "git",
+  "copypath",
+  "zsh-autosuggestions",
+  "zsh-syntax-highlighting"
 ]
 
 [ p10k ]

@@ -5,8 +5,12 @@ install_function = "install_ohmyzsh"
 [ zsh_successful_cmd_filter ]
 install_function = "install_zsh_successful_cmd_filter"
 
-[ ohmyzsh_plugins ]
+[ install_ohmyzsh_plugins ]
 install_function = "install_ohmyzsh_plugins"
+
+[ add_ohmyzsh_plugins ]
+macos.install_function = "add_ohmyzsh_plugins_macos"
+linux.install_function = "add_ohmyzsh_plugins_linux"
 
 [ p10k ]
 macos.install_function = "prettify_terminal"
