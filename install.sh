@@ -39,8 +39,8 @@ else
 
   export ALFA_USER="${SUDO_USER:-}"; sudo --preserve-env=ALFA_USER ./$alfaCommand "$@"
 
-  kill "$loopPid"
-  wait "$loopPid" > /dev/null 2>&1
+  trap 'trap - SIGTERM && kill $(pgrep -P $loopPid) $loopPid' SIGINT SIGTERM EXIT
+
 fi
 
 hasHelp="0"
