@@ -32,6 +32,12 @@ install_ohmyzsh() {
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 }
 
+install_zsh_successful_cmd_filter() {
+  # appends zshaddhistory and precmd hooks
+  echo "" >> ~/.zshrc
+  cat templates/zshrc_successful_cmd_hist.zsh >> ~/.zshrc
+}
+
 install_ohmyzsh_plugins() {
   # installs plugins for ohmyzsh
   for repo in "$@"

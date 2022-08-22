@@ -1,6 +1,9 @@
 [ ohmyzsh ]
 tags = [ "terminal" ]
 
+[ zsh_successful_cmd_filter ]
+tags = [ "terminal" ]
+
 [ ohmyzsh_plugins ]
 tags = [ "terminal" ]
 options = [

@@ -21,6 +21,8 @@ RUN if [ "$MIN" = "no" ]; then \
         sed -i '1 e cat /tmp/templates/zshrc_disable_flag.zsh' ~/.zshrc; \
     fi && \
     echo "" >> ~/.zshrc && \
+    cat /tmp/templates/zshrc_succesful_cmd_hist.zsh >> ~/.zshrc && \
+    echo "" >> ~/.zshrc && \
     cat /tmp/templates/gitpod_exports.zsh >> ~/.zshrc && \
     echo 'for i in $(ls $HOME/.bashrc.d/ | grep -v node); do source $HOME/.bashrc.d/$i; done' >> ~/.zshrc && \
     echo "" >> ~/.zshrc && \

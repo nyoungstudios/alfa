@@ -2,6 +2,9 @@
 [ ohmyzsh ]
 install_function = "install_ohmyzsh"
 
+[ zsh_successful_cmd_filter ]
+install_function = "install_zsh_successful_cmd_filter"
+
 [ ohmyzsh_plugins ]
 install_function = "install_ohmyzsh_plugins"
 
