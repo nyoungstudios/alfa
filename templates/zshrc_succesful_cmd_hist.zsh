@@ -8,9 +8,9 @@ function zshaddhistory() {
   return 2
 }
 
-# zsh hook called before the prompt is printed. See zshmisc(1).
+# zsh hook called before the prompt is printed. See man zshmisc(1).
 function precmd() {
-  # Write the last command if successful and if the last command is not white characters,
+  # Write the last command if successful and if the last command is not whitespace characters,
   # using the history buffered by zshaddhistory().
   if [[ $? == 0 && -n ${LASTHIST//[[:space:]\n]/} && -n $HISTFILE ]] ; then
     print -sr -- ${=${LASTHIST%%'\n'}}
