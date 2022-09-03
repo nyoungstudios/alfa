@@ -113,9 +113,13 @@ void main(List<String> args) async {
       print("Installer exiting");
       exit(1);
     } else if (config[name].containsKey("os") &&
-               !config[name]['os'].contains(osName)) {
+        !config[name]['os'].contains(osName)) {
       print(
           "Skipping install of \"${name}\" since the operating system, ${osName}, is not in ${config[name]['os']}.");
+    } else if (!dictionary[baseName].containsKey("install_function") &&
+        !dictionary[baseName].containsKey(osName)) {
+      print(
+          "Skipping install of \"${name}\" since there is no install function for \"${baseName}\" on operating system, ${osName}.");
     } else {
       filteredNamesToInstall.add(name);
     }
