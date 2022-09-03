@@ -16,6 +16,7 @@ tags = [ "terminal" ]
 options = [
   "git",
   "copypath",
+  "copyfile",
   "zsh-autosuggestions",
   "zsh-syntax-highlighting"
 ]
@@ -27,29 +28,73 @@ tags = [ "terminal" ]
 tags = [ "terminal" ]
 
 [ brew ]
-tags = [ "pkg-man" ]
+tags = []
 os = [ "macos" ]
 
-[ brew_packages ]
-tags = [ "packages" ]
+[ "brew_packages+main" ]
+tags = [ "utilities" ]
 os = [ "macos" ]
 options = [
   "neofetch",
-  "jq",
-  "kubectl",
+  "jq"
+]
+
+[ "brew_packages+db" ]
+tags = [ "database" ]
+os = [ "macos" ]
+options = [
   "mysql",
-  "rocksdb",
+  "rocksdb"
+]
+
+[ "brew_packages+k8s" ]
+tags = [ "kubernetes", "k8s" ]
+os = [ "macos" ]
+options = [
+  "kubectl",
+  "helm",
+]
+
+[ "brew_packages+sbt" ]
+tags = [ "sbt" ]
+os = [ "macos" ]
+options = [
   "sbt"
 ]
 
-[ brew_cask_packages ]
-tags = [ "packages" ]
+[ "brew_cask_packages+chrome" ]
+tags = [ "chrome" ]
 os = [ "macos" ]
 options = [
-  "visual-studio-code",
+  "google-chrome"
+]
+
+[ "brew_cask_packages+vscode" ]
+tags = [ "vscode" ]
+os = [ "macos" ]
+options = [
+  "visual-studio-code"
+]
+
+[ "brew_cask_packages+jetbrains" ]
+tags = [ "jetbrains" ]
+os = [ "macos" ]
+options = [
   "pycharm-ce",
-  "intellij-idea-ce",
-  "docker",
+  "intellij-idea-ce"
+]
+
+[ "brew_cask_packages+docker" ]
+tags = [ "docker" ]
+os = [ "macos" ]
+options = [
+  "docker"
+]
+
+[ "brew_cask_packages+communication" ]
+tags = [ "communication" ]
+os = [ "macos" ]
+options = [
   "zoom",
   "slack"
 ]
@@ -80,8 +125,8 @@ options = [
   "'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64'"
 ]
 
-[ vscode_extensions ]
-tags = [ "editors" ]
+[ "vscode_extensions+main" ]
+tags = [ "vscode" ]
 options = [
   "akamud.vscode-theme-onedark",
   "EditorConfig.EditorConfig",
@@ -98,8 +143,7 @@ options = [
   "ms-python.vscode-pylance",
   "ms-toolsai.jupyter",
   "ms-toolsai.jupyter-keymap",
-  "ms-toolsai.jupyter-renderers",
-  "ms-vscode-remote.remote-containers"
+  "ms-toolsai.jupyter-renderers"
 ]
 
 [ "vscode_extensions+scala" ]
@@ -109,14 +153,15 @@ options = [
 ]
 
 [ apt_get_packages ]
-tags = []
+tags = [ "utilities" ]
 options = [
   "--no-install-recommends",
   "git",
   "zsh",
   "neofetch",
   "vim",
-  "curl"
+  "curl",
+  "jq"
 ]
 
 [ "deb_package+chrome" ]
@@ -126,9 +171,15 @@ options = [
 ]
 
 [ "deb_package+slack" ]
-tags = [ "slack" ]
+tags = [ "slack", "communication" ]
 options = [
   "'https://downloads.slack-edge.com/releases/linux/4.27.156/prod/x64/slack-desktop-4.27.156-amd64.deb'"
+]
+
+[ "deb_package+zoom" ]
+tags = [ "zoom", "communication" ]
+options = [
+  "'https://zoom.us/client/5.11.9.4300/zoom_amd64.deb'"
 ]
 
 [ jetbrains_toolbox ]
