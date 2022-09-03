@@ -55,13 +55,6 @@ options = [
   "helm",
 ]
 
-[ "brew_packages+sbt" ]
-tags = [ "sbt" ]
-os = [ "macos" ]
-options = [
-  "sbt"
-]
-
 [ "brew_cask_packages+chrome" ]
 tags = [ "chrome" ]
 os = [ "macos" ]
@@ -113,7 +106,20 @@ tags = []
 options = []
 
 [ sdkman ]
+tags = []
+
+[ "sdk_candidate+java" ]
 tags = [ "java" ]
+options = [
+  "java",
+  "8.0.302-open"
+]
+
+[ "sdk_candidate+sbt" ]
+tags = [ "sbt", "scala" ]
+options = [
+  "sbt"
+]
 
 [ git_clone ]
 tags = []
@@ -199,3 +205,7 @@ options = [
   "helm",
   "--classic"
 ]
+
+[ docker ]
+tags = []
+options = []

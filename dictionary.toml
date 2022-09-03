@@ -44,6 +44,9 @@ install_function = "install_node"
 [ sdkman ]
 install_function = "install_sdkman"
 
+[ sdk_candidate ]
+install_function = "install_sdk_candidate"
+
 [ atom_packages ]
 install_function = "install_atom_packages"
 
@@ -69,4 +72,8 @@ linux.install_function = "install_jetbrains_toolbox"
 
 [ snap_package ]
 linux.install_function = "install_snap_package"
+linux.sudo = true
+
+[ docker ]
+linux.install_function = "install_docker"
 linux.sudo = true
