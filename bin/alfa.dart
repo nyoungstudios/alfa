@@ -82,7 +82,8 @@ void main(List<String> args) async {
   List<String> lines = await new File(argResults['file']).readAsLines();
 
   for (String line in lines) {
-    if (!line.startsWith("#") && !line.startsWith('//')) {
+    line = line.trim();
+    if (line.length > 0 && !line.startsWith("#") && !line.startsWith('//')) {
       // only continues if names to install that are not commented out
       if (tagToInstallKey.containsKey(line)) {
         namesToInstall.addAll(tagToInstallKey[line]);
