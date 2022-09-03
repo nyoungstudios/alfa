@@ -28,7 +28,7 @@ if ! command -v "sudo" > /dev/null 2>&1; then
 else
   # sudo command exists
 
-  if [ "$EUID" -eq 0 ]; then
+  if [[ "$EUID" -eq 0 && "$SUDO_GID" -eq 0 ]]; then
     echo "Some things may not install properly if this is called as root. This script will call sudo when needed."
   fi
 
@@ -37,7 +37,7 @@ else
   while :; do sudo -v; sleep 59; done &
   loopPid="$!"
 
-  export ALFA_USER="${SUDO_USER:-}"; sudo --preserve-env=ALFA_USER ./$alfaCommand "$@"
+  export ALFA_USER="${SUDO_USER:-${USER:-}}"; sudo --preserve-env=ALFA_USER ./$alfaCommand "$@"
 
   trap 'trap - SIGTERM && kill $(pgrep -P $loopPid) $loopPid' SIGINT SIGTERM EXIT
 

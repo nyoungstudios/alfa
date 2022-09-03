@@ -75,6 +75,10 @@ void main(List<String> args) async {
     }
   }
 
+  // gets map of names to install functions
+  var dictionaryFile = await TomlDocument.load('dictionary.toml');
+  var dictionary = dictionaryFile.toMap();
+
   // stores an ordered set of the names of the things to install
   var namesToInstall = Set<String>();
 
@@ -87,15 +91,16 @@ void main(List<String> args) async {
       // only continues if names to install that are not commented out
       if (tagToInstallKey.containsKey(line)) {
         namesToInstall.addAll(tagToInstallKey[line]);
+        // in the case where the tag and config name has the same name
+        if (dictionary.containsKey(line.split('+')[0]) &&
+            config.containsKey(line)) {
+          namesToInstall.add(line);
+        }
       } else {
         namesToInstall.add(line);
       }
     }
   }
-
-  // gets map of names to install functions
-  var dictionaryFile = await TomlDocument.load('dictionary.toml');
-  var dictionary = dictionaryFile.toMap();
 
   List<String> filteredNamesToInstall = [];
 
@@ -168,7 +173,7 @@ void main(List<String> args) async {
         arguments = ['-u', user];
       }
 
-      arguments.addAll(['--', '/bin/bash']);
+      arguments.addAll(['--preserve-env=ALFA_USER', '--', '/bin/bash']);
     }
 
     arguments.addAll(['-euc', command]);
