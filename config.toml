@@ -1,32 +1,3 @@
-[ ohmyzsh ]
-tags = [ "terminal" ]
-
-[ zsh_successful_cmd_filter ]
-tags = [ "terminal" ]
-
-[ install_ohmyzsh_plugins ]
-tags = [ "terminal" ]
-options = [
-  "https://github.com/zsh-users/zsh-autosuggestions",
-  "https://github.com/zsh-users/zsh-syntax-highlighting"
-]
-
-[ add_ohmyzsh_plugins ]
-tags = [ "terminal" ]
-options = [
-  "git",
-  "copypath",
-  "copyfile",
-  "zsh-autosuggestions",
-  "zsh-syntax-highlighting"
-]
-
-[ p10k ]
-tags = [ "terminal" ]
-
-[ vimrc ]
-tags = [ "terminal" ]
-
 [ brew ]
 tags = []
 os = [ "macos" ]
@@ -162,10 +133,6 @@ options = [
   "https://zoom.us/client/5.11.9.4300/zoom_amd64.deb"
 ]
 
-[ jetbrains_toolbox ]
-tags = [ "jetbrains" ]
-options = []
-
 [ "snap_package+kubectl" ]
 tags = [ "kubectl", "kubernetes", "k8s" ]
 options = [
@@ -180,6 +147,39 @@ options = [
   "--classic"
 ]
 
+[ ohmyzsh ]
+tags = [ "terminal" ]
+
+[ zsh_successful_cmd_filter ]
+tags = [ "terminal" ]
+
+[ install_ohmyzsh_plugins ]
+tags = [ "terminal" ]
+options = [
+  "https://github.com/zsh-users/zsh-autosuggestions",
+  "https://github.com/zsh-users/zsh-syntax-highlighting"
+]
+
+[ add_ohmyzsh_plugins ]
+tags = [ "terminal" ]
+options = [
+  "git",
+  "copypath",
+  "copyfile",
+  "zsh-autosuggestions",
+  "zsh-syntax-highlighting"
+]
+
+[ p10k ]
+tags = [ "terminal" ]
+
+[ vimrc ]
+tags = [ "terminal" ]
+
+[ jetbrains_toolbox ]
+tags = [ "jetbrains" ]
+options = []
+
 [ docker ]
 tags = []
 options = []
@@ -188,9 +188,6 @@ options = []
 tags = [ "python" ]
 
 [ nvm ]
-tags = [ "nodejs" ]
-
-[ node_lts ]
 tags = [ "nodejs" ]
 
 [ "install_ohmyzsh_plugins+nvm" ]
@@ -211,6 +208,9 @@ options = [
   "export NVM_LAZY_LOAD=true",
   "export NVM_COMPLETION=true"
 ]
+
+[ node_lts ]
+tags = [ "nodejs" ]
 
 [ node_version ]
 tags = []

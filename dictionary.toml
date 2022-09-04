@@ -1,4 +1,28 @@
 # this file contains all names of things that you can install and the references to the appropriate shell function in functions.sh
+[ git_config ]
+install_function = "create_git_config"
+
+[ brew ]
+install_function = "install_brew"
+
+[ brew_packages ]
+install_function = "brew_install"
+
+[ brew_cask_packages ]
+install_function = "brew_install_cask"
+
+[ apt_get_packages ]
+linux.install_function = "apt_get_install"
+linux.sudo = true
+
+[ deb_package ]
+linux.install_function = "install_deb_package"
+linux.sudo = true
+
+[ snap_package ]
+linux.install_function = "install_snap_package"
+linux.sudo = true
+
 [ ohmyzsh ]
 install_function = "install_ohmyzsh"
 
@@ -13,7 +37,7 @@ macos.install_function = "add_ohmyzsh_plugins_macos"
 linux.install_function = "add_ohmyzsh_plugins_linux"
 
 [ p10k ]
-macos.install_function = "prettify_terminal"
+macos.install_function = "prettify_terminal_macos"
 linux.install_function = "prettify_terminal_linux"
 
 [ zshenv ]
@@ -22,14 +46,12 @@ install_function = "append_to_zshenv"
 [ vimrc ]
 install_function = "install_vimrc"
 
-[ brew ]
-install_function = "install_brew"
+[ jetbrains_toolbox ]
+linux.install_function = "install_jetbrains_toolbox"
 
-[ brew_packages ]
-install_function = "brew_install"
-
-[ brew_cask_packages ]
-install_function = "brew_install_cask"
+[ docker ]
+linux.install_function = "install_docker"
+linux.sudo = true
 
 [ anaconda ]
 macos.install_function = "install_anaconda3_macos"
@@ -56,27 +78,5 @@ install_function = "install_atom_packages"
 [ vscode_extensions ]
 install_function = "install_vscode_extensions"
 
-[ git_config ]
-install_function = "create_git_config"
-
 [ git_clone ]
 install_function = "git_clone_repo"
-
-[ apt_get_packages ]
-linux.install_function = "apt_get_install"
-linux.sudo = true
-
-[ deb_package ]
-linux.install_function = "install_deb_package"
-linux.sudo = true
-
-[ jetbrains_toolbox ]
-linux.install_function = "install_jetbrains_toolbox"
-
-[ snap_package ]
-linux.install_function = "install_snap_package"
-linux.sudo = true
-
-[ docker ]
-linux.install_function = "install_docker"
-linux.sudo = true
