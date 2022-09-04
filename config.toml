@@ -141,25 +141,25 @@ options = [
 [ "deb_package+vscode" ]
 tags = [ "vscode" ]
 options = [
-  "'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64'"
+  "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
 ]
 
 [ "deb_package+chrome" ]
 tags = [ "chrome" ]
 options = [
-  "'https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb'"
+  "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
 ]
 
 [ "deb_package+slack" ]
 tags = [ "slack", "communication" ]
 options = [
-  "'https://downloads.slack-edge.com/releases/linux/4.27.156/prod/x64/slack-desktop-4.27.156-amd64.deb'"
+  "https://downloads.slack-edge.com/releases/linux/4.27.156/prod/x64/slack-desktop-4.27.156-amd64.deb"
 ]
 
 [ "deb_package+zoom" ]
 tags = [ "zoom", "communication" ]
 options = [
-  "'https://zoom.us/client/5.11.9.4300/zoom_amd64.deb'"
+  "https://zoom.us/client/5.11.9.4300/zoom_amd64.deb"
 ]
 
 [ jetbrains_toolbox ]
@@ -192,6 +192,25 @@ tags = [ "nodejs" ]
 
 [ node_lts ]
 tags = [ "nodejs" ]
+
+[ "install_ohmyzsh_plugins+nvm" ]
+tags = [ "nodejs" ]
+options = [
+  "https://github.com/lukechilds/zsh-nvm"
+]
+
+[ "add_ohmyzsh_plugins+nvm" ]
+tags = [ "nodejs" ]
+options = [
+  "zsh-nvm"
+]
+
+[ "zshenv+nvm" ]
+tags = [ "nodejs" ]
+options = [
+  "export NVM_LAZY_LOAD=true",
+  "export NVM_COMPLETION=true"
+]
 
 [ node_version ]
 tags = []

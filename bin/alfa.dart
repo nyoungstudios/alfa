@@ -2,6 +2,7 @@
 import 'dart:io';
 import 'package:toml/toml.dart';
 import 'package:args/args.dart';
+import 'package:shlex/shlex.dart' as shlex;
 
 void printUsageMsg(ArgParser ap, String msg) {
   print(msg);
@@ -162,7 +163,8 @@ void main(List<String> args) async {
     // checks if there are any options to pass when installing this
     if (config[name].containsKey("options") &&
         config[name]["options"].isNotEmpty) {
-      command += ' ${config[name]["options"].join(" ")}';
+      command +=
+          ' ${config[name]["options"].map((option) => shlex.quote(option)).join(" ")}';
     }
 
     List<String> arguments = [];

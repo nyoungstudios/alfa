@@ -16,6 +16,9 @@ linux.install_function = "add_ohmyzsh_plugins_linux"
 macos.install_function = "prettify_terminal"
 linux.install_function = "prettify_terminal_linux"
 
+[ zshenv ]
+install_function = "append_to_zshenv"
+
 [ vimrc ]
 install_function = "install_vimrc"
 

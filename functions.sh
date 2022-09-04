@@ -127,6 +127,14 @@ prettify_terminal_linux() {
   sed -i 's+ZSH_THEME="robbyrussell"+ZSH_THEME="powerlevel10k/powerlevel10k"+g' ~/.zshrc
 }
 
+append_to_zshenv() {
+  # appends a line to zshenv file
+  for line in "$@"
+  do
+    echo "$line" >> ~/.zshenv
+  done
+}
+
 install_vimrc() {
   # install ultimate vimrc
   git clone --depth=1 https://github.com/nyoungstudios/vimrc.git ~/.vim_runtime
