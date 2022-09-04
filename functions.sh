@@ -250,11 +250,6 @@ install_sdk_candidate() {
   set -eu
 }
 
-run_zsh() {
-  # runs zsh so you can see all the new changes
-  exec zsh -l
-}
-
 apt_get_install() {
   # installs apt-get packages
   apt-get update

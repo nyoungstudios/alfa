@@ -92,83 +92,56 @@ options = [
   "slack"
 ]
 
-[ anaconda ]
-tags = [ "python" ]
-
-[ nvm ]
-tags = [ "nodejs" ]
-
-[ node_lts ]
-tags = [ "nodejs" ]
-
-[ node_version ]
-tags = []
-options = []
-
-[ sdkman ]
-tags = []
-
-[ "sdk_candidate+java" ]
-tags = [ "java" ]
-options = [
-  "java",
-  "8.0.302-open"
-]
-
-[ "sdk_candidate+sbt" ]
-tags = [ "sbt", "scala" ]
-options = [
-  "sbt"
-]
-
-[ git_clone ]
-tags = []
-options = []
-
-[ "deb_package+vscode" ]
-tags = [ "vscode" ]
-options = [
-  "'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64'"
-]
-
-[ "vscode_extensions+main" ]
-tags = [ "vscode" ]
-options = [
-  "akamud.vscode-theme-onedark",
-  "EditorConfig.EditorConfig",
-  "mohsen1.prettify-json",
-  "ms-azuretools.vscode-docker",
-  "ms-vscode-remote.remote-containers",
-  "redhat.vscode-yaml"
-]
-
-[ "vscode_extensions+python" ]
-tags = [ "python" ]
-options = [
-  "ms-python.python",
-  "ms-python.vscode-pylance",
-  "ms-toolsai.jupyter",
-  "ms-toolsai.jupyter-keymap",
-  "ms-toolsai.jupyter-renderers"
-]
-
-[ "vscode_extensions+scala" ]
-tags = [ "scala" ]
-options = [
-  "scala-lang.scala"
-]
-
-[ apt_get_packages ]
+[ "apt_get_packages+utils" ]
 tags = [ "utilities" ]
 options = [
   "--no-install-recommends",
+  "build-essential",
   "git",
   "zsh",
   "neofetch",
   "vim",
   "curl",
   "jq",
-  "xclip"
+  "xclip",
+  "snapd"
+]
+
+[ "apt_get_packages+desktop" ]
+tags = [ "desktop" ]
+options = [
+  "--no-install-recommends",
+  "guvcview",
+  "v4l-utils",
+  "libreoffice"
+]
+
+[ "apt_get_packages+vm" ]
+tags = [ "vm", "virtualmachine" ]
+options = [
+  "--no-install-recommends",
+  "kvm-ok",
+  "cpu-checker",
+  "qemu",
+  "qemu-kvm",
+  "libvirt-daemon",
+  "libvirt-clients",
+  "bridge-utils",
+  "virt-manager"
+]
+
+[ "apt_get_packages+theme" ]
+tags = [ "theme" ]
+options = [
+  "--no-install-recommends",
+  "gnome-tweak-tool",
+  "gettext",
+]
+
+[ "deb_package+vscode" ]
+tags = [ "vscode" ]
+options = [
+  "'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64'"
 ]
 
 [ "deb_package+chrome" ]
@@ -208,5 +181,65 @@ options = [
 ]
 
 [ docker ]
+tags = []
+options = []
+
+[ anaconda ]
+tags = [ "python" ]
+
+[ nvm ]
+tags = [ "nodejs" ]
+
+[ node_lts ]
+tags = [ "nodejs" ]
+
+[ node_version ]
+tags = []
+options = []
+
+[ sdkman ]
+tags = []
+
+[ "sdk_candidate+java" ]
+tags = [ "java" ]
+options = [
+  "java",
+  "8.0.302-open"
+]
+
+[ "sdk_candidate+sbt" ]
+tags = [ "sbt", "scala" ]
+options = [
+  "sbt"
+]
+
+[ "vscode_extensions+main" ]
+tags = [ "vscode" ]
+options = [
+  "akamud.vscode-theme-onedark",
+  "EditorConfig.EditorConfig",
+  "mohsen1.prettify-json",
+  "ms-azuretools.vscode-docker",
+  "ms-vscode-remote.remote-containers",
+  "redhat.vscode-yaml"
+]
+
+[ "vscode_extensions+python" ]
+tags = [ "python" ]
+options = [
+  "ms-python.python",
+  "ms-python.vscode-pylance",
+  "ms-toolsai.jupyter",
+  "ms-toolsai.jupyter-keymap",
+  "ms-toolsai.jupyter-renderers"
+]
+
+[ "vscode_extensions+scala" ]
+tags = [ "scala" ]
+options = [
+  "scala-lang.scala"
+]
+
+[ git_clone ]
 tags = []
 options = []
