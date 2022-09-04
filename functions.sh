@@ -250,11 +250,6 @@ install_sdk_candidate() {
   set -eu
 }
 
-change_shell_to_zsh() {
-  # changes default shell to zsh
-  chsh -s $(which zsh)
-}
-
 run_zsh() {
   # runs zsh so you can see all the new changes
   exec zsh -l

@@ -58,5 +58,6 @@ done
 
 # runs zsh
 if [[ "$hasHelp" == "0" && "$hasRunShell" == "1" ]]; then
+  echo 'Run "chsh -s $(which zsh)" to change your default shell to zsh. Logout and log back in to see the changes.'
   /bin/bash -euc "source functions.sh; run_zsh"
 fi
