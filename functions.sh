@@ -155,30 +155,34 @@ git_clone_repo() {
   done
 }
 
-install_anaconda3() {
-  # installs anaconda3
-  echo "Installing Anaconda3..."
-  curl https://repo.anaconda.com/archive/Anaconda3-2022.05-MacOSX-x86_64.sh -o ~/anaconda3.sh
+install_anaconda3_common() {
   chmod +x ~/anaconda3.sh
   bash ~/anaconda3.sh -b -p ~/anaconda3
   rm ~/anaconda3.sh
 
   echo "Initializing Anaconda3..."
   export PATH=~/anaconda3/bin:$PATH
-  conda init zsh
+  if [[ -f "$HOME/.bashrc" ]]; then
+      conda init bash
+  fi
+
+  if [[ -f "$HOME/.zshrc" ]]; then
+      conda init zsh
+  fi
+}
+
+install_anaconda3_macos() {
+  # installs anaconda3
+  echo "Installing Anaconda3..."
+  curl "${1:-https://repo.anaconda.com/archive/Anaconda3-2022.05-MacOSX-x86_64.sh}" -o ~/anaconda3.sh
+  install_anaconda3_common
 }
 
 install_anaconda3_linux() {
   # installs anaconda3
   echo "Installing Anaconda3..."
-  curl https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh -o ~/anaconda3.sh
-  chmod +x ~/anaconda3.sh
-  bash ~/anaconda3.sh -b -p ~/anaconda3
-  rm ~/anaconda3.sh
-
-  echo "Initializing Anaconda3..."
-  export PATH=~/anaconda3/bin:$PATH
-  conda init zsh
+  curl "${1:-https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh}" -o ~/anaconda3.sh
+  install_anaconda3_common
 }
 
 copy_pip_config() {
@@ -229,7 +233,13 @@ install_vscode_extensions() {
 install_sdkman() {
   # installs sdkman
   curl -s "https://get.sdkman.io?rcupdate=false" | bash
-  cat templates/sdkman.zsh >> ~/.zshrc
+  if [[ -f "$HOME/.bashrc" ]]; then
+    cat templates/sdkman.zsh >> ~/.bashrc
+  fi
+
+  if [[ -f "$HOME/.zshrc" ]]; then
+    cat templates/sdkman.zsh >> ~/.zshrc
+  fi
 }
 
 install_sdk_candidate() {

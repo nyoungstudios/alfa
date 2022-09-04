@@ -29,7 +29,7 @@ install_function = "brew_install"
 install_function = "brew_install_cask"
 
 [ anaconda ]
-macos.install_function = "install_anaconda3"
+macos.install_function = "install_anaconda3_macos"
 linux.install_function = "install_anaconda3_linux"
 
 [ nvm ]

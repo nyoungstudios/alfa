@@ -167,7 +167,8 @@ options = [
   "neofetch",
   "vim",
   "curl",
-  "jq"
+  "jq",
+  "xclip"
 ]
 
 [ "deb_package+chrome" ]
