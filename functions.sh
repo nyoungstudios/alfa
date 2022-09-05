@@ -235,7 +235,11 @@ copy_pip_config() {
 
 install_nvm() {
   # installs nvm
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+  if [[ "$1" -eq 0 ]]; then
+    # nvm installer will not change your profile or rc file.
+    export PROFILE="/dev/null"
+  fi
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 }
 
 install_node_lts() {
