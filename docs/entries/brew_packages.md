@@ -16,7 +16,7 @@ Accepts any number of arguments.
 ```toml
 [ brew_packages ]
 options = [
-  "jq"
+  "jq",
   "neofetch"
 ]
 ```

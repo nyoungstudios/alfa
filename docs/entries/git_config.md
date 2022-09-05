@@ -17,7 +17,7 @@ Accepts exactly 2 arguments
 ```toml
 [ git_config ]
 options = [
-  "username"
+  "username",
   "user@email.com"
 ]
 ```
