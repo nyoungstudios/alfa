@@ -1,4 +1,12 @@
-# this file contains all names of things that you can install and the references to the appropriate shell function in functions.sh
+# This file contains all names of things that you can install and the references to the appropriate shell function in functions.sh
+# Here is the schema if you want to add more references to this dictionary
+# [ name ]          (the name that will referenced in your config.toml file)
+# install_function = "function_name_in_functions.sh"
+# sudo = false      (false by default, true if you need sudo permissions to run the install function)
+#
+# if you have two different functions that will be called based on if the operating system is macos or linux, then nest the
+# install_function and sudo keys under the os name.
+
 [ git_config ]
 install_function = "create_git_config"
 
