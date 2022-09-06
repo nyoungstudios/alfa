@@ -18,7 +18,7 @@ jobs:
     timeout-minutes: 15
     strategy:
       fail-fast: false
-      matrix: 
+      matrix:
         include:
           - image: nateateteen/zshpod:base
             tags: nateateteen/zdartpod:base
@@ -31,7 +31,7 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
-      
+
       - name: Log in to Docker Hub
         uses: docker/login-action@v1
         with:

@@ -1,0 +1,12 @@
+image: nateateteen/zdartpod:base
+
+tasks:
+  - name: Install Dart Dependencies
+    init: |
+      dart pub get
+
+vscode:
+  extensions:
+    - bungcip.better-toml
+    - dart-code.dart-code
+    - editorconfig.editorconfig

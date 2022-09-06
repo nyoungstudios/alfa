@@ -1,0 +1,16 @@
+brew
+utilities
+theme
+terminal
+chrome
+docker
+vscode
+jetbrains
+database
+kubernetes
+communication
+python
+nodejs
+sdkman
+java
+scala

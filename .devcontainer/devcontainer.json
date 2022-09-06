@@ -1,0 +1,43 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.241.1/containers/docker-existing-dockerfile
+{
+    "name": "alfa",
+    "build": {
+        "context": "..",
+        "dockerfile": "../dart.Dockerfile",
+        // https://github.com/microsoft/vscode-dev-containers/tree/v0.241.1/containers/ubuntu
+        // Update 'VARIANT' to pick an Ubuntu version: jammy / ubuntu-22.04, focal / ubuntu-20.04, bionic /ubuntu-18.04
+        // Use ubuntu-22.04 or ubuntu-18.04 on local arm64/Apple Silicon.
+        // using cpp base which includes make
+        "args": { "IMAGE_NAME": "mcr.microsoft.com/vscode/devcontainers/cpp:0-ubuntu-22.04", "_USER": "vscode" }
+    },
+
+    // "features": {
+    //     "docker-in-docker": "latest"
+    // },
+
+    // Add the IDs of extensions you want installed when the container is created.
+    "extensions": [
+        "bungcip.better-toml",
+        "dart-code.dart-code",
+        "editorconfig.editorconfig"
+    ],
+
+    // Use 'forwardPorts' to make a list of ports inside the container available locally.
+    // "forwardPorts": [],
+    // caching the bash and zsh history files
+    "initializeCommand": "mkdir -p ${localEnv:HOME}/.cache/alfa-dev-container && touch -a ${localEnv:HOME}/.cache/alfa-dev-container/.bash_history && touch -a ${localEnv:HOME}/.cache/alfa-dev-container/.zsh_history",
+
+    "onCreateCommand": "dart pub get",
+
+    // Uncomment when using a ptrace-based debugger like C++, Go, and Rust
+    // "runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],
+
+    // Uncomment to connect as a non-root user if you've added one. See https://aka.ms/vscode-remote/containers/non-root.
+    "remoteUser": "vscode",
+    "mounts": [
+        // mounting the bash and zsh history files
+        "source=${localEnv:HOME}/.cache/alfa-dev-container/.bash_history,target=/home/vscode/.bash_history,type=bind,consistency=delegated",
+        "source=${localEnv:HOME}/.cache/alfa-dev-container/.zsh_history,target=/home/vscode/.zsh_history,type=bind,consistency=delegated"
+    ]
+}

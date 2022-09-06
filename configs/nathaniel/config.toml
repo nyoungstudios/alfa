@@ -1,0 +1,267 @@
+[ brew ]
+tags = []
+os = [ "macos" ]
+
+[ "brew_packages+main" ]
+tags = [ "utilities" ]
+os = [ "macos" ]
+options = [
+  "neofetch",
+  "jq"
+]
+
+[ "brew_packages+db" ]
+tags = [ "database" ]
+os = [ "macos" ]
+options = [
+  "mysql",
+  "rocksdb"
+]
+
+[ "brew_packages+k8s" ]
+tags = [ "kubernetes", "k8s" ]
+os = [ "macos" ]
+options = [
+  "kubectl",
+  "helm",
+]
+
+[ "brew_cask_packages+chrome" ]
+tags = [ "chrome" ]
+os = [ "macos" ]
+options = [
+  "google-chrome"
+]
+
+[ "brew_cask_packages+vscode" ]
+tags = [ "vscode" ]
+os = [ "macos" ]
+options = [
+  "visual-studio-code"
+]
+
+[ "brew_cask_packages+jetbrains" ]
+tags = [ "jetbrains" ]
+os = [ "macos" ]
+options = [
+  "pycharm-ce",
+  "intellij-idea-ce"
+]
+
+[ "brew_cask_packages+docker" ]
+tags = [ "docker" ]
+os = [ "macos" ]
+options = [
+  "docker"
+]
+
+[ "brew_cask_packages+communication" ]
+tags = [ "communication" ]
+os = [ "macos" ]
+options = [
+  "zoom",
+  "slack"
+]
+
+[ "apt_get_packages+utils" ]
+tags = [ "utilities" ]
+options = [
+  "--no-install-recommends",
+  "build-essential",
+  "git",
+  "zsh",
+  "neofetch",
+  "vim",
+  "curl",
+  "jq",
+  "xclip",
+  "snapd"
+]
+
+[ "apt_get_packages+desktop" ]
+tags = [ "desktop" ]
+options = [
+  "--no-install-recommends",
+  "guvcview",
+  "v4l-utils",
+  "libreoffice"
+]
+
+[ "apt_get_packages+vm" ]
+tags = [ "vm", "virtualmachine" ]
+options = [
+  "--no-install-recommends",
+  "kvm-ok",
+  "cpu-checker",
+  "qemu",
+  "qemu-kvm",
+  "libvirt-daemon",
+  "libvirt-clients",
+  "bridge-utils",
+  "virt-manager"
+]
+
+[ "apt_get_packages+theme" ]
+tags = [ "theme" ]
+options = [
+  "--no-install-recommends",
+  "gnome-tweak-tool",
+  "gettext",
+]
+
+[ "deb_package+vscode" ]
+tags = [ "vscode" ]
+options = [
+  "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
+]
+
+[ "deb_package+chrome" ]
+tags = [ "chrome" ]
+options = [
+  "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+]
+
+[ "deb_package+slack" ]
+tags = [ "slack", "communication" ]
+options = [
+  "https://downloads.slack-edge.com/releases/linux/4.27.156/prod/x64/slack-desktop-4.27.156-amd64.deb"
+]
+
+[ "deb_package+zoom" ]
+tags = [ "zoom", "communication" ]
+options = [
+  "https://zoom.us/client/5.11.9.4300/zoom_amd64.deb"
+]
+
+[ "snap_package+kubectl" ]
+tags = [ "kubectl", "kubernetes", "k8s" ]
+options = [
+  "kubectl",
+  "--classic"
+]
+
+[ "snap_package+helm" ]
+tags = [ "helm", "kubernetes", "k8s" ]
+options = [
+  "helm",
+  "--classic"
+]
+
+[ ohmyzsh ]
+tags = [ "terminal" ]
+
+[ zsh_successful_cmd_filter ]
+tags = [ "terminal" ]
+
+[ install_ohmyzsh_plugins ]
+tags = [ "terminal" ]
+options = [
+  "https://github.com/zsh-users/zsh-autosuggestions",
+  "https://github.com/zsh-users/zsh-syntax-highlighting"
+]
+
+[ add_ohmyzsh_plugins ]
+tags = [ "terminal" ]
+options = [
+  "git",
+  "copypath",
+  "copyfile",
+  "zsh-autosuggestions",
+  "zsh-syntax-highlighting"
+]
+
+[ p10k ]
+tags = [ "terminal" ]
+
+[ vimrc ]
+tags = [ "terminal" ]
+
+[ jetbrains_toolbox ]
+tags = [ "jetbrains" ]
+options = []
+
+[ docker ]
+tags = []
+options = []
+
+[ anaconda ]
+tags = [ "python" ]
+
+[ nvm ]
+tags = [ "nodejs" ]
+options = [
+  "0"
+]
+
+[ "install_ohmyzsh_plugins+nvm" ]
+tags = [ "nodejs" ]
+options = [
+  "https://github.com/lukechilds/zsh-nvm"
+]
+
+[ "add_ohmyzsh_plugins+nvm" ]
+tags = [ "nodejs" ]
+options = [
+  "zsh-nvm"
+]
+
+[ "zshenv+nvm" ]
+tags = [ "nodejs" ]
+options = [
+  "export NVM_LAZY_LOAD=true",
+  "export NVM_COMPLETION=true"
+]
+
+[ node_lts ]
+tags = [ "nodejs" ]
+
+[ node_version ]
+tags = []
+options = []
+
+[ sdkman ]
+tags = []
+
+[ "sdk_candidate+java" ]
+tags = [ "java" ]
+options = [
+  "java",
+  "8.0.302-open"
+]
+
+[ "sdk_candidate+sbt" ]
+tags = [ "sbt", "scala" ]
+options = [
+  "sbt"
+]
+
+[ "vscode_extensions+main" ]
+tags = [ "vscode" ]
+options = [
+  "akamud.vscode-theme-onedark",
+  "EditorConfig.EditorConfig",
+  "mohsen1.prettify-json",
+  "ms-azuretools.vscode-docker",
+  "ms-vscode-remote.remote-containers",
+  "redhat.vscode-yaml"
+]
+
+[ "vscode_extensions+python" ]
+tags = [ "python" ]
+options = [
+  "ms-python.python",
+  "ms-python.vscode-pylance",
+  "ms-toolsai.jupyter",
+  "ms-toolsai.jupyter-keymap",
+  "ms-toolsai.jupyter-renderers"
+]
+
+[ "vscode_extensions+scala" ]
+tags = [ "scala" ]
+options = [
+  "scala-lang.scala"
+]
+
+[ git_clone ]
+tags = []
+options = []

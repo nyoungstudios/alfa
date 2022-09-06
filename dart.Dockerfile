@@ -3,6 +3,8 @@
 ARG IMAGE_NAME
 FROM $IMAGE_NAME
 
+ARG _USER="gitpod"
+
 # sets user to root so that we can install stuff
 USER root
 
@@ -14,7 +16,7 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install -y --no-install-recommends dart && \
     dart --disable-analytics && \
-    apt-get clean -y && \    
+    apt-get clean -y && \
     rm -rf \
 	    /var/cache/debconf/* \
 	    /var/lib/apt/lists/* \
@@ -24,8 +26,10 @@ RUN apt-get update && \
 # sets path
 ENV PATH="$PATH:/usr/lib/dart/bin"
 
-# copies dart dev config
-COPY dartdev.json /home/gitpod/.dart/dartdev.json
+WORKDIR /home/$_USER/.dart
+
+# copies dart config files
+ADD .dart_config/ .
 
 # sets user back to gitpod
-USER gitpod
+USER $_USER
