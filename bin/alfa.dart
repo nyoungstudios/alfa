@@ -1,8 +1,11 @@
 // run with dart run alfa
 import 'dart:io';
-import 'package:toml/toml.dart';
 import 'package:args/args.dart';
+import 'package:json_schema/json_schema.dart';
 import 'package:shlex/shlex.dart' as shlex;
+import 'package:toml/toml.dart';
+
+import 'package:alfa/src/schema.dart';
 
 void printUsageMsg(ArgParser ap, String msg) {
   print(msg);
@@ -66,6 +69,16 @@ void main(List<String> args) async {
   // loads config file which maps the install keys to the tags
   var configFile = await TomlDocument.load(argResults['config']);
   var config = configFile.toMap();
+
+  // validates config.toml file
+  final validationResults = JsonSchema.create(configSchema).validate(config);
+  if (!validationResults.isValid) {
+    print("${argResults['config']} is not formatted correctly.");
+    for (var error in validationResults.errors) {
+      print(error);
+    }
+    exit(1);
+  }
 
   // create a map of tag name to install keys
   Map<String, List<String>> tagToInstallKey = {};

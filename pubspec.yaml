@@ -6,5 +6,6 @@ environment:
   sdk: '>=2.10.0 <3.0.0'
 dependencies:
   args: "^2.3.1"
+  json_schema: ^4.0.3
   shlex: "^2.0.2"
   toml: "^0.12.0"
