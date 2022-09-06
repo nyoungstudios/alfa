@@ -205,10 +205,12 @@ void main(List<String> args) async {
     // waits for exit code
     var exitCode = await streams[0];
 
+    // waits for process logs to finish
+    await streams[1];
+    await streams[2];
+
     // if running in strict mode and exit code is non-zero
     if (argResults['exit'] && exitCode != 0) {
-      await streams[1];
-      await streams[2];
       print("alfa exiting with code: ${exitCode}");
       exit(exitCode);
     }
