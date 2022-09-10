@@ -58,3 +58,4 @@ jobs:
         with:
           file: alfa_*
           tag: ${{ needs.tag.outputs.tag }}
+          file_glob: true
