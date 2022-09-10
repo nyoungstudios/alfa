@@ -1,0 +1,60 @@
+name: Build Alfa CLI
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'bin/**'
+      - 'lib/**'
+  workflow_dispatch:
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+
+    outputs:
+      tag: ${{ steps.create-tag.outputs.tag }}
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      - name: Bump version and create tag
+        id: create-tag
+        uses: anothrNick/github-tag-action@1.40.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+
+  release:
+    needs: tag
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest ]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+
+      - uses: dart-lang/setup-dart@v1.3
+        with:
+          sdk: stable
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Compile Executable
+        id: compile
+        run: |
+          make
+
+          ./rename.sh
+
+      - name: Upload binary to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: alfa_*
+          tag: ${{ needs.tag.outputs.tag }}
