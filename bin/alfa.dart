@@ -43,6 +43,7 @@ void main(List<String> args) async {
     exit(1);
   }
 
+  // checks required arguments
   if (argResults['help']) {
     printUsageMsg(parser, "The alfa command-line utility");
     exit(0);
