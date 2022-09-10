@@ -10,3 +10,8 @@ pubspec.lock
 
 # jetbrains
 .idea/
+
+# alfa executables
+/alfa
+/alfa_linux
+/alfa_macos
