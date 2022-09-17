@@ -9,53 +9,106 @@ on:
   workflow_dispatch:
 
 jobs:
-  tag:
+  # tag:
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 15
+
+  #   outputs:
+  #     tag: ${{ steps.create-tag.outputs.tag }}
+
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: '0'
+  #     - name: Bump version and create tag
+  #       id: create-tag
+  #       uses: anothrNick/github-tag-action@1.40.0
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #         WITH_V: true
+
+  # release:
+  #   needs: tag
+  #   runs-on: ${{ matrix.os }}
+  #   timeout-minutes: 15
+
+  #   strategy:
+  #     matrix:
+  #       os: [ ubuntu-latest, macos-latest ]
+
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: '0'
+
+  #     - uses: dart-lang/setup-dart@v1.3
+  #       with:
+  #         sdk: stable
+
+  #     - name: Install dependencies
+  #       run: dart pub get
+
+  #     - name: Compile Executable
+  #       id: compile
+  #       run: |
+  #         make
+
+  #         ./rename.sh
+
+  #     - name: Upload binary to release
+  #       uses: svenstaro/upload-release-action@v2
+  #       with:
+  #         file: alfa_*
+  #         tag: ${{ needs.tag.outputs.tag }}
+  #         file_glob: true
+
+  release-on-arm:
+    # needs: tag
     runs-on: ubuntu-latest
-
-    outputs:
-      tag: ${{ steps.create-tag.outputs.tag }}
+    timeout-minutes: 15
 
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: '0'
-      - name: Bump version and create tag
-        id: create-tag
-        uses: anothrNick/github-tag-action@1.40.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WITH_V: true
-
-  release:
-    needs: tag
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ ubuntu-latest, macos-latest ]
-
-    steps:
-      - uses: actions/checkout@v2
+      - uses: uraimo/run-on-arch-action@v2
+        name: Create file
         with:
-          fetch-depth: '0'
+          arch: aarch64
+          distro: ubuntu_latest
 
-      - uses: dart-lang/setup-dart@v1.3
-        with:
-          sdk: stable
+          install: |
+            apt-get update && \
+              apt-get install -y --no-install-recommends gnupg2 curl git ca-certificates apt-transport-https openssh-client && \
+              curl https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+              curl https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list && \
+              apt-get update && \
+              apt-get install -y --no-install-recommends dart && \
+              dart --disable-analytics && \
+              apt-get clean -y && \
+              rm -rf \
+                /var/cache/debconf/* \
+                /var/lib/apt/lists/* \
+                /tmp/* \
+                /var/tmp/*
 
-      - name: Install dependencies
-        run: dart pub get
+          run: |
+            # installs dependencies
+            dart pub get
 
-      - name: Compile Executable
-        id: compile
+            # builds executable
+            make
+
+            # renames executable
+            ./rename.sh
+
+      - name: Testing
         run: |
-          make
+          ls -alth
 
-          ./rename.sh
-
-      - name: Upload binary to release
-        uses: svenstaro/upload-release-action@v2
-        with:
-          file: alfa_*
-          tag: ${{ needs.tag.outputs.tag }}
-          file_glob: true
+      # - name: Upload binaries to release
+      #   uses: svenstaro/upload-release-action@v2
+      #   with:
+      #     file: alfa_*
+      #     tag: ${{ needs.tag.outputs.tag }}
+      #     file_glob: true
