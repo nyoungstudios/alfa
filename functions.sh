@@ -4,6 +4,7 @@
 # rather "install_brew".
 # To access the list of "options" in the config.toml file you pass to the installer, use the "$@" variable.
 # To access the user that called the installer, do not user the environment variable "$SUDO_USER", but rather use "$ALFA_USER".
+# To access the uname -m output (system architecture), you can use the environment variable "$ALFA_ARCH"
 
 create_git_config() {
   # sets up git config name and email
@@ -217,14 +218,14 @@ install_anaconda3_common() {
 install_anaconda3_macos() {
   # installs anaconda3
   echo "Installing Anaconda3..."
-  curl "${1:-https://repo.anaconda.com/archive/Anaconda3-2022.05-MacOSX-x86_64.sh}" -o ~/anaconda3.sh
+  curl "${1:-https://repo.anaconda.com/archive/Anaconda3-2022.05-MacOSX-${ALFA_ARCH}.sh}" -o ~/anaconda3.sh
   install_anaconda3_common
 }
 
 install_anaconda3_linux() {
   # installs anaconda3
   echo "Installing Anaconda3..."
-  curl "${1:-https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh}" -o ~/anaconda3.sh
+  curl "${1:-https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-${ALFA_ARCH}.sh}" -o ~/anaconda3.sh
   install_anaconda3_common
 }
 

@@ -23,6 +23,8 @@ else
   exit 1
 fi
 
+export ALFA_ARCH="$unameMachine"
+
 # runs the alfa command depending upon if sudo exists
 if ! command -v "sudo" > /dev/null 2>&1; then
   # sudo command doesn't exist
@@ -39,7 +41,7 @@ else
   while :; do sudo -v; sleep 59; done &
   loopPid="$!"
 
-  export ALFA_USER="${SUDO_USER:-${USER:-}}"; sudo --preserve-env=ALFA_USER ./$alfaCommand "$@"
+  export ALFA_USER="${SUDO_USER:-${USER:-}}"; sudo --preserve-env=ALFA_USER,ALFA_ARCH ./$alfaCommand "$@"
 
   trap 'trap - SIGTERM && kill $(pgrep -P $loopPid) $loopPid' SIGINT SIGTERM EXIT
 

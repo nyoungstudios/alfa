@@ -58,6 +58,7 @@ void main(List<String> args) async {
   // gets environment variables
   String user = Platform.environment['SUDO_USER'];
   String alfaUser = Platform.environment['ALFA_USER'];
+  String alfaArch = Platform.environment['ALFA_ARCH'];
   if (user == 'root' && alfaUser != '') {
     user = alfaUser;
   }
@@ -65,7 +66,7 @@ void main(List<String> args) async {
   // gets operating system
   // valid options (linux, macos)
   var osName = Platform.operatingSystem;
-  print("Running alfa on ${osName}");
+  print("Running alfa on ${osName} ${alfaArch}");
 
   // loads config file which maps the install keys to the tags
   var configFile = await TomlDocument.load(argResults['config']);
@@ -189,7 +190,7 @@ void main(List<String> args) async {
         arguments = ['-u', user];
       }
 
-      arguments.addAll(['--preserve-env=ALFA_USER', '--', '/bin/bash']);
+      arguments.addAll(['--preserve-env=ALFA_USER,ALFA_ARCH', '--', '/bin/bash']);
     }
 
     arguments.addAll(['-euc', command]);
