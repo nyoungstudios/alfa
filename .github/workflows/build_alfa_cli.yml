@@ -86,8 +86,8 @@ jobs:
           # installs dependencies
           dart pub get
 
-          # builds executable
-          make
+          # builds executable (make isn't part of this docker image)
+          dart compile exe bin/alfa.dart -o alfa
 
           # renames executable
           ./rename.sh
