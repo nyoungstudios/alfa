@@ -71,13 +71,13 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: '0'
-      - name: Setup non-x86 emulation with qemu
+      - name: Setup arm emulation with qemu
         run: |
           sudo apt-get update -q -y
           sudo apt-get -qq install -y qemu qemu-user-static
           docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --credential yes
 
-      - name: Create entrypoint script
+      - name: Create docker command script
         run: |
           SCRIPT=$(cat << EOF
           #!/bin/sh
@@ -98,7 +98,7 @@ jobs:
 
           chmod +x run.sh
 
-      - name: cat file
+      - name: Cat docker command script
         run: cat run.sh
 
       - name: Build arm executable with docker
@@ -109,45 +109,7 @@ jobs:
             -v "${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE}" \
             --platform linux/arm64 \
             dart:stable \
-            run.sh
-      
-      # - uses: uraimo/run-on-arch-action@v2
-      #   name: Build Arm Executable
-      #   with:
-      #     arch: aarch64
-      #     distro: ubuntu_latest
-
-      #     install: |
-      #       # installs dependencies
-      #       apt-get update
-      #       apt-get install -y --no-install-recommends ca-certificates curl dnsutils git openssh-client unzip
-
-      #       # install latest stable dart version for arm64
-      #       SDK="dartsdk-linux-arm64-release.zip"
-      #       DART_SDK="/usr/lib/dart"
-
-      #       curl -fLO "https://storage.googleapis.com/dart-archive/channels/stable/release/latest/sdk/$SDK"
-      #       unzip "$SDK" && mv dart-sdk "$DART_SDK" && rm "$SDK" \
-      #         && chmod 755 "$DART_SDK" && chmod 755 "$DART_SDK/bin"
-
-      #       export PATH="$DART_SDK/bin:$PATH"
-
-      #       # cleans up
-      #       rm -rf \
-      #         /var/cache/debconf/* \
-      #         /var/lib/apt/lists/* \
-      #         /tmp/* \
-      #         /var/tmp/*
-
-      #     run: |
-      #       # installs dependencies
-      #       dart pub get
-
-      #       # builds executable
-      #       make
-
-      #       # renames executable
-      #       ./rename.sh
+            "${GITHUB_WORKSPACE}/run.sh"
 
       - name: Testing
         run: |
