@@ -71,34 +71,59 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: '0'
-      - uses: uraimo/run-on-arch-action@v2
-        name: Create file
-        with:
-          arch: aarch64
-          distro: ubuntu_latest
+      - name: Setup non-x86 emulation with qemu
+        run: |
+          sudo apt-get update -q -y
+          sudo apt-get -qq install -y qemu qemu-user-static
+          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --credential yes
 
-          install: |
-            apt-get update
-            apt-get install -y --no-install-recommends ca-certificates curl dnsutils git openssh-client unzip
+      - name: Build arm executable with docker
+        run: |
+          docker run \
+            --rm \
+            -t \
+            -v "${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE}" \
+            --platform linux/arm64 \
+            dart/stable \
+            uname -a
+      
+      # - uses: uraimo/run-on-arch-action@v2
+      #   name: Build Arm Executable
+      #   with:
+      #     arch: aarch64
+      #     distro: ubuntu_latest
 
-            SDK="dartsdk-linux-arm64-release.zip"
-            DART_SDK="/usr/lib/dart"
+      #     install: |
+      #       # installs dependencies
+      #       apt-get update
+      #       apt-get install -y --no-install-recommends ca-certificates curl dnsutils git openssh-client unzip
 
-            curl -fLO "https://storage.googleapis.com/dart-archive/channels/stable/release/latest/sdk/$SDK"
-            unzip "$SDK" && mv dart-sdk "$DART_SDK" && rm "$SDK" \
-              && chmod 755 "$DART_SDK" && chmod 755 "$DART_SDK/bin"
+      #       # install latest stable dart version for arm64
+      #       SDK="dartsdk-linux-arm64-release.zip"
+      #       DART_SDK="/usr/lib/dart"
 
-            export PATH="$DART_SDK/bin:$PATH"
+      #       curl -fLO "https://storage.googleapis.com/dart-archive/channels/stable/release/latest/sdk/$SDK"
+      #       unzip "$SDK" && mv dart-sdk "$DART_SDK" && rm "$SDK" \
+      #         && chmod 755 "$DART_SDK" && chmod 755 "$DART_SDK/bin"
 
-          run: |
-            # installs dependencies
-            dart pub get
+      #       export PATH="$DART_SDK/bin:$PATH"
 
-            # builds executable
-            make
+      #       # cleans up
+      #       rm -rf \
+      #         /var/cache/debconf/* \
+      #         /var/lib/apt/lists/* \
+      #         /tmp/* \
+      #         /var/tmp/*
 
-            # renames executable
-            ./rename.sh
+      #     run: |
+      #       # installs dependencies
+      #       dart pub get
+
+      #       # builds executable
+      #       make
+
+      #       # renames executable
+      #       ./rename.sh
 
       - name: Testing
         run: |
