@@ -13,5 +13,5 @@ pubspec.lock
 
 # alfa executables
 /alfa
-/alfa_linux
-/alfa_macos
+/alfa_linux*
+/alfa_macos*

@@ -11,6 +11,7 @@ on:
 jobs:
   tag:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     outputs:
       tag: ${{ steps.create-tag.outputs.tag }}
@@ -29,6 +30,7 @@ jobs:
   release:
     needs: tag
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
 
     strategy:
       matrix:
@@ -54,6 +56,63 @@ jobs:
           ./rename.sh
 
       - name: Upload binary to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: alfa_*
+          tag: ${{ needs.tag.outputs.tag }}
+          file_glob: true
+
+  release-on-arm:
+    needs: tag
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      - name: Setup arm emulation with qemu
+        run: |
+          sudo apt-get update -q -y
+          sudo apt-get -qq install -y qemu qemu-user-static
+          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --credential yes
+
+      - name: Create docker command script
+        run: |
+          SCRIPT=$(cat << EOF
+          #!/bin/sh
+          set -eu
+
+          # installs dependencies
+          dart pub get
+
+          # compile executable (make isn't part of this docker image)
+          dart compile exe bin/alfa.dart -o alfa
+
+          # renames executable
+          ./rename.sh
+          EOF
+          )
+
+          echo "$SCRIPT" > run.sh
+
+          chmod +x run.sh
+
+      - name: Cat docker command script
+        run: cat run.sh
+
+      - name: Build arm executable with docker
+        run: |
+          docker run \
+            --rm \
+            -t \
+            --workdir "${GITHUB_WORKSPACE}" \
+            -v "${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE}" \
+            --platform linux/arm64 \
+            dart:stable \
+            "${GITHUB_WORKSPACE}/run.sh"
+
+      - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
           file: alfa_*

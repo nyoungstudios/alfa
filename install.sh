@@ -10,16 +10,20 @@ fi
 
 alfaCommand=""
 
-# sets the alfa command variable based on the operating system
-unameResults="$(uname -s)"
-if [[ "Linux" == *"$unameResults"* ]]; then
-  alfaCommand="alfa_linux"
-elif [[ "Darwin" == *"$unameResults"* ]]; then
-  alfaCommand="alfa_macos"
+# renames the alfa executable based on the operating system and architecture
+unameSystem="$(uname -s)"
+unameMachine="$(uname -m)"
+
+if [[ "Linux" == "$unameSystem" && ( "x86_64" == "$unameMachine" || "aarch64" == "$unameMachine" ) ]]; then
+  alfaCommand="alfa_linux_$unameMachine"
+elif [[ "Darwin" == "$unameSystem" && ( "x86_64" == "$unameMachine" || "arm64" == "$unameMachine" ) ]]; then
+  alfaCommand="alfa_macos_$unameMachine"
 else
-  echo "alfa cannot run on ${unameResults}. It can only run on Linux and macOS."
+  echo "alfa cannot run on ${unameSystem} ${unameMachine}. It can only run on Linux and macOS."
   exit 1
 fi
+
+export ALFA_ARCH="$unameMachine"
 
 # runs the alfa command depending upon if sudo exists
 if ! command -v "sudo" > /dev/null 2>&1; then
@@ -37,7 +41,7 @@ else
   while :; do sudo -v; sleep 59; done &
   loopPid="$!"
 
-  export ALFA_USER="${SUDO_USER:-${USER:-}}"; sudo --preserve-env=ALFA_USER ./$alfaCommand "$@"
+  export ALFA_USER="${SUDO_USER:-${USER:-}}"; sudo --preserve-env=ALFA_USER,ALFA_ARCH ./$alfaCommand "$@"
 
   trap 'trap - SIGTERM && kill $(pgrep -P $loopPid) $loopPid' SIGINT SIGTERM EXIT
 
