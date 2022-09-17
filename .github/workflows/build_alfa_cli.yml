@@ -84,7 +84,7 @@ jobs:
             -t \
             -v "${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE}" \
             --platform linux/arm64 \
-            dart/stable \
+            dart:stable \
             uname -a
       
       # - uses: uraimo/run-on-arch-action@v2
