@@ -78,19 +78,21 @@ jobs:
           distro: ubuntu_latest
 
           install: |
-            apt-get update && \
-              apt-get install -y --no-install-recommends gnupg2 curl git ca-certificates apt-transport-https openssh-client && \
-              curl https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
-              curl https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list && \
-              apt-get update && \
-              apt-get install -y --no-install-recommends dart && \
-              dart --disable-analytics && \
-              apt-get clean -y && \
-              rm -rf \
-                /var/cache/debconf/* \
-                /var/lib/apt/lists/* \
-                /tmp/* \
-                /var/tmp/*
+            apt-get update
+            apt-get install -y --no-install-recommends gnupg2 curl git ca-certificates apt-transport-https openssh-client
+            curl https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+            curl https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list
+            apt-get update
+            apt-get install -y --no-install-recommends dart
+            dart --disable-analytics
+            apt-get clean -y
+            rm -rf \
+              /var/cache/debconf/* \
+              /var/lib/apt/lists/* \
+              /tmp/* \
+              /var/tmp/*
+
+            export PATH="$PATH:/usr/lib/dart/bin"
 
           run: |
             # installs dependencies
