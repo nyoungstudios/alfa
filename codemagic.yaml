@@ -1,0 +1,36 @@
+workflows:
+  release:
+    name: Release
+    instance_type: mac_mini_m1
+    max_build_duration: 15
+    environment:
+      flutter: stable
+
+      groups:
+        - github
+    
+    triggering:
+      events:
+        - tag
+      tag_patterns:          
+        - pattern: 'v*'
+      
+    scripts:
+      - name: Add Dart SDK to PATH
+        script: |
+          echo PATH="$PATH":"$FLUTTER_ROOT/.pub-cache/bin" >> $CM_ENV
+          echo PATH="$PATH":"$FLUTTER_ROOT/bin" >> $CM_ENV
+      - name: Install dependencies
+        script: dart pub get
+      - name: Compile executable
+        script: make
+      - name: Renames executable
+        script: ./rename.sh
+
+    artifacts:
+      - alfa_macos_arm64
+
+    publishing:
+      scripts:
+        - name: Publish to GitHub
+          script: gh release upload "${CM_TAG}" alfa_macos_arm64

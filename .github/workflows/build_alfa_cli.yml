@@ -9,61 +9,61 @@ on:
   workflow_dispatch:
 
 jobs:
-  # tag:
-  #   runs-on: ubuntu-latest
-  #   timeout-minutes: 15
+  tag:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
 
-  #   outputs:
-  #     tag: ${{ steps.create-tag.outputs.tag }}
+    outputs:
+      tag: ${{ steps.create-tag.outputs.tag }}
 
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         fetch-depth: '0'
-  #     - name: Bump version and create tag
-  #       id: create-tag
-  #       uses: anothrNick/github-tag-action@1.40.0
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #         WITH_V: true
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      - name: Bump version and create tag
+        id: create-tag
+        uses: anothrNick/github-tag-action@1.40.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
 
-  # release:
-  #   needs: tag
-  #   runs-on: ${{ matrix.os }}
-  #   timeout-minutes: 15
+  release:
+    needs: tag
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
 
-  #   strategy:
-  #     matrix:
-  #       os: [ ubuntu-latest, macos-latest ]
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest ]
 
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         fetch-depth: '0'
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
 
-  #     - uses: dart-lang/setup-dart@v1.3
-  #       with:
-  #         sdk: stable
+      - uses: dart-lang/setup-dart@v1.3
+        with:
+          sdk: stable
 
-  #     - name: Install dependencies
-  #       run: dart pub get
+      - name: Install dependencies
+        run: dart pub get
 
-  #     - name: Compile Executable
-  #       id: compile
-  #       run: |
-  #         make
+      - name: Compile Executable
+        id: compile
+        run: |
+          make
 
-  #         ./rename.sh
+          ./rename.sh
 
-  #     - name: Upload binary to release
-  #       uses: svenstaro/upload-release-action@v2
-  #       with:
-  #         file: alfa_*
-  #         tag: ${{ needs.tag.outputs.tag }}
-  #         file_glob: true
+      - name: Upload binary to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: alfa_*
+          tag: ${{ needs.tag.outputs.tag }}
+          file_glob: true
 
   release-on-arm:
-    # needs: tag
+    needs: tag
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -86,7 +86,7 @@ jobs:
           # installs dependencies
           dart pub get
 
-          # builds executable (make isn't part of this docker image)
+          # compile executable (make isn't part of this docker image)
           dart compile exe bin/alfa.dart -o alfa
 
           # renames executable
@@ -112,13 +112,9 @@ jobs:
             dart:stable \
             "${GITHUB_WORKSPACE}/run.sh"
 
-      - name: Testing
-        run: |
-          ls -alth
-
-      # - name: Upload binaries to release
-      #   uses: svenstaro/upload-release-action@v2
-      #   with:
-      #     file: alfa_*
-      #     tag: ${{ needs.tag.outputs.tag }}
-      #     file_glob: true
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: alfa_*
+          tag: ${{ needs.tag.outputs.tag }}
+          file_glob: true
