@@ -106,6 +106,7 @@ jobs:
           docker run \
             --rm \
             -t \
+            --workdir "${GITHUB_WORKSPACE}" \
             -v "${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE}" \
             --platform linux/arm64 \
             dart:stable \
