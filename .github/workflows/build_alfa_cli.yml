@@ -77,6 +77,30 @@ jobs:
           sudo apt-get -qq install -y qemu qemu-user-static
           docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --credential yes
 
+      - name: Create entrypoint script
+        run: |
+          SCRIPT=$(cat << EOF
+          #!/bin/sh
+          set -eu
+
+          # installs dependencies
+          dart pub get
+
+          # builds executable
+          make
+
+          # renames executable
+          ./rename.sh
+          EOF
+          )
+
+          echo "$SCRIPT" > run.sh
+
+          chmod +x run.sh
+
+      - name: cat file
+        run: cat run.sh
+
       - name: Build arm executable with docker
         run: |
           docker run \
@@ -85,7 +109,7 @@ jobs:
             -v "${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE}" \
             --platform linux/arm64 \
             dart:stable \
-            uname -a
+            run.sh
       
       # - uses: uraimo/run-on-arch-action@v2
       #   name: Build Arm Executable
