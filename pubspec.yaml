@@ -1,6 +1,6 @@
 name: "alfa"
-description: A cli tool to kickstart your dev environment and set you up to soar!
-repository: "https://github.com/nyoungstudios/setup"
+description: A cli tool to setup your dev environment so that you can focus on the flying part!
+repository: "https://github.com/nyoungstudios/alfa"
 publish_to: none
 environment:
   sdk: '>=2.10.0 <3.0.0'
