@@ -1,0 +1,4 @@
+# This is the version file
+# You change this to the exact version of the Alfa executable you want to download
+# from the GitHub release or just leave it as the "latest".
+latest

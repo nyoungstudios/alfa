@@ -10,7 +10,7 @@ fi
 
 alfaCommand=""
 
-# renames the alfa executable based on the operating system and architecture
+# gets the alfa executable name based on the operating system and architecture
 unameSystem="$(uname -s)"
 unameMachine="$(uname -m)"
 
@@ -21,6 +21,32 @@ elif [[ "Darwin" == "$unameSystem" && ( "x86_64" == "$unameMachine" || "arm64" =
 else
   echo "alfa cannot run on ${unameSystem} ${unameMachine}. It can only run on Linux and macOS."
   exit 1
+fi
+
+# downloads executable if it does not exist already
+if [[ ! -f "$alfaCommand" ]]; then
+  version=""
+  if [[ -f "version.txt" ]]; then
+    version=`cat version.txt | grep -Ev '^((//|#)|[[:space:]]*$)' | head -n 1`
+  fi
+
+  if [[ -z "$version" || -z "$(echo $version | grep -E '^v[0-9]+.[0-9]+.[0-9]+$')" ]]; then
+    version=`git tag -l --sort=-v:refname | grep -E '^v[0-9]+.[0-9]+.[0-9]+$' | head -n 1`
+  fi
+
+  url="https://github.com/nyoungstudios/alfa/releases/download/${version}/${alfaCommand}"
+
+  if command -v "curl" > /dev/null 2>&1; then
+    curl -sL "$url" -o "$alfaCommand"
+  elif command -v "wget" > /dev/null 2>&1; then
+    wget -q "$url" -O "$alfaCommand"
+  else
+    echo "Must have curl or wget installed"
+    exit 1
+  fi
+
+  chmod +x "$alfaCommand"
+
 fi
 
 export ALFA_ARCH="$unameMachine"
