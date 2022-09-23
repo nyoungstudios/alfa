@@ -38,9 +38,9 @@ Once you create a configuration file of how you like to install all of the items
 
 The schema for the install list text file can be found [here](docs/InstallListSchema.md).
 
-### Inspiration
+### Running the program
 
-If you want to install my config, you can run this from the repo's root directory:
+To install your config, run the install script from the repo's root directory. Here is what the command would look like if you want to install my config:
 
 ```shell
 ./install.sh -c configs/nathaniel/config.toml -f configs/nathaniel/install_list.txt -e -r
@@ -56,4 +56,8 @@ If you want to install my config, you can run this from the repo's root director
 
 One of the problems with setting up your computer is determining whether a given script needs sudo permission. Alfa will properly call sudo for the commands that require root permission and will run everything else in user mode. You will only be prompted for your password immediately upon running the install script; and then, the sudo permissions will be refreshed in the background as long as the installer is running.
 
-This means that having your setup script pause halfway through because the sudo permissions timed out is a thing of the pass. This was especially annoying for installing brew packages (since it requires sudo permissions, but does not allow you to call brew with sudo).
+This means that having your setup script pause halfway through because the sudo permissions timed out is a thing of the past. This was especially annoying for installing brew packages (since it requires sudo permissions, but does not allow you to call brew with sudo).
+
+## Contributing
+
+If you have any ideas on how to improve this, I would be happy for your contribution. Here is the [Contributing](CONTRIBUTING.md) guidelines for more information.
