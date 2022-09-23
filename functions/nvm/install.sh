@@ -1,0 +1,10 @@
+#!/bin/bash
+
+install_nvm() {
+  # installs nvm
+  if [[ "$1" -eq 0 ]]; then
+    # nvm installer will not change your profile or rc file.
+    export PROFILE="/dev/null"
+  fi
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+}

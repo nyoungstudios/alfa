@@ -3,7 +3,7 @@
 set -eu
 
 # checks if install.sh is run from the correct directory
-if [[ ! -f "functions.sh" ]]; then
+if [[ ! -f "Makefile" ]]; then
   echo "install.sh must be run from the root directory of the alfa repo"
   exit 1
 fi

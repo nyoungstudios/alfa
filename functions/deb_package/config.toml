@@ -1,0 +1,2 @@
+linux.install_function = "install_deb_package"
+linux.sudo = true

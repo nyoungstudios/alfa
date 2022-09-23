@@ -1,0 +1,2 @@
+macos.install_function = "add_ohmyzsh_plugins_macos"
+linux.install_function = "add_ohmyzsh_plugins_linux"
