@@ -30,6 +30,11 @@ if [[ ! -f "$alfaCommand" ]]; then
     version=`cat version.txt | grep -Ev '^((//|#)|[[:space:]]*$)' | head -n 1`
   fi
 
+  if [[ -f "functions.sh" && ( "$version" == "latest" || "$version" > "v1.1.0" ) ]]; then
+    echo "Get the lastest commit from origin/main or specify alfa version <= v1.1.0"
+    exit 1
+  fi
+
   if [[ -z "$version" || -z "$(echo $version | grep -E '^v[0-9]+.[0-9]+.[0-9]+$')" ]]; then
     version=`git tag -l --sort=-v:refname | grep -E '^v[0-9]+.[0-9]+.[0-9]+$' | head -n 1`
   fi
