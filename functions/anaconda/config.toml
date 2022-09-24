@@ -1,0 +1,2 @@
+macos.install_function = "install_anaconda3_macos"
+linux.install_function = "install_anaconda3_linux"

@@ -30,7 +30,7 @@ Config files are defined as `toml` files. This has the benefits of JSON, but fri
 
 The schema for the config file can be found [here](docs/ConfigSchema.md).
 
-All the installation scripts are bash scripts, and they are defined in the [functions.sh](functions.sh) file. This script includes the functions to install popular tools such as brew, Oh My Zsh (and plugins), Anaconda, NVM, Docker, and much more! The documentation for all of the things you can install (along with its input arguments) can be found [here](docs/entries/). If there is not a function to install your favorite tool(s), it is easy to extend the bash script with a new function (and open a PR with your contribution).
+All the different things that you can install are defined in the [functions](functions/) folder. Take a look at the `README.md` for each of the function entries to see how to add them to your configuration file and what options to pass to it. The built-in functions includes the ability to install popular tools such as brew, Oh My Zsh (and plugins), Anaconda, NVM, Docker, and much more! If there is not an entry to install your favorite tool(s), it is easy to add a new entry - just run `./tools/create_function.sh entry_name` from the repository's root directory to get started.
 
 ### Install list file
 

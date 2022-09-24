@@ -1,0 +1,2 @@
+linux.install_function = "apt_get_install"
+linux.sudo = true

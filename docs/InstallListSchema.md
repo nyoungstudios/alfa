@@ -30,3 +30,10 @@ name
 // name2
 custom
 ```
+
+And in this case, only these items would be installed:
+```txt
+name
+item1
+item2
+```

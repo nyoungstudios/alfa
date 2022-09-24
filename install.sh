@@ -3,7 +3,7 @@
 set -eu
 
 # checks if install.sh is run from the correct directory
-if [[ ! -f "functions.sh" ]]; then
+if [[ ! -f "Makefile" ]]; then
   echo "install.sh must be run from the root directory of the alfa repo"
   exit 1
 fi
@@ -28,6 +28,11 @@ if [[ ! -f "$alfaCommand" ]]; then
   version=""
   if [[ -f "version.txt" ]]; then
     version=`cat version.txt | grep -Ev '^((//|#)|[[:space:]]*$)' | head -n 1`
+  fi
+
+  if [[ -f "functions.sh" && ( "$version" == "latest" || "$version" > "v1.1.0" ) ]]; then
+    echo "Get the lastest commit from origin/main or specify alfa version <= v1.1.0"
+    exit 1
   fi
 
   if [[ -z "$version" || -z "$(echo $version | grep -E '^v[0-9]+.[0-9]+.[0-9]+$')" ]]; then

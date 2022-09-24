@@ -86,14 +86,13 @@ void main(List<String> args) async {
   Map<String, List<String>> tagToInstallKey = {};
 
   for (MapEntry e in config.entries) {
-    for (String tag in e.value['tags']) {
-      tagToInstallKey.putIfAbsent(tag, () => []).add(e.key);
+    var tags = e.value['tags'];
+    if (tags != null) {
+      for (String tag in e.value['tags']) {
+        tagToInstallKey.putIfAbsent(tag, () => []).add(e.key);
+      }
     }
   }
-
-  // gets map of names to install functions
-  var dictionaryFile = await TomlDocument.load('dictionary.toml');
-  var dictionary = dictionaryFile.toMap();
 
   // stores an ordered set of the names of the things to install
   var namesToInstall = Set<String>();
@@ -108,8 +107,8 @@ void main(List<String> args) async {
       if (tagToInstallKey.containsKey(line)) {
         namesToInstall.addAll(tagToInstallKey[line]);
         // in the case where the tag and config name has the same name
-        if (dictionary.containsKey(line.split('+')[0]) &&
-            config.containsKey(line)) {
+        if (config.containsKey(line) &&
+            await File("functions/${line.split('+')[0]}/install.sh").exists()) {
           namesToInstall.add(line);
         }
       } else {
@@ -118,32 +117,48 @@ void main(List<String> args) async {
     }
   }
 
+  // for storing map of names to install functions
+  Map<String, Map> dictionary = {};
   List<String> filteredNamesToInstall = [];
 
   // filters invalid names to install
   for (String name in namesToInstall) {
     var baseName = name.split('+')[0];
 
-    if (!dictionary.containsKey(baseName)) {
-      print(
-          "dictionary.toml does not have a reference for \"${baseName}\" to install.");
-      print("Installer exiting");
-      exit(1);
-    } else if (!config.containsKey(name)) {
+    String installScriptPath = "functions/${baseName}/install.sh";
+    String configTomlPath = "functions/${baseName}/config.toml";
+    File installScript = File(installScriptPath);
+    File configToml = File(configTomlPath);
+
+    if (!config.containsKey(name)) {
       print(
           "${argResults['config']} does not have a reference for \"${name}\" to install.");
+      print("Installer exiting");
+      exit(1);
+    } else if (!await installScript.exists()) {
+      print(
+          "Trying to install \"${baseName}\", but install script \"${installScriptPath}\" does not exist.");
+      print("Installer exiting");
+      exit(1);
+    } else if (!await configToml.exists()) {
+      print(
+          "Trying to install \"${baseName}\", but config \"${configTomlPath}\" does not exist.");
       print("Installer exiting");
       exit(1);
     } else if (config[name].containsKey("os") &&
         !config[name]['os'].contains(osName)) {
       print(
           "Skipping install of \"${name}\" since the operating system, ${osName}, is not in ${config[name]['os']}.");
-    } else if (!dictionary[baseName].containsKey("install_function") &&
-        !dictionary[baseName].containsKey(osName)) {
-      print(
-          "Skipping install of \"${name}\" since there is no install function for \"${baseName}\" on operating system, ${osName}.");
     } else {
-      filteredNamesToInstall.add(name);
+      var tempConfig = await TomlDocument.load(configTomlPath);
+      dictionary[baseName] = tempConfig.toMap();
+      if (!dictionary[baseName].containsKey("install_function") &&
+          !dictionary[baseName].containsKey(osName)) {
+        print(
+            "Skipping install of \"${name}\" since there is no install function for \"${baseName}\" on operating system, ${osName}.");
+      } else {
+        filteredNamesToInstall.add(name);
+      }
     }
   }
 
@@ -173,7 +188,7 @@ void main(List<String> args) async {
 
     var functionName = functionMap["install_function"];
 
-    String command = 'source functions.sh; ${functionName}';
+    String command = 'source functions/${baseName}/install.sh; ${functionName}';
 
     // checks if there are any options to pass when installing this
     if (config[name].containsKey("options") &&
@@ -190,7 +205,8 @@ void main(List<String> args) async {
         arguments = ['-u', user];
       }
 
-      arguments.addAll(['--preserve-env=ALFA_USER,ALFA_ARCH', '--', '/bin/bash']);
+      arguments
+          .addAll(['--preserve-env=ALFA_USER,ALFA_ARCH', '--', '/bin/bash']);
     }
 
     arguments.addAll(['-euc', command]);

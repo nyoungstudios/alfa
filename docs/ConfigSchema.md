@@ -15,7 +15,7 @@ options = []
 
 ### Name
 
-The `name` field refers to the `name` field in the `dictionary.toml` file. Looking at the `dictionary.toml` file, you can find the associated bash function that is called in the `functions.sh` file. The name field is also what you would put in the install list file (passed with the `-f` argument in the `install.sh` script). Alternatively, you can always write a more friendly name in the `tags` array. See the next section for more detail on that.
+The `name` field refers any of the folder names in the [functions](../functions/) directory. Read the `README.md` file within each of the folders and/or take a look at the `install.sh` file to see what any given entry does upon being called. The name field in your config is also what you would put in the install list file (passed with the `-f` argument in the `install.sh` script). Alternatively, you can always write a more friendly name in the `tags` array. See the next section for more detail on that.
 
 If you like to call a function more than once, but with different options; then, you can append a plus sign after the name followed by a string to help you remember what that entry does (sort of like email address aliases). This is so we do not have duplicate keys within the dictionary in the toml file. For example, if we wanted to call the `apt_get_packages` function twice, we could do something like this.
 
