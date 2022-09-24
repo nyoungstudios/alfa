@@ -1,0 +1,36 @@
+name: Lint
+
+# Run only one workflow at a time on a pr
+# https://docs.github.com/en/actions/using-jobs/using-concurrency#example-using-a-fallback-value
+concurrency:
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'bin/**'
+      - 'lib/**'
+      - 'tests/**.dart'
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+
+      - uses: dart-lang/setup-dart@v1.3
+        with:
+          sdk: stable
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Run linter
+        run: dart analyze --fatal-infos

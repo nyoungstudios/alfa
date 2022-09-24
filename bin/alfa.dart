@@ -213,7 +213,7 @@ void main(List<String> args) async {
 
     // executes shell command
     var streams = await Process.start(executable, arguments, runInShell: true)
-        .then((Process process) {
+        .then((process) {
       var outStream = stdout.addStream(process.stdout);
       var errStream = stderr.addStream(process.stderr);
 
