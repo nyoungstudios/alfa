@@ -1,0 +1,15 @@
+# dart linting settings
+include: package:lints/recommended.yaml
+
+linter:
+  rules:
+    - always_put_control_body_on_new_line
+    - always_use_package_imports
+    - avoid_escaping_inner_quotes
+    - avoid_redundant_argument_values
+    - avoid_types_on_closure_parameters
+    - directives_ordering
+    - literal_only_boolean_expressions
+    - prefer_single_quotes
+    - sort_pub_dependencies
+    - unawaited_futures

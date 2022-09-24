@@ -1,18 +1,18 @@
 // run with dart run alfa
 import 'dart:io';
+
+import 'package:alfa/src/schema.dart';
 import 'package:args/args.dart';
 import 'package:json_schema/json_schema.dart';
 import 'package:shlex/shlex.dart' as shlex;
 import 'package:toml/toml.dart';
 
-import 'package:alfa/src/schema.dart';
-
 void printUsageMsg(ArgParser ap, String msg) {
   print(msg);
-  print("");
-  print("Usage: alfa [arguments]");
-  print("");
-  print("Options:");
+  print('');
+  print('Usage: alfa [arguments]');
+  print('');
+  print('Options:');
   print(ap.usage);
 }
 
@@ -20,21 +20,21 @@ void main(List<String> args) async {
   // argument parser
   var parser = ArgParser();
   parser.addFlag('help',
-      abbr: 'h', help: "Print this usage information.", negatable: false);
+      abbr: 'h', help: 'Print this usage information.', negatable: false);
   parser.addFlag('exit',
       abbr: 'e',
       help:
-          "Will exit immediately if any of the commands run has a non-zero exit status.",
+          'Will exit immediately if any of the commands run has a non-zero exit status.',
       negatable: false);
   parser.addOption('config',
       abbr: 'c',
-      help: "Config toml file with mappings of names to tags and options");
+      help: 'Config toml file with mappings of names to tags and options');
   parser.addOption('file',
-      abbr: 'f', help: "Text file with items to install (names or tags)");
+      abbr: 'f', help: 'Text file with items to install (names or tags)');
   parser.addFlag('run-zsh',
-      abbr: 'r', help: "Runs zsh at the end", negatable: false);
+      abbr: 'r', help: 'Runs zsh at the end', negatable: false);
 
-  var argResults;
+  ArgResults argResults;
 
   try {
     argResults = parser.parse(args);
@@ -45,13 +45,13 @@ void main(List<String> args) async {
 
   // checks required arguments
   if (argResults['help']) {
-    printUsageMsg(parser, "The alfa command-line utility");
+    printUsageMsg(parser, 'The alfa command-line utility');
     exit(0);
   } else if (argResults['config'] == null) {
-    printUsageMsg(parser, "Must pass a config file");
+    printUsageMsg(parser, 'Must pass a config file');
     exit(1);
   } else if (argResults['file'] == null) {
-    printUsageMsg(parser, "Must pass a text file with items to install");
+    printUsageMsg(parser, 'Must pass a text file with items to install');
     exit(1);
   }
 
@@ -66,7 +66,7 @@ void main(List<String> args) async {
   // gets operating system
   // valid options (linux, macos)
   var osName = Platform.operatingSystem;
-  print("Running alfa on ${osName} ${alfaArch}");
+  print('Running alfa on $osName $alfaArch');
 
   // loads config file which maps the install keys to the tags
   var configFile = await TomlDocument.load(argResults['config']);
@@ -88,21 +88,21 @@ void main(List<String> args) async {
   for (MapEntry e in config.entries) {
     var tags = e.value['tags'];
     if (tags != null) {
-      for (String tag in e.value['tags']) {
+      for (String tag in tags) {
         tagToInstallKey.putIfAbsent(tag, () => []).add(e.key);
       }
     }
   }
 
   // stores an ordered set of the names of the things to install
-  var namesToInstall = Set<String>();
+  var namesToInstall = <String>{};
 
   // reads input file
-  List<String> lines = await new File(argResults['file']).readAsLines();
+  List<String> lines = await File(argResults['file']).readAsLines();
 
   for (String line in lines) {
     line = line.trim();
-    if (line.length > 0 && !line.startsWith("#") && !line.startsWith('//')) {
+    if (line.isNotEmpty && !line.startsWith('#') && !line.startsWith('//')) {
       // only continues if names to install that are not commented out
       if (tagToInstallKey.containsKey(line)) {
         namesToInstall.addAll(tagToInstallKey[line]);
@@ -125,56 +125,56 @@ void main(List<String> args) async {
   for (String name in namesToInstall) {
     var baseName = name.split('+')[0];
 
-    String installScriptPath = "functions/${baseName}/install.sh";
-    String configTomlPath = "functions/${baseName}/config.toml";
+    String installScriptPath = 'functions/$baseName/install.sh';
+    String configTomlPath = 'functions/$baseName/config.toml';
     File installScript = File(installScriptPath);
     File configToml = File(configTomlPath);
 
     if (!config.containsKey(name)) {
       print(
-          "${argResults['config']} does not have a reference for \"${name}\" to install.");
-      print("Installer exiting");
+          '${argResults['config']} does not have a reference for "$name" to install.');
+      print('Installer exiting');
       exit(1);
     } else if (!await installScript.exists()) {
       print(
-          "Trying to install \"${baseName}\", but install script \"${installScriptPath}\" does not exist.");
-      print("Installer exiting");
+          'Trying to install "$baseName", but install script "$installScriptPath" does not exist.');
+      print('Installer exiting');
       exit(1);
     } else if (!await configToml.exists()) {
       print(
-          "Trying to install \"${baseName}\", but config \"${configTomlPath}\" does not exist.");
-      print("Installer exiting");
+          'Trying to install "$baseName", but config "$configTomlPath" does not exist.');
+      print('Installer exiting');
       exit(1);
-    } else if (config[name].containsKey("os") &&
+    } else if (config[name].containsKey('os') &&
         !config[name]['os'].contains(osName)) {
       print(
-          "Skipping install of \"${name}\" since the operating system, ${osName}, is not in ${config[name]['os']}.");
+          'Skipping install of "$name" since the operating system, $osName, is not in ${config[name]['os']}.');
     } else {
       var tempConfig = await TomlDocument.load(configTomlPath);
       dictionary[baseName] = tempConfig.toMap();
-      if (!dictionary[baseName].containsKey("install_function") &&
+      if (!dictionary[baseName].containsKey('install_function') &&
           !dictionary[baseName].containsKey(osName)) {
         print(
-            "Skipping install of \"${name}\" since there is no install function for \"${baseName}\" on operating system, ${osName}.");
+            'Skipping install of "$name" since there is no install function for "$baseName" on operating system, $osName.');
       } else {
         filteredNamesToInstall.add(name);
       }
     }
   }
 
-  print("");
-  print("--------------------------------------------");
-  print("These are the things that will be installed:");
+  print('');
+  print('--------------------------------------------');
+  print('These are the things that will be installed:');
   print(filteredNamesToInstall.join(', '));
-  print("");
-  print("--------------------------------------------");
+  print('');
+  print('--------------------------------------------');
 
   // sets executable
   String executable;
   if (user == null || user == 'root') {
-    executable = "/bin/bash";
+    executable = '/bin/bash';
   } else {
-    executable = "sudo";
+    executable = 'sudo';
   }
 
   for (String name in filteredNamesToInstall) {
@@ -182,17 +182,17 @@ void main(List<String> args) async {
     var functionMap = dictionary[baseName];
 
     // if function map does not contain the install_function key, the install_function key should be nested within the os name key.
-    if (!functionMap.containsKey("install_function")) {
+    if (!functionMap.containsKey('install_function')) {
       functionMap = functionMap[osName];
     }
 
-    var functionName = functionMap["install_function"];
+    var functionName = functionMap['install_function'];
 
-    String command = 'source functions/${baseName}/install.sh; ${functionName}';
+    String command = 'source functions/$baseName/install.sh; $functionName';
 
     // checks if there are any options to pass when installing this
-    if (config[name].containsKey("options") &&
-        config[name]["options"].isNotEmpty) {
+    if (config[name].containsKey('options') &&
+        config[name]['options'].isNotEmpty) {
       command +=
           ' ${config[name]["options"].map((option) => shlex.quote(option)).join(" ")}';
     }
@@ -200,7 +200,7 @@ void main(List<String> args) async {
     List<String> arguments = [];
 
     if (user != null && user != 'root') {
-      if (!functionMap.containsKey("sudo") || !functionMap['sudo']) {
+      if (!functionMap.containsKey('sudo') || !functionMap['sudo']) {
         // run in user mode
         arguments = ['-u', user];
       }
@@ -229,7 +229,7 @@ void main(List<String> args) async {
 
     // if running in strict mode and exit code is non-zero
     if (argResults['exit'] && exitCode != 0) {
-      print("alfa exiting with code: ${exitCode}");
+      print('alfa exiting with code: $exitCode');
       exit(exitCode);
     }
   }

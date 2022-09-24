@@ -1,5 +1,6 @@
-import 'package:test/test.dart';
 import 'dart:io';
+
+import 'package:test/test.dart';
 import 'package:toml/toml.dart';
 
 void main() async {
@@ -14,11 +15,11 @@ void main() async {
 
       // check files exist
       expect(await configFile.exists(), true,
-          reason: "Config file does not exist: ${configFile.path}");
+          reason: 'Config file does not exist: ${configFile.path}');
       expect(await installFile.exists(), true,
-          reason: "Install script file does not exist: ${installFile.path}");
+          reason: 'Install script file does not exist: ${installFile.path}');
       expect(await readmeFile.exists(), true,
-          reason: "Readme file does not exist: ${readmeFile.path}");
+          reason: 'Readme file does not exist: ${readmeFile.path}');
 
       // load config
       var configDocument = await TomlDocument.load(configFile.path);
@@ -27,22 +28,22 @@ void main() async {
       // expected function names to test
       Set expectedFunctionNames = {};
 
-      bool hasInstallFunction = config.containsKey("install_function");
+      bool hasInstallFunction = config.containsKey('install_function');
       if (hasInstallFunction) {
         expectedFunctionNames.add(config['install_function']);
       }
 
-      if (config.containsKey("linux")) {
+      if (config.containsKey('linux')) {
         var tempHasInstallFunction =
-            config['linux'].containsKey("install_function");
+            config['linux'].containsKey('install_function');
         if (tempHasInstallFunction) {
           expectedFunctionNames.add(config['linux']['install_function']);
         }
         hasInstallFunction |= tempHasInstallFunction;
       }
-      if (config.containsKey("macos")) {
+      if (config.containsKey('macos')) {
         var tempHasInstallFunction =
-            config['macos'].containsKey("install_function");
+            config['macos'].containsKey('install_function');
         if (tempHasInstallFunction) {
           expectedFunctionNames.add(config['macos']['install_function']);
         }
@@ -55,7 +56,7 @@ void main() async {
               'Config ${configFile.path} does not an "install_function" key.');
 
       var result = await Process.run(
-          "bash", ["-c", "source ${installFile.path}; declare -F"],
+          'bash', ['-c', 'source ${installFile.path}; declare -F'],
           runInShell: true);
 
       // gets actual function names
@@ -63,7 +64,7 @@ void main() async {
         var parts = line.split(' ');
         expect(parts.length == 3, true,
             reason:
-                "There is not a valid function defined in ${installFile.path}");
+                'There is not a valid function defined in ${installFile.path}');
         return parts[2];
       }).toSet();
 
@@ -71,7 +72,7 @@ void main() async {
       Set functionDiff = expectedFunctionNames.difference(functionNames);
       expect(functionDiff.isEmpty, true,
           reason:
-              "These expected functions ${functionDiff.toString()} are not defined in ${installFile.path}");
+              'These expected functions ${functionDiff.toString()} are not defined in ${installFile.path}');
     }
   });
 }
