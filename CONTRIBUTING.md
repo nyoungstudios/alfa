@@ -39,7 +39,7 @@ If you like to contribute a new entry with a function to install something, you 
 
 ### Style
 
-This respository uses EditorConfig to define the number of spaces for indentation as well as removing excess white characters. A lot of editors come bundled with native support, but if not you can always install an EditorConfig extension. For more information, visit their [website](https://editorconfig.org). Additionally, if you are using VS Code and are contributing to the Dart codebase, this repo includes a `settings.json` file with the recommended Dart style guidelines.
+This respository uses EditorConfig to define the number of spaces for indentation as well as removing excess white characters. If your editor does not come bundled with native support, you can install the appropriate EditorConfig extension. For more information, please visit their [website](https://editorconfig.org). Additionally, if you are contributing to the Dart codebase, this repo includes a VS Code `settings.json` file with the recommended Dart editor guidelines in addiiton to the Dart linting rules defined in `analysis_options.yaml`. To run the Dart linter, you can run `dart analyze`. And to apply the automated linting changes, run `dart fix --apply`.
 
 ### Testing
 
