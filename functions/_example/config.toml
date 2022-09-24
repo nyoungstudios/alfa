@@ -1,1 +1,8 @@
+# The value of the "install_function" key references the bash function name in install.sh
+# If you want to run the function in sudo mode, add `sudo = true`
+# If you want have separate functions for macos and linux, you can nest the "install_function"
+# and "sudo" keys under the operating system name. It will look something like this:
+#
+# linux.install_function = "install_example_linux"
+# macos.install_function = "install_example_macos"
 install_function = "install_example"

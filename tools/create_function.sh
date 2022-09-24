@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Usage: ./tools/create_function.sh function_name
+# Usage: ./tools/create_function.sh entry_name
 
 set -eu
 
@@ -10,14 +10,14 @@ if [[ ! -f "install.sh" ]]; then
 fi
 
 if [[ -z "$1" ]]; then
-  echo "must past the function name as the first argument"
+  echo "must past the entry name as the first argument"
   exit 1
 fi
 
 folder="functions/$1"
 
 if [[ -f "$folder/install.sh" || -f "$folder/config.toml" || -f "$folder/README.md" ]]; then
-  echo "a function with the name \"$1\" already exists"
+  echo "an entry with the name \"$1\" already exists"
   exit 1
 fi
 
@@ -61,4 +61,4 @@ EOF
 )
 echo "$README" > "$folder/README.md"
 
-echo "Created function with name $1 in $folder"
+echo "Created an entry with name $1 in $folder"

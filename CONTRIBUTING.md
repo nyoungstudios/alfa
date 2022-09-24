@@ -24,12 +24,18 @@ If you have a bug fix, performance improvement, feature addition, documentation 
 
 ### Coding
 
+#### Dart
+
 It does not really matter what editor you use; however, if you want to contribute to the Dart codebase and do not want to set up Dart on your local machine, you can use a containerized development environment with all of the requirements built-in. Here are two options:
 
 1. Gitpod. This repo has a Gitpod config already setup, so all you have to do is visit: https://gitpod.io/#https://github.com/nyoungstudios/alfa. Or replace my GitHub url with your fork.
 2. VS Code's dev container. In order to use this, clone your fork to your local machine and follow this [setup guide](https://code.visualstudio.com/docs/remote/containers) before opening the folder in VS Code. In short, you will need to install Docker and the [VS Code Remote Containers extension](https://aka.ms/vscode-remote/download/containers). Finally, when opening the repo in VS Code, it will prompt you to open it in the dev container. Then, it will build the Docker image with all the dependencies needed.
 
 To build the Dart executable, just run `make` from the repository's root directory. Then, run the `./rename.sh` script to rename the executable to the filename the `install.sh` script expects.
+
+#### Entries (Bash script functions)
+
+If you like to contribute a new entry with a function to install something, you can run this script `./tools/create_function.sh entry_name` from the repo's root directory to create the boilerplate code. For the guidelines and best practices for writing your function, please see the example [here](functions/_example/).
 
 ### Style
 
