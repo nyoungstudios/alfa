@@ -9,7 +9,7 @@ if [[ ! -f "install.sh" ]]; then
   exit 1
 fi
 
-if [[ -z "$1" ]]; then
+if [[ -z "${1:-}" ]]; then
   echo "must past the entry name as the first argument"
   exit 1
 fi
