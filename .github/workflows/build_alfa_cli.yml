@@ -55,10 +55,7 @@ jobs:
 
       - name: Compile Executable
         id: compile
-        run: |
-          make
-
-          ./rename.sh
+        run: make
 
       - name: Upload binary to release
         uses: svenstaro/upload-release-action@v2

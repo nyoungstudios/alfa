@@ -1,4 +1,6 @@
-all: build
+.PHONY: help clean rename lint fix
+
+all: build rename
 
 help:
 	@echo 'help - Show this message'
@@ -10,5 +12,16 @@ clean:
 	@rm -rf .packages
 	@rm -rf pubspec.lock
 
-build:
+alfa:
 	dart compile exe bin/alfa.dart -o alfa
+
+build: alfa
+
+rename: build
+	@./rename.sh
+
+lint:
+	@dart analyze --fatal-infos
+
+fix:
+	@dart fix --apply

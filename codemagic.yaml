@@ -8,13 +8,13 @@ workflows:
 
       groups:
         - github
-    
+
     triggering:
       events:
         - tag
-      tag_patterns:          
+      tag_patterns:
         - pattern: 'v*'
-      
+
     scripts:
       - name: Add Dart SDK to PATH
         script: |
@@ -24,8 +24,6 @@ workflows:
         script: dart pub get
       - name: Compile executable
         script: make
-      - name: Renames executable
-        script: ./rename.sh
 
     artifacts:
       - alfa_macos_arm64
