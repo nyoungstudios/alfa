@@ -21,6 +21,8 @@ void main(List<String> args) async {
   var parser = ArgParser();
   parser.addFlag('help',
       abbr: 'h', help: 'Print this usage information.', negatable: false);
+  parser.addFlag('dry-run',
+      abbr: 'n', help: 'Only prints what will be installed.', negatable: false);
   parser.addFlag('exit',
       abbr: 'e',
       help:
@@ -168,6 +170,12 @@ void main(List<String> args) async {
   print(filteredNamesToInstall.join(', '));
   print('');
   print('--------------------------------------------');
+
+  // exits if dry run is set to true
+  if (argResults['dry-run']) {
+    print('Exiting alfa, dry run mode enabled.');
+    exit(0);
+  }
 
   // sets executable
   String executable;
