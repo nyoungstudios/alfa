@@ -6,7 +6,7 @@ on:
     paths:
       - '.github/workflows/publish_dart_docker.yml'
       - 'dart.Dockerfile'
-      - 'dartdev.json'
+      - '.dart_config/**'
   schedule:
       # on the 2nd and 16th of every month
       - cron: '0 0 2,16 * *'
