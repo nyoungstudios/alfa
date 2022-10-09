@@ -59,10 +59,10 @@ And if you need to test out your code on macOS, I recommend creating a virtual m
 Now you are ready to open your pull request. For the PR title, please try to follow the format from the [Conventional Commits guidelines](https://www.conventionalcommits.org/en/v1.0.0):
 
 ```bash
-<type>: description
+<type>(optional scope): description
 ```
 
-While we do not have an automated changelog yet, I still think it is a good standard to go by. Also, this project is not really large enough to have scopes, so you can leave that part out, but for the `type`, feel free to use any of these options:
+While we do not have an automated changelog yet, I still think it is a good standard to go by. For the `type`, feel free to use any of these options:
 
 - `feat`: for adding a feature
 - `fix`: for resolving a bug
@@ -74,5 +74,11 @@ While we do not have an automated changelog yet, I still think it is a good stan
 - `perf`: for performance improvements
 - `test`: for testing
 - `chore`: for anything else
+
+And for the `scope`, please use these options if relevant (otherwise, please omit the scope):
+
+- `core`: changes relating to the main Dart program and `install.sh` script. Also, its related tests and documentation.
+- `functions`: changes to the functions folder
+- `configs`: adding/modifying a config in the configs folder
 
 In your PR description, please include what you changed, any testing you did, and reference any issue that it resolves. See [this GitHub guide](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue) on how to link a pull request to an issue.
