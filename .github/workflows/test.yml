@@ -1,9 +1,9 @@
 name: Test
 
-# Run only one workflow at a time on a pr
+# Run only one unique workflow at a time on a pr
 # https://docs.github.com/en/actions/using-jobs/using-concurrency#example-using-a-fallback-value
 concurrency:
-  group: ${{ github.head_ref || github.run_id }}
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
 on:
