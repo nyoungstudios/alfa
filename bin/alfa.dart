@@ -196,7 +196,8 @@ void main(List<String> args) async {
 
     var functionName = functionMap['install_function'];
 
-    String command = 'source functions/$baseName/install.sh; $functionName';
+    String command =
+        'source tools/download.sh; source functions/$baseName/install.sh; $functionName';
 
     // checks if there are any options to pass when installing this
     if (config[name].containsKey('options') &&

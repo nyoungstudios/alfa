@@ -41,14 +41,7 @@ if [[ ! -f "$alfaCommand" ]]; then
 
   url="https://github.com/nyoungstudios/alfa/releases/download/${version}/${alfaCommand}"
 
-  if command -v "curl" > /dev/null 2>&1; then
-    curl -sL "$url" -o "$alfaCommand"
-  elif command -v "wget" > /dev/null 2>&1; then
-    wget -q "$url" -O "$alfaCommand"
-  else
-    echo "Must have curl or wget installed"
-    exit 1
-  fi
+  source tools/download.sh; curl_or_wget -s "$url" "$alfaCommand"
 
   chmod +x "$alfaCommand"
 

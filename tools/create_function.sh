@@ -14,6 +14,11 @@ if [[ -z "${1:-}" ]]; then
   exit 1
 fi
 
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+  echo "Usage: ./tools/create_function.sh entry_name"
+  exit 0
+fi
+
 folder="functions/$1"
 
 if [[ -f "$folder/install.sh" || -f "$folder/config.toml" || -f "$folder/README.md" ]]; then
