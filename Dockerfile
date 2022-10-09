@@ -30,6 +30,10 @@ RUN if [ "$MIN" = "no" ]; then \
         cat /tmp/templates/p10k_config.zsh >> ~/.zshrc && \
         mv /tmp/templates/.p10k.zsh ~/.p10k.zsh; \
     fi && \
+    echo "" >> ~/.bashrc && \
+    cat /tmp/templates/gitpod_env.zsh >> ~/.bashrc && \
+    echo "" >> ~/.zshrc && \
+    cat /tmp/templates/gitpod_env.zsh >> ~/.zshrc && \
     rm -rf /tmp/templates
 
 ENV SHELL='/bin/zsh'
