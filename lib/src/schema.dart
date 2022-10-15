@@ -18,7 +18,8 @@ final configSchema = {
         'options': {
           'type': 'array',
           'items': {'type': 'string'}
-        }
+        },
+        'env': {'type': 'object'}
       }
     }
   }

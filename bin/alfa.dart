@@ -87,14 +87,14 @@ void main(List<String> args) async {
   // create a map of tag name to install keys
   Map<String, List<String>> tagToInstallKey = {};
 
-  for (MapEntry e in config.entries) {
-    var tags = e.value['tags'];
+  config.forEach((key, value) {
+    var tags = value['tags'];
     if (tags != null) {
       for (String tag in tags) {
-        tagToInstallKey.putIfAbsent(tag, () => []).add(e.key);
+        tagToInstallKey.putIfAbsent(tag, () => []).add(key);
       }
     }
-  }
+  });
 
   // stores an ordered set of the names of the things to install
   var namesToInstall = <String>{};
@@ -196,7 +196,16 @@ void main(List<String> args) async {
 
     var functionName = functionMap['install_function'];
 
-    String command =
+    String command = '';
+
+    // checks if there are any environment variables to pass when installing this
+    if (config[name].containsKey('env') && config[name]['env'].isNotEmpty) {
+      config[name]['env'].forEach((key, value) {
+        command += '$key=${shlex.quote(value.toString())}; ';
+      });
+    }
+
+    command +=
         'source tools/download.sh; source functions/$baseName/install.sh; $functionName';
 
     // checks if there are any options to pass when installing this
