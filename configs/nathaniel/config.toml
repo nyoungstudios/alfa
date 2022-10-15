@@ -84,7 +84,8 @@ options = [
   "--no-install-recommends",
   "guvcview",
   "v4l-utils",
-  "libreoffice"
+  "libreoffice",
+  "baobab"
 ]
 
 [ "apt_get_packages+vm" ]
