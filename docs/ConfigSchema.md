@@ -11,6 +11,7 @@ Here is the general schema for each entry. The `name` field is required. And all
 tags = []
 os = []
 options = []
+env = {}
 ```
 
 ### Name
@@ -76,7 +77,7 @@ echo_stuff() {
 }
 ```
 
-And we pass set the options as:
+And we set the options as:
 ```toml
 options = [
     "hi",
@@ -87,5 +88,30 @@ options = [
 It will print this to standard out:
 ```
 hi
+user
+```
+
+### Env
+
+The `env` field is a nested hash map of environment variables that will be passed to the install function. This may be ideal for setting optional arguments in the install function rather than using the positional arguments set in the `options` field. For example, if the function is defined as this:
+
+```sh
+echo_stuff() {
+  echo "${NAME:-user}"
+}
+```
+
+And we set the env as:
+```toml
+env = { NAME = "joe" }
+```
+
+It will print this to standard out:
+```
+joe
+```
+
+However, if we do not set the env, it will print this to standard out:
+```
 user
 ```
