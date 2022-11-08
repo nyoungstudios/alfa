@@ -43,5 +43,5 @@ jobs:
         with:
           file: dart.Dockerfile
           build-args: IMAGE_NAME=${{ matrix.image }}
-          push: false
+          push: true
           tags: ${{ matrix.tags }}

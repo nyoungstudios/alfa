@@ -48,5 +48,5 @@ jobs:
           build-args: |
             IMAGE_NAME=${{ matrix.image }}
             MIN=${{ matrix.min }}
-          push: false
+          push: true
           tags: ${{ matrix.tags }}
