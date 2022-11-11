@@ -6,6 +6,8 @@ help:
 	@echo 'help - Show this message'
 	@echo 'clean - remove dart package files'
 	@echo 'build - compiles an alfa executable'
+	@echo 'lint - runs the dart linter'
+	@echo 'fix - applies the dart linting changes'
 
 clean:
 	@rm -rf .dart_tool
