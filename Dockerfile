@@ -24,7 +24,7 @@ RUN if [ "$MIN" = "no" ]; then \
     cat /tmp/templates/zshrc_successful_cmd_hist.zsh >> ~/.zshrc && \
     echo "" >> ~/.zshrc && \
     cat /tmp/templates/gitpod_exports.zsh >> ~/.zshrc && \
-    echo 'for i in $(ls $HOME/.bashrc.d/ | grep -v -E "node|python"); do source $HOME/.bashrc.d/$i > /dev/null 2>&1; done' >> ~/.zshrc && \
+    echo 'for i in $(ls $HOME/.bashrc.d/ | grep -v python); do source $HOME/.bashrc.d/$i > /dev/null 2>&1; done' >> ~/.zshrc && \
     echo "" >> ~/.zshrc && \
     if [ "$MIN" = "no" ]; then \
         cat /tmp/templates/p10k_config.zsh >> ~/.zshrc && \
