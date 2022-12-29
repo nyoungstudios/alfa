@@ -15,7 +15,7 @@
 ### Cloning the repository
 
 ```shell
-git clone git@github.com:nyoungstudios/alfa.git
+git clone https://github.com/nyoungstudios/alfa.git
 cd alfa
 ```
 
