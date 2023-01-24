@@ -13,7 +13,7 @@ prettify_terminal_macos() {
   cat templates/p10k_config.zsh >> ~/.zshrc
 
   # replaces the default theme with the p10k theme
-  sed -i '.old' 's+ZSH_THEME="robbyrussell"+ZSH_THEME="powerlevel10k/powerlevel10k"+g' ~/.zshrc
+  sed -i '.old' 's+^ZSH_THEME=".*"$+ZSH_THEME="powerlevel10k/powerlevel10k"+g' ~/.zshrc
   rm ~/.zshrc.old
 }
 
@@ -30,5 +30,5 @@ prettify_terminal_linux() {
   cat templates/p10k_config.zsh >> ~/.zshrc
 
   # replaces the default theme with the p10k theme
-  sed -i 's+ZSH_THEME="robbyrussell"+ZSH_THEME="powerlevel10k/powerlevel10k"+g' ~/.zshrc
+  sed -i 's+^ZSH_THEME=".*"$+ZSH_THEME="powerlevel10k/powerlevel10k"+g' ~/.zshrc
 }
