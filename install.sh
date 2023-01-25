@@ -36,6 +36,10 @@ if [[ ! -f "$alfaCommand" ]]; then
   fi
 
   if [[ -z "$version" || -z "$(echo $version | grep -E '^v[0-9]+.[0-9]+.[0-9]+$')" ]]; then
+    if ! command -v "git" > /dev/null 2>&1; then
+      echo "Must have git installed to download the latest version"
+      exit 1
+    fi
     version=`git tag -l --sort=-v:refname | grep -E '^v[0-9]+.[0-9]+.[0-9]+$' | head -n 1`
   fi
 
@@ -56,7 +60,7 @@ if ! command -v "sudo" > /dev/null 2>&1; then
 else
   # sudo command exists
 
-  if [[ "$EUID" -eq 0 && "$SUDO_GID" -eq 0 ]]; then
+  if [[ "$EUID" -eq 0 && "${SUDO_GID:-1}" -eq 0 ]]; then
     echo "Some things may not install properly if this is called as root. This script will call sudo when needed."
   fi
 
