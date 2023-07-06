@@ -1,0 +1,2 @@
+linux.install_function = "install_pacman_packages"
+linux.sudo = true

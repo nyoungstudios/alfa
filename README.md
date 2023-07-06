@@ -7,6 +7,7 @@
 ## Prerequisites
 
 - Unix like operating system: macOS, Linux, or Windows WSL.
+- `bash`
 - `git`
 - `wget` or `curl`
 
