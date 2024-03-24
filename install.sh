@@ -76,20 +76,23 @@ else
 fi
 
 hasHelp="0"
+hasDryRun="0"
 hasRunShell="0"
 
-# checks if the help and run-zsh arguments were passed
+# checks if the help, dry-run, and run-zsh arguments were passed
 for argument in "$@"
 do
   if [[ "$argument" == "-h" || "$argument" == "--help" ]]; then
     hasHelp="1"
+  elif [[ "$argument" == "-n" || "$argument" == "--dry-run" ]]; then
+    hasDryRun="1"
   elif [[ "$argument" == "-r" || "$argument" == "--run-zsh" ]]; then
     hasRunShell="1"
   fi
 done
 
 # runs zsh
-if [[ "$hasHelp" == "0" && "$hasRunShell" == "1" ]]; then
+if [[ "$hasHelp" == "0" && "$hasDryRun" == "0" && "$hasRunShell" == "1" ]]; then
   echo 'Run "chsh -s $(which zsh)" to change your default shell to zsh. Logout and log back in to see the changes.'
   # runs zsh so you can see all the new changes
   exec zsh -l
