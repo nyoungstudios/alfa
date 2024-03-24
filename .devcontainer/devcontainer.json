@@ -16,12 +16,16 @@
     //     "docker-in-docker": "latest"
     // },
 
-    // Add the IDs of extensions you want installed when the container is created.
-    "extensions": [
-        "bungcip.better-toml",
-        "dart-code.dart-code",
-        "editorconfig.editorconfig"
-    ],
+    "customizations": {
+        "vscode": {
+            // Add the IDs of extensions you want installed when the container is created.
+            "extensions": [
+                "tamasfe.even-better-toml",
+                "dart-code.dart-code",
+                "editorconfig.editorconfig"
+            ]
+        }
+    },
 
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     // "forwardPorts": [],
