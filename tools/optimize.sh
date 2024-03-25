@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 # improves performance of macos virtal machine
 
