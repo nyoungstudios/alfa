@@ -1,0 +1,25 @@
+name: Test on macOS
+
+# Run only one unique workflow at a time on a pr
+# https://docs.github.com/en/actions/using-jobs/using-concurrency#example-using-a-fallback-value
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name  }}
+  cancel-in-progress: true
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  test-cmd:
+    runs-on: macos-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: test command
+        run: |
+          which install
+
+          man install | cat
