@@ -12,8 +12,12 @@ on:
 
 jobs:
   test-cmd:
-    runs-on: macos-latest
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 15
+
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest ]
 
     steps:
       - uses: actions/checkout@v4
