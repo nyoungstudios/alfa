@@ -16,10 +16,13 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
+      - name: uname
+        run: uname -a
 
       - name: test command
         run: |
           which install
 
-          man install | cat
+          install --help
