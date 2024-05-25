@@ -166,6 +166,7 @@ options = [
   "git",
   "copypath",
   "copyfile",
+  "sudo",
   "zsh-autosuggestions",
   "zsh-syntax-highlighting"
 ]
