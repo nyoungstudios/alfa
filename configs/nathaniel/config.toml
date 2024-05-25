@@ -175,6 +175,13 @@ tags = [ "terminal" ]
 
 [ vimrc ]
 tags = [ "terminal" ]
+options = [
+  "https://github.com/nyoungstudios/vimrc.git"
+]
+
+[ vimrc.env ]
+SET_AS_GIT_EDITOR = true
+
 
 [ jetbrains_toolbox ]
 tags = [ "jetbrains" ]
