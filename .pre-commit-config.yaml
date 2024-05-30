@@ -12,5 +12,9 @@ repos:
   - repo: https://github.com/DavidAnson/markdownlint-cli2
     rev: v0.13.0
     hooks:
+      # manual stage for running in the ci so that it will print out the errors
       - id: markdownlint-cli2
-        args: [--fix, --showFound]
+        stages: [manual]
+
+      - id: markdownlint-cli2
+        args: [--fix]
