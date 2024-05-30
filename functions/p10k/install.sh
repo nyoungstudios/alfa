@@ -8,9 +8,10 @@ prettify_terminal_macos() {
 
   # edit the .zshrc
   echo "Changing .zshrc file to Powerlevel10k theme"
-  cat ~/.zshrc | pbcopy && cat templates/p10k_init.zsh templates/zshrc_disable_flag.zsh > ~/.zshrc && pbpaste >> ~/.zshrc
+  cat ~/.zshrc | pbcopy && cat templates/p10k_init.zsh <(echo) templates/zshrc_disable_flag.zsh > ~/.zshrc && pbpaste >> ~/.zshrc
   echo "" >> ~/.zshrc
   cat templates/p10k_config.zsh >> ~/.zshrc
+  echo "" >> ~/.zshrc
 
   # replaces the default theme with the p10k theme
   sed -i '.old' 's+^ZSH_THEME=".*"$+ZSH_THEME="powerlevel10k/powerlevel10k"+g' ~/.zshrc
@@ -25,9 +26,10 @@ prettify_terminal_linux() {
 
   # edit the .zshrc
   echo "Changing .zshrc file to Powerlevel10k theme"
-  sed -i '1 e cat templates/p10k_init.zsh && cat templates/zshrc_disable_flag.zsh' ~/.zshrc
+  sed -i '1 e cat templates/p10k_init.zsh && echo && cat templates/zshrc_disable_flag.zsh' ~/.zshrc
   echo "" >> ~/.zshrc
   cat templates/p10k_config.zsh >> ~/.zshrc
+  echo "" >> ~/.zshrc
 
   # replaces the default theme with the p10k theme
   sed -i 's+^ZSH_THEME=".*"$+ZSH_THEME="powerlevel10k/powerlevel10k"+g' ~/.zshrc

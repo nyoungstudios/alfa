@@ -9,6 +9,7 @@ Installs apt-get packages.
 ## Options
 
 Accepts any number of arguments.
+
 - all arguments are passed after the `apt-get install -y` command
 
 ## Example

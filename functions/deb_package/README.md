@@ -9,6 +9,7 @@ Installs a single deb package.
 ## Options
 
 Accepts exactly 1 argument.
+
 - argument 1 is the url to download the deb file
 
 ## Example

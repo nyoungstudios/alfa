@@ -9,6 +9,7 @@ Clones any number of git repos to a specified parent folder. Will create the fol
 ## Options
 
 Accepts any number of arguments.
+
 - argument 1 is file path to the folder
 - each argument afterwards is the git url to clone
 

@@ -78,6 +78,7 @@ echo_stuff() {
 ```
 
 And we set the options as:
+
 ```toml
 options = [
     "hi",
@@ -86,7 +87,8 @@ options = [
 ```
 
 It will print this to standard out:
-```
+
+```text
 hi
 user
 ```
@@ -102,16 +104,19 @@ echo_stuff() {
 ```
 
 And we set the env as:
+
 ```toml
 env = { NAME = "joe" }
 ```
 
 It will print this to standard out:
-```
+
+```text
 joe
 ```
 
 However, if we do not set the env, it will print this to standard out:
-```
+
+```text
 user
 ```

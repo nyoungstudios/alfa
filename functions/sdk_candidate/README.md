@@ -9,6 +9,7 @@ Installs a single candidate with SDKMAN.
 ## Options
 
 Accepts any number of arguments.
+
 - all arguments are passed after the `sdk install` command
 
 ## Example

@@ -9,6 +9,7 @@ Clones a git repo to a specified parent folder, and it will create the folder if
 ## Options
 
 Accepts any number of arguments.
+
 - argument 1 is the file path to the folder
 - argument 2 is the git url to clone
 - each argument afterwards is a command/script to be run

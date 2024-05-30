@@ -20,9 +20,10 @@
         "vscode": {
             // Add the IDs of extensions you want installed when the container is created.
             "extensions": [
-                "tamasfe.even-better-toml",
                 "dart-code.dart-code",
-                "editorconfig.editorconfig"
+                "DavidAnson.vscode-markdownlint",
+                "editorconfig.editorconfig",
+                "tamasfe.even-better-toml"
             ]
         }
     },

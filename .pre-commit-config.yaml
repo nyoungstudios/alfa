@@ -1,0 +1,21 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      - id: trailing-whitespace
+      - id: check-shebang-scripts-are-executable
+
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.13.0
+    hooks:
+      # manual stage for running in the ci so that it will print out the errors
+      - id: markdownlint-cli2
+        name: Run markdownlint and log errors
+        stages: [manual]
+
+      - id: markdownlint-cli2
+        name: Run markdownlint and fix errors
+        args: [--fix]

@@ -15,7 +15,7 @@ ARG MIN="no"
 
 RUN if [ "$MIN" = "no" ]; then \
         git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k && \
-        sed -i '1 e cat /tmp/templates/p10k_init.zsh && cat /tmp/templates/zshrc_disable_flag.zsh' ~/.zshrc && \
+        sed -i '1 e cat /tmp/templates/p10k_init.zsh && echo && cat /tmp/templates/zshrc_disable_flag.zsh' ~/.zshrc && \
         sed -i 's+ZSH_THEME="robbyrussell"+ZSH_THEME="powerlevel10k/powerlevel10k"+g' ~/.zshrc; \
     else \
         sed -i '1 e cat /tmp/templates/zshrc_disable_flag.zsh' ~/.zshrc; \
@@ -32,8 +32,10 @@ RUN if [ "$MIN" = "no" ]; then \
     fi && \
     echo "" >> ~/.bashrc && \
     cat /tmp/templates/gitpod_env.zsh >> ~/.bashrc && \
+    echo "" >> ~/.bashrc && \
     echo "" >> ~/.zshrc && \
     cat /tmp/templates/gitpod_env.zsh >> ~/.zshrc && \
+    echo "" >> ~/.zshrc && \
     rm -rf /tmp/templates
 
 ENV SHELL='/bin/zsh'

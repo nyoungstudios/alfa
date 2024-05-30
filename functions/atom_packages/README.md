@@ -9,6 +9,7 @@ Installs atom packages.
 ## Options
 
 Accepts any number of arguments.
+
 - each argument is an atom package to install
 
 ## Example

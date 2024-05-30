@@ -9,6 +9,7 @@ This is a example function for demostration purposes.
 ## Options
 
 Accepts any number of arguments.
+
 - each argument is a printed to stdout
 
 ## Example
