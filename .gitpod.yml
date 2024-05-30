@@ -1,4 +1,4 @@
-image: nateateteen/zdartpod:base
+image: nateateteen/zdartpod:full
 
 tasks:
   - name: Install Dart Dependencies
