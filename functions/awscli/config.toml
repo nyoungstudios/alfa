@@ -1,0 +1,5 @@
+macos.install_function = "install_awscli_macos"
+macos.sudo = true
+
+linux.install_function = "install_awscli_linux"
+linux.sudo = true
