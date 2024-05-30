@@ -43,7 +43,6 @@ jobs:
           python -m venv venv
           source venv/bin/activate
           pip install pre-commit
-          PRE_COMMIT_HOME="$PWD/pre-commit-cache" pre-commit install
 
       - name: Run Style Check
         run: |
