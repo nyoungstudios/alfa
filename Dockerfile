@@ -32,8 +32,10 @@ RUN if [ "$MIN" = "no" ]; then \
     fi && \
     echo "" >> ~/.bashrc && \
     cat /tmp/templates/gitpod_env.zsh >> ~/.bashrc && \
+    echo "" >> ~/.bashrc && \
     echo "" >> ~/.zshrc && \
     cat /tmp/templates/gitpod_env.zsh >> ~/.zshrc && \
+    echo "" >> ~/.zshrc && \
     rm -rf /tmp/templates
 
 ENV SHELL='/bin/zsh'
