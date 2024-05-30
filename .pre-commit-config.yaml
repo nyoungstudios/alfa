@@ -10,7 +10,7 @@ repos:
       - id: check-shebang-scripts-are-executable
 
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: v0.12.1
+    rev: v0.13.0
     hooks:
       - id: markdownlint-cli2
-        args: [--fix]
+        args: [--fix, --showFound]
