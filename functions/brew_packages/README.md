@@ -9,6 +9,7 @@ Installs brew packages.
 ## Options
 
 Accepts any number of arguments.
+
 - each argument is a brew package to install
 
 ## Example

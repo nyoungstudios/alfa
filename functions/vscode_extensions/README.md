@@ -9,6 +9,7 @@ Installs Visual Studio Code extensions.
 ## Options
 
 Accepts any number of arguments.
+
 - each argument is a Visual Studio Code extension to install
 
 ## Example

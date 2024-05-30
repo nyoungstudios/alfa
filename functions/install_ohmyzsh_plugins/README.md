@@ -9,6 +9,7 @@ Downloads Oh My Zsh plugins and saves them to your Oh My Zsh custom plugins fold
 ## Options
 
 Accepts any number of arguments.
+
 - each argument is a git url to clone the Oh My Zsh plugin from
 
 ## Example

@@ -9,6 +9,7 @@ Modifies your `.zshrc` file to define which Oh My Zsh plugins to load.
 ## Options
 
 Accepts any number of arguments.
+
 - each argument is the plugin name. They can either be built-in plugins or custom plugins
 
 ## Example

@@ -9,6 +9,7 @@ Installs pacman packages.
 ## Options
 
 Accepts any number of arguments.
+
 - all arguments are passed after the `pacman -Sy --noconfirm` command
 
 ## Example

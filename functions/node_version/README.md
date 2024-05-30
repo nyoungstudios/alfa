@@ -9,6 +9,7 @@ Installs the latest Node version with NVM. Or can explicitly specify which Node 
 ## Options
 
 Accepts 0 or 1 arguments.
+
 - If argument 1 is given, then it will explicitly install the given Node version. Otherwise, it will install the latest Node version
 
 ## Example

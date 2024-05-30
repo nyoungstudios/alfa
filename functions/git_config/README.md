@@ -9,6 +9,7 @@ Sets the git user name and git user email attributes. And creates a ssh key whic
 ## Options
 
 Accepts exactly 2 arguments
+
 - argument 1 is the git user name
 - argument 2 is the git user email
 

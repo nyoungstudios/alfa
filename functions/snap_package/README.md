@@ -9,6 +9,7 @@ Installs a single snap package.
 ## Options
 
 Accepts any number of arguments.
+
 - all arguments are passed after the `snap install` command
 
 ## Example

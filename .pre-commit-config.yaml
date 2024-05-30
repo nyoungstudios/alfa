@@ -14,7 +14,9 @@ repos:
     hooks:
       # manual stage for running in the ci so that it will print out the errors
       - id: markdownlint-cli2
+        name: Run markdownlint and log errors
         stages: [manual]
 
       - id: markdownlint-cli2
+        name: Run markdownlint and fix errors
         args: [--fix]
