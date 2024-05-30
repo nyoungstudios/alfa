@@ -48,4 +48,4 @@ jobs:
       - name: Run Style Check
         run: |
           source venv/bin/activate
-          PRE_COMMIT_HOME="$PWD/pre-commit-cache" pre-commit run --all-files
+          PRE_COMMIT_HOME="$PWD/pre-commit-cache" pre-commit run --all-files --color always --verbose
