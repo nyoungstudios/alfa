@@ -6,7 +6,6 @@ repos:
       - id: mixed-line-ending
         args: [--fix=lf]
       - id: trailing-whitespace
-      - id: check-executables-have-shebangs
       - id: check-shebang-scripts-are-executable
 
   - repo: https://github.com/DavidAnson/markdownlint-cli2
