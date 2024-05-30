@@ -10,7 +10,7 @@ install_awscli_macos() {
 install_awscli_linux() {
   TMP_DIR="$(mktemp -d)"
   curl_or_wget -s "https://awscli.amazonaws.com/awscli-exe-linux-$ALFA_ARCH.zip" "$TMP_DIR/awscliv2.zip"
-  unzip "$TMP_DIR/awscliv2.zip" -d "$TMP_DIR"
+  unzip -q "$TMP_DIR/awscliv2.zip" -d "$TMP_DIR"
   "$TMP_DIR/aws/install"
   rm -rf "$TMP_DIR"
 }
