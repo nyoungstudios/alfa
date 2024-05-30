@@ -1,0 +1,34 @@
+# documentation: https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md
+
+# unordered list style
+MD004:
+  style: dash
+
+# maximum line length
+# disable it
+MD013: false
+
+# multiple headings with the same context
+MD024:
+  # duplication is allowed for headings with different parents
+  siblings_only: true
+
+# code block style
+MD046:
+  style: fenced
+
+# code fence style
+MD048:
+  style: backtick
+
+# emphasis style
+MD049:
+  style: asterisk
+
+# strong style
+MD050:
+  style: asterisk
+
+# table pipe style
+MD055:
+  style: leading_and_trailing
