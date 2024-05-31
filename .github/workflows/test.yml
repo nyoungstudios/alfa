@@ -11,6 +11,8 @@ on:
     branches: [ main ]
     paths:
       - 'functions/**'
+      - 'tests/**'
+      - 'pubspec.yaml'
   workflow_dispatch:
 
 jobs:
@@ -20,8 +22,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: '0'
 
       - uses: dart-lang/setup-dart@v1.3
         with:

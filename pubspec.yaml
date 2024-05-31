@@ -3,12 +3,12 @@ description: A cli tool to setup your dev environment so that you can focus on t
 repository: "https://github.com/nyoungstudios/alfa"
 publish_to: none
 environment:
-  sdk: '>=2.10.0 <3.0.0'
+  sdk: '>=3.0.0 <4.0.0'
 dependencies:
-  args: "^2.3.1"
-  json_schema: ^4.0.3
-  shlex: "^2.0.2"
-  toml: "^0.12.0"
+  args: ^2.4.2
+  json_schema: ^5.1.7
+  shlex: ^2.0.2
+  toml: ^0.14.0
 dev_dependencies:
-  lints: ^2.0.0
-  test: ^1.21.6
+  lints: ^2.0.1
+  test: ^1.24.3
