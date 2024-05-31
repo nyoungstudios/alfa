@@ -2,14 +2,15 @@ name: Publish Docker Image
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
     paths:
-      - 'templates/**'
-      - '.github/workflows/publish_docker.yml'
-      - 'Dockerfile'
+      - ".github/workflows/publish_docker.yml"
+      - "templates/**"
+      - "Dockerfile"
   schedule:
-      # on the 1st and 15th of every month
-      - cron: '0 0 1,15 * *'
+    # on the 1st and 15th of every month
+    - cron: "0 0 1,15 * *"
   workflow_dispatch:
 
 jobs:
@@ -33,8 +34,7 @@ jobs:
             tags: nateateteen/zshpod:full-min
             min: yes
     steps:
-      - name: Check out the repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
