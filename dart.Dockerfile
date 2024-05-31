@@ -26,10 +26,13 @@ RUN apt-get update && \
 # sets path
 ENV PATH="$PATH:/usr/lib/dart/bin"
 
-WORKDIR /home/$_USER/.dart
-
 # copies dart config files
+WORKDIR /home/$_USER/.dart
 ADD .dart_config/ .
+
+# disables dart telemetry
+WORKDIR /home/$_USER/.dart-tool
+ADD .dart-tool/ .
 
 # sets user back to gitpod
 USER $_USER
