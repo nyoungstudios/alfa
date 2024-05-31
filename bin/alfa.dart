@@ -36,7 +36,7 @@ void main(List<String> args) async {
   parser.addFlag('run-zsh',
       abbr: 'r', help: 'Runs zsh at the end', negatable: false);
 
-  ArgResults argResults;
+  late ArgResults argResults;
 
   try {
     argResults = parser.parse(args);
@@ -58,9 +58,9 @@ void main(List<String> args) async {
   }
 
   // gets environment variables
-  String user = Platform.environment['SUDO_USER'];
-  String alfaUser = Platform.environment['ALFA_USER'];
-  String alfaArch = Platform.environment['ALFA_ARCH'];
+  String? user = Platform.environment['SUDO_USER'];
+  String? alfaUser = Platform.environment['ALFA_USER'];
+  String? alfaArch = Platform.environment['ALFA_ARCH'];
   if (user == 'root' && alfaUser != '') {
     user = alfaUser;
   }
@@ -107,7 +107,7 @@ void main(List<String> args) async {
     if (line.isNotEmpty && !line.startsWith('#') && !line.startsWith('//')) {
       // only continues if names to install that are not commented out
       if (tagToInstallKey.containsKey(line)) {
-        namesToInstall.addAll(tagToInstallKey[line]);
+        namesToInstall.addAll(tagToInstallKey[line]!);
         // in the case where the tag and config name has the same name
         if (config.containsKey(line) &&
             await File("functions/${line.split('+')[0]}/install.sh").exists()) {
@@ -154,8 +154,8 @@ void main(List<String> args) async {
     } else {
       var tempConfig = await TomlDocument.load(configTomlPath);
       dictionary[baseName] = tempConfig.toMap();
-      if (!dictionary[baseName].containsKey('install_function') &&
-          !dictionary[baseName].containsKey(osName)) {
+      if (!dictionary[baseName]!.containsKey('install_function') &&
+          !dictionary[baseName]!.containsKey(osName)) {
         print(
             'Skipping install of "$name" since there is no install function for "$baseName" on operating system, $osName.');
       } else {
@@ -187,7 +187,7 @@ void main(List<String> args) async {
 
   for (String name in filteredNamesToInstall) {
     var baseName = name.split('+')[0];
-    var functionMap = dictionary[baseName];
+    var functionMap = dictionary[baseName]!;
 
     // if function map does not contain the install_function key, the install_function key should be nested within the os name key.
     if (!functionMap.containsKey('install_function')) {
