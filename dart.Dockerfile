@@ -15,7 +15,6 @@ RUN apt-get update && \
     curl https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list && \
     apt-get update && \
     apt-get install -y --no-install-recommends dart && \
-    dart --disable-analytics && \
     apt-get clean -y && \
     rm -rf \
 	    /var/cache/debconf/* \
@@ -26,13 +25,13 @@ RUN apt-get update && \
 # sets path
 ENV PATH="$PATH:/usr/lib/dart/bin"
 
-# copies dart config files
 WORKDIR /home/$_USER/.dart
-ADD .dart_config/ .
 
-# disables dart telemetry
-WORKDIR /home/$_USER/.dart-tool
-ADD .dart-tool/ .
+# copies dart config files
+ADD .dart_config/ .
 
 # sets user back to gitpod
 USER $_USER
+
+RUN dart --disable-analytics && \
+    echo "\ndart-tool=$(date '+%Y-%m-%d'),1" >> ~/.dart-tool/dart-flutter-telemetry.config
