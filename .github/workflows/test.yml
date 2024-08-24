@@ -10,6 +10,7 @@ on:
   pull_request:
     branches:
       - main
+      - test/functions
     paths:
       - ".github/workflows/test.yml"
       - "functions/**"
