@@ -43,6 +43,13 @@ jobs:
       - name: Compile Executable
         run: make
 
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.head_ref || github.ref_name }}-alfa-${{ matrix.os }}
+          path: alfa_*
+          retention-days: 5
+          overwrite: true
+
   test-functions-schema:
     name: Test functions schema
     runs-on: ubuntu-latest
