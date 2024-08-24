@@ -45,10 +45,8 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: test-functions-alfa-${{ matrix.os }}
+          name: alfa-${{ matrix.os }}
           path: alfa_*
-          retention-days: 5
-          overwrite: true
 
   test-functions-schema:
     name: Test functions schema
