@@ -115,6 +115,7 @@ jobs:
     name: Test installing functions
     runs-on: macos-latest
     needs:
+      - build-executable
       - test-functions-schema
       - find-functions
     if: ${{ needs.find-functions.outputs.length != '0' }}
