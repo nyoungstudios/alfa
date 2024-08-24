@@ -17,6 +17,31 @@ on:
   workflow_dispatch:
 
 jobs:
+  build-executable:
+    name: Build executable
+    runs-on: {{ matrix.os }}
+    timeout-minutes: 15
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Print uname info
+        run: uname -a
+
+      - uses: dart-lang/setup-dart@v1.3
+        with:
+          sdk: stable
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Compile Executable
+        run: make
+
   test-functions-schema:
     name: Test functions schema
     runs-on: ubuntu-latest
@@ -88,7 +113,7 @@ jobs:
 
   test-installing-functions:
     name: Test installing functions
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     needs:
       - test-functions-schema
       - find-functions
