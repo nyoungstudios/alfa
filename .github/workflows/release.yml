@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - test/functions
     paths:
       - "bin/**"
       - "lib/**"
@@ -11,116 +12,55 @@ on:
 
 jobs:
   tag:
+    name: Create tag and release
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
     outputs:
-      tag: ${{ steps.create-tag.outputs.tag }}
+      # tag: ${{ steps.create-tag.outputs.tag }}
+      tag: "v1.4.0"
 
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: "0"
 
-      - name: Bump version and create tag
-        id: create-tag
-        uses: anothrNick/github-tag-action@1.61.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WITH_V: true
+      # - name: Bump version and create tag
+      #   id: create-tag
+      #   uses: anothrNick/github-tag-action@1.61.0
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     WITH_V: true
 
-      - name: Create release
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release create "${{ steps.create-tag.outputs.tag }}" --title "${{ steps.create-tag.outputs.tag }}"
+      # - name: Create release
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: |
+      #     gh release create "${{ steps.create-tag.outputs.tag }}" --title "${{ steps.create-tag.outputs.tag }}"
 
-  release:
-    needs: tag
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 15
+  build-executables:
+    name: Build executables
+    uses: ./.github/workflows/build_alfa_cli.yml
 
-    strategy:
-      matrix:
-        os: [ubuntu-22.04, macos-13]
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: "0"
-
-      - uses: dart-lang/setup-dart@v1.3
-        with:
-          sdk: stable
-
-      - name: Install dependencies
-        run: dart pub get
-
-      - name: Compile Executable
-        id: compile
-        run: make
-
-      - name: Upload binary to release
-        uses: svenstaro/upload-release-action@v2
-        with:
-          file: alfa_*
-          tag: ${{ needs.tag.outputs.tag }}
-          file_glob: true
-
-  release-on-arm:
-    needs: tag
+  upload-artifacts-to-release:
+    name: Upload artifacts to release
+    needs:
+      - tag
+      - build-executables
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: "0"
 
-      - name: Setup arm emulation with qemu
-        run: |
-          sudo apt-get update -q -y
-          sudo apt-get -qq install -y qemu qemu-user-static
-          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --credential yes
+      - uses: actions/download-artifact@v4
 
-      - name: Create docker command script
-        run: |
-          SCRIPT=$(cat << EOF
-          #!/bin/sh
-          set -eu
+      - name: List artifacts
+        run: ls alfa_* -alh
 
-          # installs dependencies
-          dart pub get
-
-          # compile executable (make isn't part of this docker image)
-          dart compile exe bin/alfa.dart -o alfa
-
-          # renames executable
-          ./rename.sh
-          EOF
-          )
-
-          echo "$SCRIPT" > run.sh
-
-          chmod +x run.sh
-
-      - name: Cat docker command script
-        run: cat run.sh
-
-      - name: Build arm executable with docker
-        run: |
-          docker run \
-            --rm \
-            -t \
-            --workdir "${GITHUB_WORKSPACE}" \
-            -v "${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE}" \
-            --platform linux/arm64 \
-            dart:stable \
-            "${GITHUB_WORKSPACE}/run.sh"
-
-      - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@v2
-        with:
-          file: alfa_*
-          tag: ${{ needs.tag.outputs.tag }}
-          file_glob: true
+      # - name: Upload binary to release
+      #   uses: svenstaro/upload-release-action@v2
+      #   with:
+      #     file: alfa_*
+      #     tag: ${{ needs.tag.outputs.tag }}
+      #     file_glob: true
