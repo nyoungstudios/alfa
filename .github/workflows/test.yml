@@ -71,7 +71,9 @@ jobs:
         run: echo '${{ toJSON(steps.changes.outputs) }}' > /tmp/changes_output.json
 
       - name: Output changes to json
-        run: echo '${{ toJSON(steps.changes.outputs.changes) }}' > /tmp/changes.json
+        run: |
+          echo '${{ fromJSON(steps.changes.outputs.changes) }}' > /tmp/changes.json
+          jq . /tmp/changes.json
 
       - name: Create filtered matrix
         run: |
