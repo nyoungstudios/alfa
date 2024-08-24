@@ -5,9 +5,9 @@ on:
     branches:
       - main
       - test/functions
-    paths:
-      - "bin/**"
-      - "lib/**"
+    # paths:
+    #   - "bin/**"
+    #   - "lib/**"
   workflow_dispatch:
 
 jobs:
