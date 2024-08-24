@@ -55,8 +55,8 @@ jobs:
 
       - uses: actions/download-artifact@v4
 
-      - name: List artifacts
-        run: ls alfa_* -alh
+      - name: List files
+        run: ls -alh
 
       # - name: Upload binary to release
       #   uses: svenstaro/upload-release-action@v2
