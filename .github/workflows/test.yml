@@ -72,7 +72,7 @@ jobs:
 
       - name: Output changes to json
         run: |
-          echo '${{ fromJSON(steps.changes.outputs.changes) }}' > /tmp/changes.json
+          echo '${{ steps.changes.outputs.changes }}' > /tmp/changes.json
           jq . /tmp/changes.json
 
       - name: Create filtered matrix
