@@ -1,7 +1,4 @@
----
-# adds title in frontmatter so it does not fail style check
-title: 'Pull Request Template'
----
+<!-- markdownlint-disable MD041 -->
 <!-- Please make sure you have read the contributing guidelines -->
 
 ## Description
