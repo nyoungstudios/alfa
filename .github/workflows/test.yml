@@ -18,7 +18,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  test-functions-schema:
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -34,3 +34,47 @@ jobs:
 
       - name: Run tests
         run: dart test tests/test_functions.dart
+
+  find-functions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      matrix: ${{ env.matrix }}
+      length: ${{ env.length }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Get available functions
+        run: dart run tests/get_functions.dart -o /tmp/matrix.json
+
+      - name: Print matrix
+        run: jq . /tmp/matrix.json
+
+      - name: Writes yaml filters
+        run: |
+          filters="$(jq '(.include[].sourcePath as $sourcePath | $sourcePath | sub("^functions/"; "") | sub("/.*$"; "") + ": [ " + $sourcePath + " ]")' -r matrix.json)"
+          echo "$filters" > /tmp/filters.yml
+
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: /tmp/filters.yml
+
+      - name: Output changes to json
+        run: echo '${{ toJSON(steps.changes.outputs) }}' > /tmp/filter_output.json
+
+      - name: Create filtered matrix
+        run: |
+          # filters original matrix
+          jq -c --argfile changed /tmp/filter_output.json '.include | map(.sourcePath as $sourcePath | $sourcePath | sub("^functions/"; "") | sub("/.*$"; "") as $key | {"sourcePath": $sourcePath, "key": $key}) | map(select($changed[.key] == "true")) | {"include": [{"sourcePath": .[].sourcePath}]}' /tmp/matrix.json > /tmp/filtered_matrix.json
+
+          # prints json file for debugging
+          jq . /tmp/filtered_matrix.json
+
+          # sets matrix output
+          echo "matrix=$(cat /tmp/filtered_matrix.json)" >> $GITHUB_ENV
+          echo "length=$(jq '.include | length' /tmp/filtered_matrix.json)" >> $GITHUB_ENV

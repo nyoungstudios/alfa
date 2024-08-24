@@ -1,20 +1,12 @@
 // run with dart run alfa
 import 'dart:io';
 
+import 'package:alfa/src/args.dart';
 import 'package:alfa/src/schema.dart';
 import 'package:args/args.dart';
 import 'package:json_schema/json_schema.dart';
 import 'package:shlex/shlex.dart' as shlex;
 import 'package:toml/toml.dart';
-
-void printUsageMsg(ArgParser ap, String msg) {
-  print(msg);
-  print('');
-  print('Usage: alfa [arguments]');
-  print('');
-  print('Options:');
-  print(ap.usage);
-}
 
 void main(List<String> args) async {
   // argument parser
@@ -41,19 +33,20 @@ void main(List<String> args) async {
   try {
     argResults = parser.parse(args);
   } catch (e) {
-    printUsageMsg(parser, e.toString());
+    printUsageMsg(parser, 'alfa', e.toString());
     exit(1);
   }
 
   // checks required arguments
   if (argResults['help']) {
-    printUsageMsg(parser, 'The alfa command-line utility');
+    printUsageMsg(parser, 'alfa', 'The alfa command-line utility');
     exit(0);
   } else if (argResults['config'] == null) {
-    printUsageMsg(parser, 'Must pass a config file');
+    printUsageMsg(parser, 'alfa', 'Must pass a config file');
     exit(1);
   } else if (argResults['file'] == null) {
-    printUsageMsg(parser, 'Must pass a text file with items to install');
+    printUsageMsg(
+        parser, 'alfa', 'Must pass a text file with items to install');
     exit(1);
   }
 
