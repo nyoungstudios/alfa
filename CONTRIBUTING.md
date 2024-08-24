@@ -87,7 +87,7 @@ While we do not have an automated changelog yet, I still think it is a good stan
 - `feat`: for adding a feature
 - `fix`: for resolving a bug
 - `build`: relating to building the executable
-- `ci`: relating to the CI (in our case, GitHub actions or Codemagic)
+- `ci`: relating to the CI (in our case, GitHub actions)
 - `docs`: for documentation
 - `style`: for coding style
 - `refactor`: for refactoring code
