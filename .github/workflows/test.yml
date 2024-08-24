@@ -18,6 +18,7 @@ on:
 
 jobs:
   test-functions-schema:
+    name: Test functions schema
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -35,6 +36,7 @@ jobs:
         run: dart test tests/test_functions.dart
 
   find-functions:
+    name: Find functions that changed
     runs-on: ubuntu-latest
     timeout-minutes: 15
     outputs:
@@ -83,3 +85,21 @@ jobs:
           # sets matrix output
           echo "matrix=$(cat /tmp/filtered_matrix.json)" >> $GITHUB_ENV
           echo "length=$(jq 'length' /tmp/changes.json)" >> $GITHUB_ENV
+
+  test-installing-functions:
+    name: Test installing functions
+    runs-on: ubuntu-latest
+    needs:
+      - test-functions-schema
+      - find-functions
+    if: ${{ needs.find-functions.outputs.length != '0' }}
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.find-functions.outputs.matrix) }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Testing
+        run: |
+          which conda
