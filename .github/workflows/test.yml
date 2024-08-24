@@ -92,9 +92,9 @@ jobs:
 
   test-installing-functions:
     name: Test installing functions
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     needs:
-      - build-executable
+      - build-executables
       - test-functions-schema
       - find-functions
     if: ${{ needs.find-functions.outputs.length != '0' }}
