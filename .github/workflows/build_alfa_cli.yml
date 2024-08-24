@@ -1,53 +1,30 @@
 name: Build Alfa CLI
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "bin/**"
-      - "lib/**"
+  workflow_call:
   workflow_dispatch:
 
 jobs:
-  tag:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-
-    outputs:
-      tag: ${{ steps.create-tag.outputs.tag }}
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: "0"
-
-      - name: Bump version and create tag
-        id: create-tag
-        uses: anothrNick/github-tag-action@1.61.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WITH_V: true
-
-      - name: Create release
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release create "${{ steps.create-tag.outputs.tag }}" --title "${{ steps.create-tag.outputs.tag }}"
-
-  release:
-    needs: tag
+  build-executable:
+    name: Build executable
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
 
     strategy:
       matrix:
-        os: [ubuntu-22.04, macos-13]
+        include:
+          - name: linux-x86
+            os: ubuntu-22.04
+          - name: macos-arm
+            os: macos-14
+          - name: macos-x86
+            os: macos-13
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: "0"
+
+      - name: Print uname info
+        run: uname -a
 
       - uses: dart-lang/setup-dart@v1.3
         with:
@@ -57,25 +34,20 @@ jobs:
         run: dart pub get
 
       - name: Compile Executable
-        id: compile
         run: make
 
-      - name: Upload binary to release
-        uses: svenstaro/upload-release-action@v2
+      - uses: actions/upload-artifact@v4
         with:
-          file: alfa_*
-          tag: ${{ needs.tag.outputs.tag }}
-          file_glob: true
+          name: alfa-${{ matrix.name }}
+          path: alfa_*
 
-  release-on-arm:
-    needs: tag
+  build-executable-on-arm:
+    name: Build linux arm executable
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: "0"
 
       - name: Setup arm emulation with qemu
         run: |
@@ -118,9 +90,7 @@ jobs:
             dart:stable \
             "${GITHUB_WORKSPACE}/run.sh"
 
-      - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@v2
+      - uses: actions/upload-artifact@v4
         with:
-          file: alfa_*
-          tag: ${{ needs.tag.outputs.tag }}
-          file_glob: true
+          name: alfa-linux-arm
+          path: alfa_*

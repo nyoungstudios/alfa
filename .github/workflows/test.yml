@@ -17,41 +17,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-executable:
-    name: Build executable
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 15
-
-    strategy:
-      matrix:
-        include:
-          - name: linux-x86
-            os: ubuntu-22.04
-          - name: macos-arm
-            os: macos-14
-          - name: macos-x86
-            os: macos-13
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Print uname info
-        run: uname -a
-
-      - uses: dart-lang/setup-dart@v1.3
-        with:
-          sdk: stable
-
-      - name: Install dependencies
-        run: dart pub get
-
-      - name: Compile Executable
-        run: make
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: alfa-${{ matrix.name }}
-          path: alfa_*
+  build-executables:
+    name: Build executables
+    uses: ./.github/workflows/build_alfa_cli.yml
 
   test-functions-schema:
     name: Test functions schema
