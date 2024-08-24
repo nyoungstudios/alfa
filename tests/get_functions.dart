@@ -38,7 +38,7 @@ void main(List<String> args) async {
   List<Map<String, String>> include = [];
   await for (var entry in functionsDir.list()) {
     if (!p.basename(entry.path).startsWith('_')) {
-      include.add({'sourcePath': '${entry.path}/**'});
+      include.add({'sourcePath': '${entry.path}/'});
     }
   }
 
