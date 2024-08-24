@@ -24,8 +24,13 @@ jobs:
 
     strategy:
       matrix:
-        # ubuntu x86, macos arm, macos x86
-        os: [ubuntu-22.04, macos-14, macos-13]
+        include:
+          - name: linux-x86
+            os: ubuntu-22.04
+          - name: macos-arm
+            os: macos-14
+          - name: macos-x86
+            os: macos-13
 
     steps:
       - uses: actions/checkout@v4
@@ -45,7 +50,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: alfa-${{ matrix.os }}
+          name: alfa-${{ matrix.name }}
           path: alfa_*
 
   test-functions-schema:
