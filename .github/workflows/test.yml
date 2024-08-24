@@ -75,7 +75,7 @@ jobs:
       - name: Create filtered matrix
         run: |
           # creates matrix from changes
-          jq '. | map(. | {"sourcePath": .}) | {"include": .}' /tmp/changes.json > /tmp/filtered_matrix.json
+          jq -c '. | map(. | {"sourcePath": .}) | {"include": .}' /tmp/changes.json > /tmp/filtered_matrix.json
 
           # prints json file for debugging
           jq . /tmp/filtered_matrix.json
