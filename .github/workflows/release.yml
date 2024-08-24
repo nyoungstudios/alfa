@@ -4,10 +4,9 @@ on:
   push:
     branches:
       - main
-      - test/functions
-    # paths:
-    #   - "bin/**"
-    #   - "lib/**"
+    paths:
+      - "bin/**"
+      - "lib/**"
   workflow_dispatch:
 
 jobs:
@@ -17,26 +16,25 @@ jobs:
     timeout-minutes: 15
 
     outputs:
-      # tag: ${{ steps.create-tag.outputs.tag }}
-      tag: "v1.4.0"
+      tag: ${{ steps.create-tag.outputs.tag }}
 
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: "0"
 
-      # - name: Bump version and create tag
-      #   id: create-tag
-      #   uses: anothrNick/github-tag-action@1.61.0
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     WITH_V: true
+      - name: Bump version and create tag
+        id: create-tag
+        uses: anothrNick/github-tag-action@1.61.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
 
-      # - name: Create release
-      #   env:
-      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   run: |
-      #     gh release create "${{ steps.create-tag.outputs.tag }}" --title "${{ steps.create-tag.outputs.tag }}"
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ steps.create-tag.outputs.tag }}" --title "${{ steps.create-tag.outputs.tag }}"
 
   build-executables:
     name: Build executables
@@ -60,9 +58,9 @@ jobs:
       - name: List files
         run: ls -alh
 
-      # - name: Upload binary to release
-      #   uses: svenstaro/upload-release-action@v2
-      #   with:
-      #     file: alfa_*
-      #     tag: ${{ needs.tag.outputs.tag }}
-      #     file_glob: true
+      - name: Upload binary to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: alfa_*
+          tag: ${{ needs.tag.outputs.tag }}
+          file_glob: true
