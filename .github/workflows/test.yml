@@ -59,7 +59,7 @@ jobs:
 
       - name: Writes yaml filters
         run: |
-          filters="$(jq '(.include[].sourcePath as $sourcePath | $sourcePath | sub("^functions/"; "") | sub("/.*$"; "") + ": [ " + $sourcePath + " ]")' -r matrix.json)"
+          filters="$(jq '(.include[].sourcePath as $sourcePath | $sourcePath | sub("^functions/"; "") | sub("/.*$"; "") + ": [ " + $sourcePath + " ]")' -r /tmp/matrix.json)"
           echo "$filters" > /tmp/filters.yml
 
       - uses: dorny/paths-filter@v3
