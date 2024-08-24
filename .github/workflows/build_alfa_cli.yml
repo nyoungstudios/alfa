@@ -36,10 +36,6 @@ jobs:
       - name: Compile Executable
         run: make
 
-      - name: List files
-        run: |
-          ls -alth
-
       - uses: actions/upload-artifact@v4
         with:
           name: alfa-${{ matrix.name }}
@@ -93,10 +89,6 @@ jobs:
             --platform linux/arm64 \
             dart:stable \
             "${GITHUB_WORKSPACE}/run.sh"
-
-      - name: List files
-        run: |
-          ls -alth
 
       - uses: actions/upload-artifact@v4
         with:
