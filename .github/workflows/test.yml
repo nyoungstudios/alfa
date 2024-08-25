@@ -115,25 +115,25 @@ jobs:
       #   with:
       #     merge-multiple: true
 
-      - name: Set sudo access properly on macos
-        if: ${{ startsWith(matrix.os, 'macos') }}
-        run: |
-          echo "runner ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/runner
-          echo "@includedir /etc/sudoers.d" | sudo tee -a /etc/sudoers
+      # - name: Set sudo access properly on macos
+      #   if: ${{ startsWith(matrix.os, 'macos') }}
+      #   run: |
+      #     echo "runner ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/runner
+      #     echo "@includedir /etc/sudoers.d" | sudo tee -a /etc/sudoers
 
-      - name: Testing
-        run: |
-          whoami
-          sudo whoami
+      # - name: Testing
+      #   run: |
+      #     whoami
+      #     sudo whoami
 
-          sudo ls -alth /etc/sudoers.d/
-          sudo cat /etc/sudoers.d/runner
+      #     sudo ls -alth /etc/sudoers.d/
+      #     sudo cat /etc/sudoers.d/runner
 
-          sudo --help
+      #     sudo --help
 
-          sudo cat /etc/sudoers
-          sudo --remove-timestamp
-          echo after timestamp
+      #     sudo cat /etc/sudoers
+      #     sudo --remove-timestamp
+      #     echo after timestamp
           sudo -v
 
       # - name: Testing
@@ -146,7 +146,7 @@ jobs:
 
       - name: Testing
         run: |
-          ./test_sudo.sh
+          sudo ./test_sudo.sh
           # ./install.sh -h
 
       # - name: Testing
