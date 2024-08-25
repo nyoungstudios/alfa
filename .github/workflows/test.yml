@@ -178,4 +178,7 @@ jobs:
           docker start $TEST_CONTAINER_NAME
 
       - name: Run tests
-        run: dart test tests -n "test install ${{ matrix.name }}"
+        run: |
+          docker ps -a
+          docker exec $TEST_CONTAINER_NAME echo hi
+          dart test tests -n "test install ${{ matrix.name }}"
