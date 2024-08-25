@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# comment
 install_anaconda3_common() {
   chmod +x ~/anaconda3.sh
   # eval command to support evaluating environment variable strings passed from the config

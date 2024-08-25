@@ -153,11 +153,17 @@ jobs:
       - name: Test install with docker
         if: ${{ matrix.image }}
         run: |
+          echo "TEST_CONTAINER_NAME=alfa-test" >> $GITHUB_ENV
           docker run \
-            --rm \
+            --name $TEST_CONTAINER_NAME
             -t \
             --workdir "${GITHUB_WORKSPACE}" \
             -v "${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE}" \
             ${{ matrix.platform && format('--platform {0}', matrix.platform) }} \
             ${{ matrix.image }} \
             "${GITHUB_WORKSPACE}/run.sh"
+
+      - name: Test install with docker
+        if: ${{ matrix.image }}
+        run: |
+          docker start $TEST_CONTAINER_NAME
