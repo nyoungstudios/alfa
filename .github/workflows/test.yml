@@ -138,7 +138,7 @@ jobs:
 
       - name: Testing
         run: |
-          ./test_sudo.sh
+          sudo ./test_sudo.sh
           # ./install.sh -h
 
       # - name: Testing
