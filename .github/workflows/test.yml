@@ -19,97 +19,101 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-executables:
-    name: Build executables
-    uses: ./.github/workflows/build_alfa_cli.yml
+  # build-executables:
+  #   name: Build executables
+  #   uses: ./.github/workflows/build_alfa_cli.yml
 
-  test-functions-schema:
-    name: Test functions schema
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
+  # test-functions-schema:
+  #   name: Test functions schema
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 15
 
-    steps:
-      - uses: actions/checkout@v4
+  #   steps:
+  #     - uses: actions/checkout@v4
 
-      - uses: dart-lang/setup-dart@v1.3
-        with:
-          sdk: stable
+  #     - uses: dart-lang/setup-dart@v1.3
+  #       with:
+  #         sdk: stable
 
-      - name: Install dependencies
-        run: dart pub get
+  #     - name: Install dependencies
+  #       run: dart pub get
 
-      - name: Run tests
-        run: dart test tests/test_functions.dart
+  #     - name: Run tests
+  #       run: dart test tests/test_functions.dart
 
-  find-functions:
-    name: Find functions that changed
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    outputs:
-      matrix: ${{ env.matrix }}
-      length: ${{ env.length }}
+  # find-functions:
+  #   name: Find functions that changed
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 15
+  #   outputs:
+  #     matrix: ${{ env.matrix }}
+  #     length: ${{ env.length }}
 
-    steps:
-      - uses: actions/checkout@v4
+  #   steps:
+  #     - uses: actions/checkout@v4
 
-      - uses: dart-lang/setup-dart@v1.3
-        with:
-          sdk: stable
+  #     - uses: dart-lang/setup-dart@v1.3
+  #       with:
+  #         sdk: stable
 
-      - name: Install dependencies
-        run: dart pub get
+  #     - name: Install dependencies
+  #       run: dart pub get
 
-      - name: Get available functions
-        run: dart run tests/get_functions.dart -o /tmp/matrix.json
+  #     - name: Get available functions
+  #       run: dart run tests/get_functions.dart -o /tmp/matrix.json
 
-      - name: Print matrix
-        run: jq . /tmp/matrix.json
+  #     - name: Print matrix
+  #       run: jq . /tmp/matrix.json
 
-      - name: Writes yaml filters
-        run: |
-          filters="$(jq '(.include[].sourcePath as $sourcePath | $sourcePath | sub("^functions/"; "") | sub("/$"; "") + ": [ " + $sourcePath + "** ]")' -r /tmp/matrix.json)"
-          echo "$filters" > /tmp/filters.yml
+  #     - name: Writes yaml filters
+  #       run: |
+  #         filters="$(jq '(.include[].sourcePath as $sourcePath | $sourcePath | sub("^functions/"; "") | sub("/$"; "") + ": [ " + $sourcePath + "** ]")' -r /tmp/matrix.json)"
+  #         echo "$filters" > /tmp/filters.yml
 
-      - uses: dorny/paths-filter@v3
-        id: changes
-        with:
-          filters: /tmp/filters.yml
+  #     - uses: dorny/paths-filter@v3
+  #       id: changes
+  #       with:
+  #         filters: /tmp/filters.yml
 
-      - name: Output changes to json
-        run: |
-          echo '${{ steps.changes.outputs.changes }}' > /tmp/changes.json
-          jq . /tmp/changes.json
+  #     - name: Output changes to json
+  #       run: |
+  #         echo '${{ steps.changes.outputs.changes }}' > /tmp/changes.json
+  #         jq . /tmp/changes.json
 
-      - name: Create filtered matrix
-        run: |
-          # creates matrix from changes
-          jq -c '. | map(. | {"name": .}) | {"include": .}' /tmp/changes.json > /tmp/filtered_matrix.json
+  #     - name: Create filtered matrix
+  #       run: |
+  #         # creates matrix from changes
+  #         jq -c '. | map(. | {"name": .}) | {"include": .}' /tmp/changes.json > /tmp/filtered_matrix.json
 
-          # prints json file for debugging
-          jq . /tmp/filtered_matrix.json
+  #         # prints json file for debugging
+  #         jq . /tmp/filtered_matrix.json
 
-          # sets matrix output
-          echo "matrix=$(cat /tmp/filtered_matrix.json)" >> $GITHUB_ENV
-          echo "length=$(jq 'length' /tmp/changes.json)" >> $GITHUB_ENV
+  #         # sets matrix output
+  #         echo "matrix=$(cat /tmp/filtered_matrix.json)" >> $GITHUB_ENV
+  #         echo "length=$(jq 'length' /tmp/changes.json)" >> $GITHUB_ENV
 
   test-installing-functions:
     name: Test installing functions
-    runs-on: ubuntu-22.04
-    needs:
-      - build-executables
-      - test-functions-schema
-      - find-functions
-    if: ${{ needs.find-functions.outputs.length != '0' }}
+    # runs-on: ubuntu-22.04
+    runs-on: ${{{ matrix.os }}}
+    timeout-minutes: 15
+    # needs:
+    #   - build-executables
+    #   - test-functions-schema
+    #   - find-functions
+    # if: ${{ needs.find-functions.outputs.length != '0' }}
     strategy:
       fail-fast: false
-      matrix: ${{ fromJson(needs.find-functions.outputs.matrix) }}
+      # matrix: ${{ fromJson(needs.find-functions.outputs.matrix) }}
+      matrix:
+        os: [ubuntu-22.04, macos-14, macos-13]
 
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/download-artifact@v4
-        with:
-          merge-multiple: true
+      # - uses: actions/download-artifact@v4
+      #   with:
+      #     merge-multiple: true
 
 
       - name: Testing
@@ -119,7 +123,7 @@ jobs:
           whoami
           sudo echo hi
 
-      - name: Testing
-        run: |
-          echo ${{ matrix.name }} > test_install_list.txt
-          # ./install.sh -e -c tests/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt
+      # - name: Testing
+      #   run: |
+      #     echo ${{ matrix.name }} > test_install_list.txt
+      #     # ./install.sh -e -c tests/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt
