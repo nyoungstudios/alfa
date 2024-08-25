@@ -123,6 +123,10 @@ jobs:
           whoami
           sudo echo hi
 
+      - name: Testing
+        run: |
+          ./install.sh -h
+
       # - name: Testing
       #   run: |
       #     echo ${{ matrix.name }} > test_install_list.txt
