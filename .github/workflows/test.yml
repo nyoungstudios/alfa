@@ -143,7 +143,7 @@ jobs:
 
       - name: Testing
         env:
-          SUDO_ASKPASS: $GITHUB_WORKSPACE/password.sh
+          SUDO_ASKPASS: ${{ github.workspace }}/password.sh
         run: |
           echo $SUDO_ASKPASS
           ./test_sudo.sh
