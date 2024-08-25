@@ -19,14 +19,9 @@ Future<ProcessResult> runCommand(
   if (testContainerName == null || testContainerName == '') {
     return await Process.run(executable, arguments, runInShell: true);
   } else {
-    final List<String> args = [
-      'exec',
-      testContainerName,
-      executable,
-      ...arguments
-    ];
-    print(args);
-    return await Process.run('docker', args, runInShell: true);
+    return await Process.run(
+        'docker', ['exec', testContainerName, executable, ...arguments],
+        runInShell: true);
   }
 }
 
