@@ -13,35 +13,41 @@ final List<Map> runners = [
   {'os': 'macos-13'},
 ];
 
-Future<ProcessResult> runCommand(
-    String executable, List<String> arguments) async {
+ProcessResult runCommand(String executable, List<String> arguments) {
   String? testContainerName = Platform.environment['TEST_CONTAINER_NAME'];
+  ProcessResult result;
   if (testContainerName == null || testContainerName == '') {
-    return await Process.run(executable, arguments, runInShell: true);
+    // runs command on machine
+    result = Process.runSync(executable, arguments, runInShell: true);
   } else {
-    return await Process.run(
+    // runs command on docker container
+    result = Process.runSync(
         'docker', ['exec', testContainerName, executable, ...arguments],
         runInShell: true);
   }
+
+  // cleans output
+  final String stdout = result.stdout.toString().trimRight();
+  final String stderr = result.stderr.toString().trimRight();
+
+  print('stdout: $stdout');
+  print('stderr: $stderr');
+
+  return ProcessResult(
+    result.pid,
+    result.exitCode,
+    stdout,
+    stderr,
+  );
 }
 
 void main() async {
   test('test install _example install', () async {
-    final result = await runCommand('echo', ['hi']);
-    String output = result.stdout.toString().trimRight();
-    String outputError = result.stderr.toString().trimRight();
-    print(output);
-    print('------');
-    print(outputError);
-    expect(output, 'hi');
+    final result = runCommand('echo', ['hi']);
+    expect(result.stdout, 'hi');
   });
   test('test install _example install 2', () async {
-    final result = await runCommand('echo', ['bye']);
-    String output = result.stdout.toString().trimRight();
-    String outputError = result.stderr.toString().trimRight();
-    print(output);
-    print('------');
-    print(outputError);
-    expect(output, 'bye');
+    final result = runCommand('echo', ['bye']);
+    expect(result.stdout, 'bye');
   });
 }
