@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 import 'package:toml/toml.dart';
 
 void main() async {
-  test('test functions', () async {
+  test('test function schema', () async {
     final functionsDir = Directory('functions');
 
     // iterate over the folders in the functions folder

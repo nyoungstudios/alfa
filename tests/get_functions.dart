@@ -8,7 +8,7 @@ import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
 import 'package:yaml_writer/yaml_writer.dart';
 
-import 'function_runners.dart';
+import 'function_install_test.dart';
 
 void main(List<String> args) async {
   // argument parser

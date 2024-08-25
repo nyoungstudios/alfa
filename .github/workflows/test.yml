@@ -39,7 +39,7 @@ jobs:
         run: dart pub get
 
       - name: Run tests
-        run: dart test tests/functions_test.dart
+        run: dart test tests/function_schema_test.dart
 
   find-functions:
     name: Find functions that changed
