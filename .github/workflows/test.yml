@@ -129,7 +129,15 @@ jobs:
       - name: Create docker command script
         if: ${{ matrix.image }}
         run: |
-          echo "sudo ./install.sh -e -c tests/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt" > run.sh
+          SCRIPT=$(cat << EOF
+          #!/bin/sh
+          set -eu
+
+          sudo ./install.sh -e -c tests/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt
+          EOF
+          )
+
+          echo "$SCRIPT" > run.sh
 
           chmod +x run.sh
 
