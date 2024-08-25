@@ -111,6 +111,13 @@ jobs:
         with:
           merge-multiple: true
 
+
+      - name: Testing
+        run: |
+          ls -alth
+          which sudo
+          whoami
+
       - name: Testing
         run: |
           echo ${{ matrix.name }} > test_install_list.txt
