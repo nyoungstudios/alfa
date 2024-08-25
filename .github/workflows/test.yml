@@ -119,6 +119,7 @@ jobs:
         if: ${{ startsWith(matrix.os, 'macos') }}
         run: |
           echo "runner ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/runner
+          echo "@includedir /etc/sudoers.d" | sudo tee -a /etc/sudoers
 
       - name: Testing
         run: |
