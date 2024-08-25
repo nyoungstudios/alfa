@@ -94,8 +94,8 @@ jobs:
 
   test-installing-functions:
     name: Test installing functions
-    # runs-on: ubuntu-22.04
-    runs-on: ${{ matrix.os }}
+    runs-on: macos-14
+    # runs-on: ${{ matrix.os }}
     timeout-minutes: 15
     needs:
       - build-executables
@@ -104,9 +104,9 @@ jobs:
     if: ${{ needs.find-functions.outputs.length != '0' }}
     strategy:
       fail-fast: false
-      # matrix: ${{ fromJson(needs.find-functions.outputs.matrix) }}
-      matrix:
-        os: [ubuntu-22.04, macos-14, macos-13]
+      matrix: ${{ fromJson(needs.find-functions.outputs.matrix) }}
+      # matrix:
+      #   os: [ubuntu-22.04, macos-14, macos-13]
 
     steps:
       - uses: actions/checkout@v4
@@ -125,4 +125,4 @@ jobs:
       - name: Testing
         run: |
           echo ${{ matrix.name }} > test_install_list.txt
-          # ./install.sh -e -c tests/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt
+          sudo ./install.sh -e -c tests/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt
