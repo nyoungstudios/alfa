@@ -106,10 +106,17 @@ jobs:
       fail-fast: false
       # matrix: ${{ fromJson(needs.find-functions.outputs.matrix) }}
       matrix:
-        os: [ubuntu-22.04, macos-14, macos-13]
+        os: [ubuntu-22.04, macos-14, macos-14-large, macos-13, macos-13-xlarge]
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: testing
+        run: |
+          uname -a
+          sudo echo hi
+          sudo -v
+
 
       # - uses: actions/download-artifact@v4
       #   with:
@@ -144,10 +151,10 @@ jobs:
       # - name: Set alfa permissions
       #   run: chmod +x alfa_*
 
-      - name: Testing
-        run: |
-          sudo ./test_sudo.sh
-          # ./install.sh -h
+      # - name: Testing
+      #   run: |
+      #     sudo ./test_sudo.sh
+      #     # ./install.sh -h
 
       # - name: Testing
       #   run: |
