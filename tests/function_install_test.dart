@@ -16,7 +16,7 @@ final List<Map> runners = [
 Future<ProcessResult> runCommand(
     String executable, List<String> arguments) async {
   String? testContainerName = Platform.environment['TEST_CONTAINER_NAME'];
-  if (testContainerName == null) {
+  if (testContainerName == null || testContainerName == '') {
     return await Process.run(executable, arguments, runInShell: true);
   } else {
     return await Process.run(

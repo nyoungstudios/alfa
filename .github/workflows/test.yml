@@ -103,6 +103,9 @@ jobs:
       fail-fast: false
       matrix: ${{ fromJson(needs.find-functions.outputs.matrix) }}
 
+    env:
+      TEST_CONTAINER_NAME: ${{ matrix.image && 'alfa-test' }}
+
     steps:
       - uses: actions/checkout@v4
 
@@ -153,7 +156,6 @@ jobs:
       - name: Test install with docker
         if: ${{ matrix.image }}
         run: |
-          echo "TEST_CONTAINER_NAME=alfa-test" >> $GITHUB_ENV
           docker run \
             --name $TEST_CONTAINER_NAME \
             -t \
