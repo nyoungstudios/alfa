@@ -134,10 +134,7 @@ jobs:
         run: |
           SCRIPT=$(cat << EOF
           #!/bin/sh
-          set -e
-
-          echo $USER
-          whoami
+          set -eu
 
           ./install.sh -h
 

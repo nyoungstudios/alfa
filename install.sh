@@ -52,6 +52,7 @@ if [[ ! -f "$alfaCommand" ]]; then
 fi
 
 export ALFA_ARCH="$unameMachine"
+export ALFA_USER="${SUDO_USER:-${USER:-}}"
 
 # runs the alfa command depending upon if sudo exists
 if ! command -v "sudo" > /dev/null 2>&1; then
@@ -69,7 +70,7 @@ else
   while :; do sudo -v; sleep 59; done &
   loopPid="$!"
 
-  export ALFA_USER="${SUDO_USER:-${USER:-}}"; sudo --preserve-env=ALFA_USER,ALFA_ARCH ./$alfaCommand "$@"
+  sudo --preserve-env=ALFA_USER,ALFA_ARCH ./$alfaCommand "$@"
 
   trap 'trap - SIGTERM && kill $(pgrep -P $loopPid) $loopPid' SIGINT SIGTERM EXIT
 
