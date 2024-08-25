@@ -127,6 +127,7 @@ jobs:
 
           sudo cat /etc/sudoers
           sudo cat /etc/sudo.conf
+          sudo -v
 
 
       # - name: Set sudo access properly on macos
