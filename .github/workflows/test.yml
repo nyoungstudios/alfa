@@ -155,7 +155,7 @@ jobs:
         run: |
           echo "TEST_CONTAINER_NAME=alfa-test" >> $GITHUB_ENV
           docker run \
-            --name $TEST_CONTAINER_NAME
+            --name $TEST_CONTAINER_NAME \
             -t \
             --workdir "${GITHUB_WORKSPACE}" \
             -v "${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE}" \
