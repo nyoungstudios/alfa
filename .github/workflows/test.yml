@@ -128,24 +128,22 @@ jobs:
           sudo ls -alth /etc/sudoers.d/
           sudo cat /etc/sudoers.d/runner
 
-      - name: Set sudo access properly on macos
-        if: ${{ startsWith(matrix.os, 'macos') }}
-        run: |
-          echo "runner ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers.d/runner
+      # - name: Set sudo access properly on macos
+      #   if: ${{ startsWith(matrix.os, 'macos') }}
+      #   run: |
+      #     echo "runner ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers.d/runner
 
-      - name: Testing
-        run: |
-          sudo ls -alth /etc/sudoers.d/
-          sudo cat /etc/sudoers.d/runner
+      # - name: Testing
+      #   run: |
+      #     sudo ls -alth /etc/sudoers.d/
+      #     sudo cat /etc/sudoers.d/runner
 
       # - name: Set alfa permissions
       #   run: chmod +x alfa_*
 
       - name: Testing
-        env:
-          SUDO_ASKPASS: ${{ github.workspace }}/password.sh
         run: |
-          echo $SUDO_ASKPASS
+          sudo -v
           ./test_sudo.sh
           # ./install.sh -h
 
