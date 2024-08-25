@@ -62,10 +62,11 @@ jobs:
       - name: Get available functions
         run: dart run tests/get_functions.dart -f /tmp/filters.yml -m /tmp/matrix.json
 
-      - name: Print outputs
-        run: |
-          cat /tmp/filters.yml
-          jq . /tmp/matrix.json
+      - name: Print filters
+        run: cat /tmp/filters.yml
+
+      - name: Print matrix
+        run: jq . /tmp/matrix.json
 
       - uses: dorny/paths-filter@v3
         id: changes
