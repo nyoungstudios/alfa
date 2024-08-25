@@ -113,6 +113,9 @@ jobs:
       - name: Set alfa permissions
         run: chmod +x alfa_*
 
+      - name: Create install list file
+        run: echo ${{ matrix.name }} > test_install_list.txt
+
       - name: Print help message
         if: ${{ !matrix.image }}
         run: |
@@ -121,8 +124,14 @@ jobs:
       - name: Test install
         if: ${{ !matrix.image }}
         run: |
-          echo ${{ matrix.name }} > test_install_list.txt
-          # sudo ./install.sh -e -c tests/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt
+          sudo ./install.sh -e -c tests/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt
+
+      - name: Create docker command script
+        if: ${{ matrix.image }}
+        run: |
+          echo "sudo ./install.sh -e -c tests/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt" > run.sh
+
+          chmod +x run.sh
 
       - name: Setup arm emulation with qemu
         if: ${{ matrix.image && matrix.platform == 'linux/arm64' }}
@@ -130,3 +139,15 @@ jobs:
           sudo apt-get update -q -y
           sudo apt-get -qq install -y qemu qemu-user-static
           docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --credential yes
+
+      - name: Test install with docker
+        if: ${{ matrix.image }}
+        run: |
+          docker run \
+            --rm \
+            -t \
+            --workdir "${GITHUB_WORKSPACE}" \
+            -v "${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE}" \
+            --platform ${{ matrix.platform || 'linux/amd64' }} \
+            ${{ matrix.image }} \
+            "${GITHUB_WORKSPACE}/run.sh"
