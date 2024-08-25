@@ -142,7 +142,10 @@ jobs:
       #   run: chmod +x alfa_*
 
       - name: Testing
+        env:
+          SUDO_ASKPASS: $GITHUB_WORKSPACE/password.sh
         run: |
+          echo $SUDO_ASKPASS
           ./test_sudo.sh
           # ./install.sh -h
 
