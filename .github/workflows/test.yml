@@ -128,6 +128,8 @@ jobs:
           sudo ls -alth /etc/sudoers.d/
           sudo cat /etc/sudoers.d/runner
 
+          sudo --help
+
       # - name: Set sudo access properly on macos
       #   if: ${{ startsWith(matrix.os, 'macos') }}
       #   run: |
