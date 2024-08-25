@@ -124,12 +124,14 @@ jobs:
         run: |
           ls -alth
 
-          ls -alth /etc/sudoers.d/
-          sudo cat /etc/sudoers.d/runner
-
           whoami
           sudo echo hi
           sudo whoami
+
+          printenv
+
+          sudo ls -alth /etc/sudoers.d/
+          sudo cat /etc/sudoers.d/runner
 
       # - name: Set alfa permissions
       #   run: chmod +x alfa_*
