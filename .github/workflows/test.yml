@@ -95,7 +95,7 @@ jobs:
   test-installing-functions:
     name: Test installing functions
     # runs-on: ubuntu-22.04
-    runs-on: ${{{ matrix.os }}}
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 15
     # needs:
     #   - build-executables
