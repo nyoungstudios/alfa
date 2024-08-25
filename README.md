@@ -1,6 +1,6 @@
 # Alfa
 
-📋 Alfa is tool to manage and share your dev environment configuration. It's modular approach allows you to easily group different configurations together. The goal was to create a way to install all of your favorite tools whether you are running on an x86 or ARM architecture computer for both on macOS and Linux operating systems.
+📋 Alfa is tool to manage and share your dev environment configuration. Its modular approach allows you to easily group different configurations together. The goal was to create a way to install all of your favorite tools whether you are running on an x86 or ARM architecture computer for both on macOS and Linux operating systems.
 
 ✈️ As a flight sim enthusiast, *Alfa* is named after the first word in the NATO phonetic alphabet. While getting a new computer is always exciting, setting it up with all your tools and settings can be a little tedious. I hope this will help simplify your preflight steps so that you can focus on the flying part.
 
