@@ -19,23 +19,34 @@ Future<ProcessResult> runCommand(
   if (testContainerName == null || testContainerName == '') {
     return await Process.run(executable, arguments, runInShell: true);
   } else {
-    return await Process.run(
-        'docker', ['exec', testContainerName, executable, ...arguments],
-        runInShell: true);
+    final List<String> args = [
+      'exec',
+      testContainerName,
+      executable,
+      ...arguments
+    ];
+    print(args);
+    return await Process.run('docker', args, runInShell: true);
   }
 }
 
 void main() async {
   test('test install _example install', () async {
-    var result = await runCommand('echo', ['hi']);
+    final result = await runCommand('echo', ['hi']);
     String output = result.stdout.toString().trimRight();
+    String outputError = result.stderr.toString().trimRight();
     print(output);
+    print('------');
+    print(outputError);
     expect(output, 'hi');
   });
   test('test install _example install 2', () async {
-    var result = await runCommand('echo', ['bye']);
+    final result = await runCommand('echo', ['bye']);
     String output = result.stdout.toString().trimRight();
+    String outputError = result.stderr.toString().trimRight();
     print(output);
+    print('------');
+    print(outputError);
     expect(output, 'bye');
   });
 }
