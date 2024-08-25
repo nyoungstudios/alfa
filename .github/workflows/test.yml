@@ -148,6 +148,6 @@ jobs:
             -t \
             --workdir "${GITHUB_WORKSPACE}" \
             -v "${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE}" \
-            --platform ${{ matrix.platform || 'linux/amd64' }} \
+            ${{ matrix.platform && format('--platform {0}', matrix.platform) }} \
             ${{ matrix.image }} \
             "${GITHUB_WORKSPACE}/run.sh"
