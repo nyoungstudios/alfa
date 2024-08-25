@@ -60,15 +60,12 @@ jobs:
         run: dart pub get
 
       - name: Get available functions
-        run: dart run tests/get_functions.dart -o /tmp/matrix.json
+        run: dart run tests/get_functions.dart -f /tmp/filters.yml -m /tmp/matrix.json
 
-      - name: Print matrix
-        run: jq . /tmp/matrix.json
-
-      - name: Writes yaml filters
+      - name: Print outputs
         run: |
-          filters="$(jq '(.include[].sourcePath as $sourcePath | $sourcePath | sub("^functions/"; "") | sub("/$"; "") + ": [ " + $sourcePath + "** ]")' -r /tmp/matrix.json)"
-          echo "$filters" > /tmp/filters.yml
+          cat /tmp/filters.yml
+          jq . /tmp/matrix.json
 
       - uses: dorny/paths-filter@v3
         id: changes
@@ -82,8 +79,8 @@ jobs:
 
       - name: Create filtered matrix
         run: |
-          # creates matrix from changes
-          jq -c '. | map(. | {"name": .}) | {"include": .}' /tmp/changes.json > /tmp/filtered_matrix.json
+          # filters matrix with only changes
+          jq -c --argfile names /tmp/changes.json '{include: .include | map(select(.name | IN($names[])))}' /tmp/matrix.json > /tmp/filtered_matrix.json
 
           # prints json file for debugging
           jq . /tmp/filtered_matrix.json
@@ -94,8 +91,7 @@ jobs:
 
   test-installing-functions:
     name: Test installing functions
-    runs-on: macos-14
-    # runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 15
     needs:
       - build-executables
@@ -118,11 +114,11 @@ jobs:
       - name: Set alfa permissions
         run: chmod +x alfa_*
 
-      - name: Testing
+      - name: Print help message
         run: |
           sudo ./install.sh -h
 
-      - name: Testing
+      - name: Test install
         run: |
           echo ${{ matrix.name }} > test_install_list.txt
           sudo ./install.sh -e -c tests/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt

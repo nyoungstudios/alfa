@@ -6,14 +6,19 @@ import 'dart:io';
 import 'package:alfa/src/args.dart';
 import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
+import 'package:yaml_writer/yaml_writer.dart';
+
+import 'function_runners.dart';
 
 void main(List<String> args) async {
   // argument parser
   var parser = ArgParser();
   parser.addFlag('help',
       abbr: 'h', help: 'Print this usage information.', negatable: false);
-  parser.addOption('output',
-      abbr: 'o', help: 'Filepath to save JSON GitHub Actions matrix data to.');
+  parser.addOption('output-filter',
+      abbr: 'f', help: 'Filepath to save YAML paths filter data to.');
+  parser.addOption('output-matrix',
+      abbr: 'm', help: 'Filepath to save JSON GitHub Actions matrix data to.');
 
   late ArgResults argResults;
 
@@ -28,22 +33,34 @@ void main(List<String> args) async {
   if (argResults['help']) {
     printUsageMsg(parser, 'get_functions', 'The get_functions script');
     exit(0);
-  } else if (argResults['output'] == null) {
-    printUsageMsg(parser, 'get_functions', 'Must pass a output file');
+  } else if (argResults['output-filter'] == null) {
+    printUsageMsg(parser, 'get_functions', 'Must pass an output filter file');
+    exit(1);
+  } else if (argResults['output-matrix'] == null) {
+    printUsageMsg(parser, 'get_functions', 'Must pass an output matrix file');
     exit(1);
   }
 
   // iterates over functions directory and builds include list
   final functionsDir = Directory('functions');
+
+  Map<String, List<String>> filters = {};
   List<Map<String, String>> include = [];
+
   await for (var entry in functionsDir.list()) {
-    if (!p.basename(entry.path).startsWith('_')) {
-      include.add({'sourcePath': '${entry.path}/'});
+    final basename = p.basename(entry.path);
+    if (!basename.startsWith('_')) {
+      filters[basename] = ['${entry.path}/**'];
+      for (var extraIncludes in runners) {
+        include.add({'name': basename, ...extraIncludes});
+      }
     }
   }
 
   Map matrix = {'include': include};
 
-  // writes output json file
-  await File(argResults['output']).writeAsString(jsonEncode(matrix));
+  // writes output yaml filters file and json matrix file
+  await File(argResults['output-filter'])
+      .writeAsString(YamlWriter().write(filters));
+  await File(argResults['output-matrix']).writeAsString(jsonEncode(matrix));
 }
