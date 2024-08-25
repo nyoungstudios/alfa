@@ -163,7 +163,17 @@ jobs:
             ${{ matrix.image }} \
             "${GITHUB_WORKSPACE}/run.sh"
 
-      - name: Test install with docker
+      - uses: dart-lang/setup-dart@v1.3
+        with:
+          sdk: stable
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Start docker container
         if: ${{ matrix.image }}
         run: |
           docker start $TEST_CONTAINER_NAME
+
+      - name: Install dependencies
+        run: dart test tests -n "test install ${{ matrix.name }}"
