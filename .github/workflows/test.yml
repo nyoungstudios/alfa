@@ -126,7 +126,6 @@ jobs:
           sudo --help
 
           sudo cat /etc/sudoers
-          sudo cat /etc/sudo.conf
           sudo -v
 
 
