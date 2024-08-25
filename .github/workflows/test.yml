@@ -134,7 +134,7 @@ jobs:
         run: |
           SCRIPT=$(cat << EOF
           #!/bin/sh
-          set -eu
+          set -e
 
           ./install.sh -h
 
