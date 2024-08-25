@@ -50,7 +50,10 @@ void main(List<String> args) async {
   await for (var entry in functionsDir.list()) {
     final basename = p.basename(entry.path);
     if (!basename.startsWith('_')) {
-      filters[basename] = ['${entry.path}/**'];
+      filters[basename] = [
+        '${entry.path}/config.toml',
+        '${entry.path}/install.sh'
+      ];
       for (var extraIncludes in runners) {
         include.add({'name': basename, ...extraIncludes});
       }
