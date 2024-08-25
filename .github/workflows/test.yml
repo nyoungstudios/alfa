@@ -117,18 +117,17 @@ jobs:
 
       - name: Testing
         run: |
-          ls -alth
-
           whoami
-          sudo echo hi
           sudo whoami
-
-          printenv
 
           sudo ls -alth /etc/sudoers.d/
           sudo cat /etc/sudoers.d/runner
 
           sudo --help
+
+          sudo cat /etc/sudoers
+          sudo cat /etc/sudo.conf
+
 
       # - name: Set sudo access properly on macos
       #   if: ${{ startsWith(matrix.os, 'macos') }}
