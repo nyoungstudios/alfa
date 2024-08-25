@@ -175,5 +175,5 @@ jobs:
         run: |
           docker start $TEST_CONTAINER_NAME
 
-      - name: Install dependencies
+      - name: Run tests
         run: dart test tests -n "test install ${{ matrix.name }}"
