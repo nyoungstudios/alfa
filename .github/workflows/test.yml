@@ -111,10 +111,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # - uses: actions/download-artifact@v4
-      #   with:
-      #     merge-multiple: true
-
+      - uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
 
       - name: Testing
         run: |
@@ -122,6 +121,9 @@ jobs:
           which sudo
           whoami
           sudo echo hi
+
+      - name: Set alfa permissions
+        run: chmod +x alfa_*
 
       - name: Testing
         run: |
