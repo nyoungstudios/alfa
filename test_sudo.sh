@@ -4,6 +4,7 @@ set -eu
 
 
 echo before
+whoami
 sudo -v
 echo after
 
