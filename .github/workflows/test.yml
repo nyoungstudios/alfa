@@ -124,7 +124,8 @@ jobs:
         run: |
           ls -alth
 
-          cat sudo /etc/sudoers.d/runner
+          ls -alth /etc/sudoers.d/
+          sudo cat /etc/sudoers.d/runner
 
           whoami
           sudo echo hi
