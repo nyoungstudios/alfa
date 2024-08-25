@@ -106,7 +106,7 @@ jobs:
       fail-fast: false
       # matrix: ${{ fromJson(needs.find-functions.outputs.matrix) }}
       matrix:
-        os: [ubuntu-22.04, macos-14, macos-14-large, macos-13, macos-13-xlarge]
+        os: [ubuntu-22.04, macos-14, macos-13]
 
     steps:
       - uses: actions/checkout@v4
@@ -114,6 +114,7 @@ jobs:
       - name: testing
         run: |
           uname -a
+          sudo cat /etc/sudoers.d/runner
           sudo echo hi
           sudo -v
 
