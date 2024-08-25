@@ -115,6 +115,11 @@ jobs:
       #   with:
       #     merge-multiple: true
 
+      - name: Set sudo access properly on macos
+        if: ${{ startsWith(matrix.os, 'macos') }}
+        run: |
+          echo "runner ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/runner
+
       - name: Testing
         run: |
           whoami
@@ -127,12 +132,6 @@ jobs:
 
           sudo cat /etc/sudoers
           sudo -v
-
-
-      # - name: Set sudo access properly on macos
-      #   if: ${{ startsWith(matrix.os, 'macos') }}
-      #   run: |
-      #     echo "runner ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers.d/runner
 
       # - name: Testing
       #   run: |
