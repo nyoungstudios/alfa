@@ -114,18 +114,18 @@ jobs:
         run: chmod +x alfa_*
 
       - name: Print help message
-        if: !matrix.image
+        if: ${{ !matrix.image }}
         run: |
           sudo ./install.sh -h
 
       - name: Test install
-        if: !matrix.image
+        if: ${{ !matrix.image }}
         run: |
           echo ${{ matrix.name }} > test_install_list.txt
           # sudo ./install.sh -e -c tests/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt
 
       - name: Setup arm emulation with qemu
-        if: matrix.image && matrix.platform == 'linux/arm64'
+        if: ${{ matrix.image && matrix.platform == 'linux/arm64' }}
         run: |
           sudo apt-get update -q -y
           sudo apt-get -qq install -y qemu qemu-user-static
