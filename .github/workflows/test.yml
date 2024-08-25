@@ -133,7 +133,9 @@ jobs:
           #!/bin/sh
           set -eu
 
-          sudo ./install.sh -e -c tests/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt
+          ./install.sh -h
+
+          ./install.sh -e -c tests/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt
           EOF
           )
 
