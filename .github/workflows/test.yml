@@ -132,6 +132,7 @@ jobs:
 
           sudo cat /etc/sudoers
           sudo --remove-timestamp
+          echo after timestamp
           sudo -v
 
       # - name: Testing
