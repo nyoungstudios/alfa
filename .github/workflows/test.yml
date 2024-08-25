@@ -101,7 +101,7 @@ jobs:
     #   - build-executables
     #   - test-functions-schema
     #   - find-functions
-    if: ${{ needs.find-functions.outputs.length != '0' }}
+    # if: ${{ needs.find-functions.outputs.length != '0' }}
     strategy:
       fail-fast: false
       # matrix: ${{ fromJson(needs.find-functions.outputs.matrix) }}
