@@ -94,7 +94,7 @@ jobs:
 
   test-installing-functions:
     name: Test installing functions
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     needs:
       - build-executables
       - test-functions-schema
@@ -113,4 +113,5 @@ jobs:
 
       - name: Testing
         run: |
-          ls -alth
+          echo ${{ matrix.name }} > test_install_list.txt
+          ./install.sh -e -c tests/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt
