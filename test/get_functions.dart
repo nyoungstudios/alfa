@@ -43,18 +43,23 @@ void main(List<String> args) async {
 
   // iterates over functions directory and builds include list
   final functionsDir = Directory('functions');
+  final testFunctionsDir = Directory('test/resources/functions');
 
   Map<String, List<String>> filters = {};
   List<Map<String, String>> include = [];
 
   await for (var entry in functionsDir.list()) {
     final basename = p.basename(entry.path);
-    filters[basename] = [
-      '${entry.path}/config.toml',
-      '${entry.path}/install.sh'
-    ];
-    for (var extraIncludes in runners) {
-      include.add({'name': basename, ...extraIncludes});
+
+    if (File(p.join(testFunctionsDir.path, basename, 'test_config.toml'))
+        .existsSync()) {
+      filters[basename] = [
+        '${entry.path}/config.toml',
+        '${entry.path}/install.sh'
+      ];
+      for (var extraIncludes in runners) {
+        include.add({'name': basename, ...extraIncludes});
+      }
     }
   }
 
