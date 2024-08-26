@@ -39,7 +39,7 @@ jobs:
         run: dart pub get
 
       - name: Run tests
-        run: dart test tests/function_schema_test.dart
+        run: dart test test/function_schema_test.dart
 
   find-functions:
     name: Find functions that changed
@@ -182,4 +182,4 @@ jobs:
 
       - name: Run tests
         run: |
-          dart test tests -n "test install ${{ matrix.name }}"
+          dart test -n "test install ${{ matrix.name }}"
