@@ -51,8 +51,8 @@ void main(List<String> args) async {
   await for (var entry in functionsDir.list()) {
     final basename = p.basename(entry.path);
 
-    if (File(p.join(testFunctionsDir.path, basename, 'test_config.toml'))
-        .existsSync()) {
+    if (await File(p.join(testFunctionsDir.path, basename, 'test_config.toml'))
+        .exists()) {
       filters[basename] = [
         '${entry.path}/config.toml',
         '${entry.path}/install.sh'
