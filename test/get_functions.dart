@@ -63,7 +63,7 @@ void main(List<String> args) async {
     }
   }
 
-  Map matrix = {'include': include};
+  final Map matrix = {'include': include};
 
   // writes output yaml filters file and json matrix file
   await File(argResults['output-filter'])
