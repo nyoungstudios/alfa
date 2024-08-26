@@ -6,9 +6,8 @@ import 'dart:io';
 import 'package:alfa/src/args.dart';
 import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
+import 'package:toml/toml.dart';
 import 'package:yaml_writer/yaml_writer.dart';
-
-import 'function_install_test.dart';
 
 void main(List<String> args) async {
   // argument parser
@@ -49,17 +48,24 @@ void main(List<String> args) async {
   List<Map<String, String>> include = [];
 
   await for (var entry in functionsDir.list()) {
-    final basename = p.basename(entry.path);
+    final String basename = p.basename(entry.path);
+    final String basenamePath = p.join(testFunctionsDir.path, basename);
+    final String runnersPath = p.join(basenamePath, 'runners.toml');
+    final String testConfigPath = p.join(basenamePath, 'test_config.toml');
 
-    if (await File(p.join(testFunctionsDir.path, basename, 'test_config.toml'))
-        .exists()) {
+    if (await File(testConfigPath).exists() &&
+        await File(runnersPath).exists()) {
       filters[basename] = [
         '${entry.path}/config.toml',
-        '${entry.path}/install.sh'
+        '${entry.path}/install.sh',
+        runnersPath,
+        testConfigPath,
       ];
-      for (var extraIncludes in runners) {
-        include.add({'name': basename, ...extraIncludes});
-      }
+      final Map runners = (await TomlDocument.load(runnersPath)).toMap();
+      runners.forEach((runnerName, extraIncludes) {
+        include.add(
+            {'name': basename, 'runner-name': runnerName, ...extraIncludes});
+      });
     }
   }
 

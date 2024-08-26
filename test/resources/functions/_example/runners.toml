@@ -1,0 +1,17 @@
+[linux-x86]
+os = "ubuntu-22.04"
+
+[linux-x86-docker]
+os = "ubuntu-22.04"
+image = "phusion/baseimage:jammy-1.0.4"
+
+[linux-arm]
+os = "ubuntu-22.04"
+image = "phusion/baseimage:jammy-1.0.4"
+platform = "linux/arm64"
+
+[macos-arm]
+os = "macos-14"
+
+[macos-x86]
+os = "macos-13"
