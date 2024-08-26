@@ -14,7 +14,7 @@ on:
       - ".github/workflows/lint.yml"
       - "bin/**"
       - "lib/**"
-      - "tests/**.dart"
+      - "test/**.dart"
       - "pubspec.yaml"
   workflow_dispatch:
 

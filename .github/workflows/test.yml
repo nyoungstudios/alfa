@@ -14,7 +14,7 @@ on:
       - "bin/**"
       - "functions/**"
       - "lib/**"
-      - "tests/**"
+      - "test/**"
       - "pubspec.yaml"
   workflow_dispatch:
 
@@ -60,7 +60,7 @@ jobs:
         run: dart pub get
 
       - name: Get available functions
-        run: dart run tests/get_functions.dart -f /tmp/filters.yml -m /tmp/matrix.json
+        run: dart run test/get_functions.dart -f /tmp/filters.yml -m /tmp/matrix.json
 
       - name: Print filters
         run: cat /tmp/filters.yml
@@ -127,7 +127,7 @@ jobs:
       - name: Test install
         if: ${{ !matrix.image }}
         run: |
-          sudo ./install.sh -e -c tests/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt
+          sudo ./install.sh -e -c test/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt
 
       - name: Create docker command script
         if: ${{ matrix.image }}
@@ -138,7 +138,7 @@ jobs:
 
           ./install.sh -h
 
-          ./install.sh -e -c tests/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt
+          ./install.sh -e -c test/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt
           EOF
           )
 
