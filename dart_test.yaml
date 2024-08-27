@@ -1,0 +1,7 @@
+# add names of tags from test/resources/functions/*/runners.toml
+tags:
+  linux-x86: {}
+  linux-x86-docker: {}
+  linux-arm: {}
+  macos-arm: {}
+  macos-x86: {}

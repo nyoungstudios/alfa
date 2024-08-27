@@ -61,10 +61,20 @@ void main(List<String> args) async {
         runnersPath,
         testConfigPath,
       ];
-      final Map runners = (await TomlDocument.load(runnersPath)).toMap();
+      final Map data = (await TomlDocument.load(runnersPath)).toMap();
+
+      Map runners = {};
+      Map topLevel = {};
+      data.forEach((key, value) {
+        if (value is Map) {
+          runners[key] = value;
+        } else {
+          topLevel[key] = value;
+        }
+      });
+
       runners.forEach((runnerName, extraIncludes) {
-        include.add(
-            {'name': basename, 'runner-name': runnerName, ...extraIncludes});
+        include.add({'name': basename, 'runner-name': runnerName, ...topLevel, ...extraIncludes});
       });
     }
   }

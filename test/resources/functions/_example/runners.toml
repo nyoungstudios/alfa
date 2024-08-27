@@ -1,5 +1,10 @@
+setup-tag = "setup"
+teardown-tag = "teardown"
+
 [linux-x86]
 os = "ubuntu-22.04"
+setup-tag = "setup-special"
+teardown-tag = "teardown-special"
 
 [linux-x86-docker]
 os = "ubuntu-22.04"

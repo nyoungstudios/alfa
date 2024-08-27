@@ -1,5 +1,29 @@
+[ "_example+setup" ]
+options = [
+  "setup"
+]
+tags = [ "setup" ]
+
+[ "_example+setup-special" ]
+options = [
+  "setup-special"
+]
+tags = [ "setup-special" ]
+
 [ _example ]
 options = [
   "arg1",
   "arg2"
 ]
+
+[ "_example+teardown" ]
+options = [
+  "teardown"
+]
+tags = [ "teardown" ]
+
+[ "_example+teardown-special" ]
+options = [
+  "teardown-special"
+]
+tags = [ "teardown-special" ]
