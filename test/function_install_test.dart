@@ -86,18 +86,24 @@ AlfaInstallOutput getLogs() {
 }
 
 void main() async {
-  test('test install _example install', () async {
+  test('install _example 1', () async {
     final result = runCommand('echo', ['hi']);
     expect(result.stdout, 'hi');
-  });
-  test('test install _example install 2', () async {
+  }, tags: ['linux-x86']);
+  test('install _example 2', () async {
     final result = runCommand('echo', ['bye']);
     expect(result.stdout, 'bye');
-  });
+  }, tags: ['linux-x86-docker']);
 
-  test('test install _example log', () async {
+  test('install _example log', () async {
     final result = getLogs();
     expect(result.installNames, ['_example']);
     expect(result.logs, contains('arg1\narg2'));
-  });
+  }, tags: [
+    'linux-x86',
+    'linux-x86-docker',
+    'linux-arm',
+    'macos-arm',
+    'macos-x86'
+  ]);
 }

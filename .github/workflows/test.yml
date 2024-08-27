@@ -183,4 +183,4 @@ jobs:
 
       - name: Run tests
         run: |
-          dart test -n "test install ${{ matrix.name }}"
+          dart test -n "install ${{ matrix.name }}" -t "${{ matrix.runner-name }}"
