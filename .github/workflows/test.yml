@@ -117,8 +117,16 @@ jobs:
       - name: Set alfa permissions
         run: chmod +x alfa_*
 
-      - name: Create install list file
-        run: echo ${{ matrix.name }} > test_install_list.txt
+      - name: Add setup to install list file
+        if: ${{ matrix.setup-tag }}
+        run: echo ${{ matrix.setup-tag }} >> test_install_list.txt
+
+      - name: Add name to install list file
+        run: echo ${{ matrix.name }} >> test_install_list.txt
+
+      - name: Add teardown to install list file
+        if: ${{ matrix.teardown-tag }}
+        run: echo ${{ matrix.teardown-tag }} >> test_install_list.txt
 
       - name: Print help message
         if: ${{ !matrix.image }}
