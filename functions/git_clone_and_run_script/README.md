@@ -1,6 +1,6 @@
-# Run Script
+# Git Clone and Run Script
 
-Configuration for a `run_script` entry.
+Configuration for a `git_clone_and_run_script` entry.
 
 ## Description
 
@@ -21,13 +21,13 @@ Accepts any number of arguments.
 ## Example
 
 ```toml
-[ run_script ]
+[ git_clone_and_run_script ]
 options = [
   "~/Documents/git-projects",
   "https://github.com/nyoungstudios/ascii-minesweeper",
   "make dev"
 ]
 
-[ run_script.env ]
+[ git_clone_and_run_script.env ]
 ALFA_REMOVE_REPO = false
 ```
