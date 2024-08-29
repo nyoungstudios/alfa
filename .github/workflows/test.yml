@@ -121,7 +121,12 @@ jobs:
         if: ${{ matrix.setup-tag }}
         run: echo ${{ matrix.setup-tag }} >> test_install_list.txt
 
+      - name: Add intall tag to install list file
+        if: ${{ matrix.install-tag }}
+        run: echo ${{ matrix.install-tag }} >> test_install_list.txt
+
       - name: Add name to install list file
+        if: ${{ !matrix.install-tag }}
         run: echo ${{ matrix.name }} >> test_install_list.txt
 
       - name: Add teardown to install list file

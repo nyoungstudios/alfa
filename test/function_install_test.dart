@@ -95,15 +95,20 @@ void main() async {
     expect(result.stdout, 'bye');
   }, tags: ['linux-x86-docker']);
 
-  test('install _example log', () async {
+  test('install _example log 1', () async {
     final result = getLogs();
-    // expect(result.installNames, ['_example']);
+    expect(result.installNames,
+        ['_example+setup', '_example', '_example+teardown']);
     expect(result.logs, contains('arg1\narg2'));
-  }, tags: [
-    'linux-x86',
-    'linux-x86-docker',
-    'linux-arm',
-    'macos-arm',
-    'macos-x86'
-  ]);
+  }, tags: ['linux-x86-docker', 'linux-arm', 'macos-arm', 'macos-x86']);
+
+  test('install _example log 2', () async {
+    final result = getLogs();
+    expect(result.installNames, [
+      '_example+setup-special',
+      '_example+special-install',
+      '_example+teardown-special'
+    ]);
+    expect(result.logs, contains('special-install'));
+  }, tags: ['linux-x86']);
 }

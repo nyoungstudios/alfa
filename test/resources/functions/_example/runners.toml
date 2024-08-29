@@ -3,6 +3,7 @@ teardown-tag = "teardown"
 
 [linux-x86]
 os = "ubuntu-22.04"
+install-tag = "special-install"
 setup-tag = "setup-special"
 teardown-tag = "teardown-special"
 

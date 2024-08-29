@@ -10,6 +10,12 @@ options = [
 ]
 tags = [ "setup-special" ]
 
+[ "_example+special-install" ]
+options = [
+  "special-install"
+]
+tags = [ "special-install" ]
+
 [ _example ]
 options = [
   "arg1",
