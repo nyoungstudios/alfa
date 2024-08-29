@@ -119,9 +119,11 @@ jobs:
 
       - name: Add setup to install list file
         if: ${{ matrix.setup-tag }}
-        run: echo '${{ matrix.setup-tag }}' >> test_install_list.txt
+        env:
+          INSTALL_ITEM: ${{ matrix.setup-tag }}
+        run: echo "$INSTALL_ITEM" >> test_install_list.txt
 
-      - name: Add intall tag to install list file
+      - name: Add install tag to install list file
         if: ${{ matrix.install-tag }}
         env:
           INSTALL_ITEM: ${{ matrix.install-tag }}
@@ -129,11 +131,18 @@ jobs:
 
       - name: Add name to install list file
         if: ${{ !matrix.install-tag }}
-        run: echo '${{ matrix.name }}' >> test_install_list.txt
+        env:
+          INSTALL_ITEM: ${{ matrix.name }}
+        run: echo "$INSTALL_ITEM" >> test_install_list.txt
 
       - name: Add teardown to install list file
         if: ${{ matrix.teardown-tag }}
-        run: echo '${{ matrix.teardown-tag }}' >> test_install_list.txt
+        env:
+          INSTALL_ITEM: ${{ matrix.teardown-tag }}
+        run: echo "$INSTALL_ITEM" >> test_install_list.txt
+
+      - name: Print install list
+        run: cat test_install_list.txt
 
       - name: Print help message
         if: ${{ !matrix.image }}
@@ -173,16 +182,16 @@ jobs:
         if: ${{ matrix.image }}
         run: |
           docker run \
-            --name $ALFA_TEST_CONTAINER_NAME \
+            --name "$ALFA_TEST_CONTAINER_NAME" \
             -d \
             -t \
-            --workdir "${GITHUB_WORKSPACE}" \
+            --workdir "$GITHUB_WORKSPACE" \
             -v "${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE}" \
             ${{ matrix.platform && format('--platform {0}', matrix.platform) }} \
             --entrypoint bash \
-            ${{ matrix.image }}
+            '${{ matrix.image }}'
 
-          docker exec $ALFA_TEST_CONTAINER_NAME "${GITHUB_WORKSPACE}/run.sh"
+          docker exec "$ALFA_TEST_CONTAINER_NAME" "${GITHUB_WORKSPACE}/run.sh"
 
       - uses: dart-lang/setup-dart@v1.3
         with:
@@ -194,8 +203,8 @@ jobs:
       - name: Start docker container
         if: ${{ matrix.image }}
         run: |
-          docker start $ALFA_TEST_CONTAINER_NAME
+          docker start "$ALFA_TEST_CONTAINER_NAME"
 
       - name: Run tests
         run: |
-          dart test -n "install ${{ matrix.name }}" -t "${{ matrix.runner-name }}"
+          dart test -n 'install ${{ matrix.name }}' -t '${{ matrix.runner-name }}''
