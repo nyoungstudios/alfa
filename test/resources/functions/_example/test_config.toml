@@ -14,7 +14,7 @@ tags = [ "setup-special" ]
 options = [
   "special-install"
 ]
-tags = [ "special-install" ]
+tags = [ "special-install  ~!@#$%^&*()_+-=`{}|[]\\;':\",./<>?" ]
 
 [ _example ]
 options = [

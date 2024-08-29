@@ -119,19 +119,19 @@ jobs:
 
       - name: Add setup to install list file
         if: ${{ matrix.setup-tag }}
-        run: echo ${{ matrix.setup-tag }} >> test_install_list.txt
+        run: echo '${{ matrix.setup-tag }}' >> test_install_list.txt
 
       - name: Add intall tag to install list file
         if: ${{ matrix.install-tag }}
-        run: echo ${{ matrix.install-tag }} >> test_install_list.txt
+        run: echo '${{ matrix.install-tag }}' >> test_install_list.txt
 
       - name: Add name to install list file
         if: ${{ !matrix.install-tag }}
-        run: echo ${{ matrix.name }} >> test_install_list.txt
+        run: echo '${{ matrix.name }}' >> test_install_list.txt
 
       - name: Add teardown to install list file
         if: ${{ matrix.teardown-tag }}
-        run: echo ${{ matrix.teardown-tag }} >> test_install_list.txt
+        run: echo '${{ matrix.teardown-tag }}' >> test_install_list.txt
 
       - name: Print help message
         if: ${{ !matrix.image }}
