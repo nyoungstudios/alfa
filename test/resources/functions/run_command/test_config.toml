@@ -1,0 +1,9 @@
+[ run_command ]
+options = [
+  "bash",
+  "-ceu",
+  "pwd && echo Hi $NAME"
+]
+
+[ run_command.env ]
+NAME = "Maverick"
