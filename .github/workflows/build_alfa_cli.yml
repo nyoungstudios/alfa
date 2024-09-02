@@ -26,14 +26,24 @@ jobs:
       - name: Print uname info
         run: uname -a
 
+      - name: Cache executable
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: alfa_*
+          key: alfa-${{ matrix.name }}-${{ hashFiles('bin/**', 'lib/**') }}
+
       - uses: dart-lang/setup-dart@v1.3
+        if: steps.cache.outputs.cache-hit != 'true'
         with:
           sdk: stable
 
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: dart pub get
 
       - name: Compile Executable
+        if: steps.cache.outputs.cache-hit != 'true'
         run: make
 
       - uses: actions/upload-artifact@v4
@@ -49,13 +59,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Cache executable
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: alfa_*
+          key: alfa-linux-arm-${{ hashFiles('bin/**', 'lib/**') }}
+
       - name: Setup arm emulation with qemu
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
           sudo apt-get update -q -y
           sudo apt-get -qq install -y qemu qemu-user-static
           docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --credential yes
 
       - name: Create docker command script
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
           SCRIPT=$(cat << EOF
           #!/bin/sh
@@ -77,9 +96,11 @@ jobs:
           chmod +x run.sh
 
       - name: Cat docker command script
+        if: steps.cache.outputs.cache-hit != 'true'
         run: cat run.sh
 
       - name: Build arm executable with docker
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
           docker run \
             --rm \
