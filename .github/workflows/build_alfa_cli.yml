@@ -42,7 +42,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: dart pub get
 
-      - name: Compile Executable
+      - name: Compile executable
         if: steps.cache.outputs.cache-hit != 'true'
         run: make
 
