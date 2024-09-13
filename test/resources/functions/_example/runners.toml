@@ -26,7 +26,7 @@ teardown-tag = "teardown-special"
 [case.linux-x86.test]
 
 assert-install-names = ["_example+setup-special", "_example+special-install", "_example+teardown-special"]
-assert-logs-contains = "arg1\narg2"
+assert-logs-contains = "special-install"
 
 # [[case.linux-x86.test.commands]]
 
