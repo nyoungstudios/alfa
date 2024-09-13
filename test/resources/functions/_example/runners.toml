@@ -1,23 +1,60 @@
+[common]
 setup-tag = "setup"
 teardown-tag = "teardown"
 
-[linux-x86]
+[common.test]
+
+assert-install-names = ["_example+setup", "_example", "_example+teardown"]
+assert-logs-contains = "arg1\narg2"
+
+[[common.test.commands]]
+
+command = "echo"
+arguments = ["hi"]
+assert-stdout-equals = "hi"
+# assert-stderr-equals = ""
+# assert-stderr-contains = ""
+# assert-stdout-contains = ""
+
+
+[case.linux-x86]
 os = "ubuntu-22.04"
 install-tag = "special-install  ~!@#$%^&*()_+-=`{}|[]\\;':\",./<>?"
 setup-tag = "setup-special"
 teardown-tag = "teardown-special"
 
-[linux-x86-docker]
+assert-install-names = ["_example+setup-special", "_example+special-install", "_example+teardown-speceial"]
+assert-logs-contains = "arg1\narg2"
+
+# [[case.linux-x86.test.commands]]
+
+# command = ""
+# arguments = []
+# assert-stdout-equals = ""
+# assert-stderr-equals = ""
+# assert-stderr-contains = ""
+# assert-stdout-contains = ""
+
+# [[case.linux-x86.test.commands]]
+
+# command = ""
+# arguments = []
+# assert-stdout-equals = ""
+# assert-stderr-equals = ""
+# assert-stderr-contains = ""
+# assert-stdout-contains = ""
+
+[case.linux-x86-docker]
 os = "ubuntu-22.04"
 image = "phusion/baseimage:jammy-1.0.4"
 
-[linux-arm]
+[case.linux-arm]
 os = "ubuntu-22.04"
 image = "phusion/baseimage:jammy-1.0.4"
 platform = "linux/arm64"
 
-[macos-arm]
+[case.macos-arm]
 os = "macos-14"
 
-[macos-x86]
+[case.macos-x86]
 os = "macos-13"

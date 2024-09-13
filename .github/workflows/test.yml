@@ -207,6 +207,7 @@ jobs:
 
       - name: Run tests
         env:
-          TEST_TAG_NAME: ${{ matrix.runner-name }}
+          ALFA_TEST_FUNCTION_NAME: ${{ matrix.name }}
+          ALFA_TEST_CASE_NAME: ${{ matrix.runner-name }}
         run: |
-          dart test -n 'install ${{ matrix.name }}' -t "$TEST_TAG_NAME"
+          dart test -n 'install logs'

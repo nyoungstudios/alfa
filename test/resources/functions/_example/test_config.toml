@@ -1,20 +1,9 @@
+# normal install
 [ "_example+setup" ]
 options = [
   "setup"
 ]
 tags = [ "setup" ]
-
-[ "_example+setup-special" ]
-options = [
-  "setup-special"
-]
-tags = [ "setup-special" ]
-
-[ "_example+special-install" ]
-options = [
-  "special-install"
-]
-tags = [ "special-install  ~!@#$%^&*()_+-=`{}|[]\\;':\",./<>?" ]
 
 [ _example ]
 options = [
@@ -27,6 +16,20 @@ options = [
   "teardown"
 ]
 tags = [ "teardown" ]
+
+# special install
+
+[ "_example+setup-special" ]
+options = [
+  "setup-special"
+]
+tags = [ "setup-special" ]
+
+[ "_example+special-install" ]
+options = [
+  "special-install"
+]
+tags = [ "special-install  ~!@#$%^&*()_+-=`{}|[]\\;':\",./<>?" ]
 
 [ "_example+teardown-special" ]
 options = [

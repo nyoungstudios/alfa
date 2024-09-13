@@ -9,6 +9,12 @@ import 'package:path/path.dart' as p;
 import 'package:toml/toml.dart';
 import 'package:yaml_writer/yaml_writer.dart';
 
+/// Filters out test key from Map.
+Map filterTestKey(Map data) {
+  data.removeWhere((key, value) => key == 'test');
+  return data;
+}
+
 void main(List<String> args) async {
   // argument parser
   var parser = ArgParser();
@@ -63,18 +69,13 @@ void main(List<String> args) async {
       ];
       final Map data = (await TomlDocument.load(runnersPath)).toMap();
 
-      Map runners = {};
-      Map topLevel = {};
-      data.forEach((key, value) {
-        if (value is Map) {
-          runners[key] = value;
-        } else {
-          topLevel[key] = value;
-        }
-      });
-
-      runners.forEach((runnerName, extraIncludes) {
-        include.add({'name': basename, 'runner-name': runnerName, ...topLevel, ...extraIncludes});
+      data['case'].forEach((runnerName, extraIncludes) {
+        include.add({
+          'name': basename,
+          'runner-name': runnerName,
+          ...filterTestKey(data['common']),
+          ...filterTestKey(extraIncludes)
+        });
       });
     }
   }

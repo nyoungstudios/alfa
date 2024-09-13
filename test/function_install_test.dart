@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:test/test.dart';
+import 'package:toml/toml.dart';
 
 /// Runs a command either on the GitHub actions runner or within the Docker
 /// container.
@@ -86,29 +87,69 @@ AlfaInstallOutput getLogs() {
 }
 
 void main() async {
-  test('install _example 1', () async {
-    final result = runCommand('echo', ['hi']);
-    expect(result.stdout, 'hi');
-  }, tags: ['linux-x86']);
-  test('install _example 2', () async {
-    final result = runCommand('echo', ['bye']);
-    expect(result.stdout, 'bye');
-  }, tags: ['linux-x86-docker']);
+  test('install logs', () async {
+    final String? functionName =
+        Platform.environment['ALFA_TEST_FUNCTION_NAME'];
+    final String? caseName = Platform.environment['ALFA_TEST_CASE_NAME'];
+    final String runnersPath =
+        'test/resources/functions/$functionName/runners.toml';
+    if (await File(runnersPath).exists()) {
+      final Map data = (await TomlDocument.load(runnersPath)).toMap();
 
-  test('install _example log 1', () async {
-    final result = getLogs();
-    expect(result.installNames,
-        ['_example+setup', '_example', '_example+teardown']);
-    expect(result.logs, contains('arg1\narg2'));
-  }, tags: ['linux-x86-docker', 'linux-arm', 'macos-arm', 'macos-x86']);
+      /// Gets test value at the specified [key].
+      ///
+      /// Tries to get the value with the runner name; otherwise, defaults to
+      /// the common value.
+      getTestValue(String key) {
+        return data['case'][caseName]['test']?[key] ??
+            data['common']?['test']?[key];
+      }
 
-  test('install _example log 2', () async {
-    final result = getLogs();
-    expect(result.installNames, [
-      '_example+setup-special',
-      '_example+special-install',
-      '_example+teardown-special'
-    ]);
-    expect(result.logs, contains('special-install'));
-  }, tags: ['linux-x86']);
+      /// Runs checks based off of the install log output
+      final List? assertInstallNames = getTestValue('assert-install-names');
+      final String? assertLogsContains = getTestValue('assert-logs-contains');
+
+      late final installLogs = getLogs();
+      if (assertInstallNames != null) {
+        expect(installLogs.installNames, assertInstallNames);
+      }
+      if (assertLogsContains != null) {
+        expect(installLogs.logs, contains(assertLogsContains));
+      }
+
+      /// Runs any other commands for additional testing
+      final List<Map>? testCommands = getTestValue('commands');
+
+      if (testCommands != null) {
+        for (Map testCommand in testCommands) {
+          final result = runCommand(
+              testCommand['command'], testCommand['arguments'].cast<String>());
+
+          final List<String> assertKeys = [
+            'assert-stdout-equals',
+            'assert-stderr-equals',
+            'assert-stdout-contains',
+            'assert-stderr-contains'
+          ];
+
+          for (String assertKey in assertKeys) {
+            if (testCommand[assertKey] != null) {
+              String output;
+              if (assertKey.contains('stdout')) {
+                output = result.stdout;
+              } else {
+                output = result.stderr;
+              }
+
+              if (assertKey.contains('equals')) {
+                expect(output, equals(testCommand[assertKey]));
+              } else {
+                expect(output, contains(testCommand[assertKey]));
+              }
+            }
+          }
+        }
+      }
+    }
+  });
 }
