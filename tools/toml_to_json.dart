@@ -1,4 +1,4 @@
-/// Converts toml file to json file.
+/// Converts a toml file to a json file.
 import 'dart:convert';
 import 'dart:io';
 
