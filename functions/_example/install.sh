@@ -17,4 +17,3 @@ install_example() {
     echo "$item"
   done
 }
-# comment
