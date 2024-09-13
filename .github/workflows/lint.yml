@@ -12,9 +12,7 @@ on:
       - main
     paths:
       - ".github/workflows/lint.yml"
-      - "bin/**"
-      - "lib/**"
-      - "test/**.dart"
+      - "**.dart"
       - "pubspec.yaml"
   workflow_dispatch:
 
