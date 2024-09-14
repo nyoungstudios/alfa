@@ -17,7 +17,7 @@ The test cases are defined in the test resource folder (`test/resources/function
 
 ### Config file
 
-The config toml file (`test_config.toml`) is the config passed to the `-c` option for the alfa program (`./install.sh`). To learn more about this file, please read [this page](../docs/ConfigSchema.md).
+The config toml file (`test_config.toml`) is the config passed to the `-c` option for the alfa program (`./install.sh`). To learn more about this file, please read [this page](../docs/config-schema.md).
 
 ### Test runner file
 
