@@ -77,8 +77,8 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
           SCRIPT=$(cat << EOF
-          #!/bin/sh
-          set -euo pipefail
+          #!/bin/bash
+          set -eu
 
           # installs dependencies
           dart pub get

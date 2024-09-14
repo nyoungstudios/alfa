@@ -2,7 +2,7 @@
 
 # Usage: ./tools/create_function.sh entry_name
 
-set -euo pipefail
+set -eu
 
 if [[ ! -f "install.sh" ]]; then
   echo "create_function.sh must be run from the root directory of the alfa repo"

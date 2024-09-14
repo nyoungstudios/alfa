@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -euo pipefail
+set -eu
 
 # checks if the alfa executable exists
 if [[ ! -f "alfa" ]]; then
