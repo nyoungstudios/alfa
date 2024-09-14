@@ -13,8 +13,8 @@ assert-stdout-equals = "exists"
 
 [[common.test.commands]]
 
-command = "~/anaconda3/bin/conda"
-arguments = ["-version"]
+command = "bash"
+arguments = ["-ceu", "~/anaconda3/bin/conda --version"]
 assert-stdout-contains = "conda 4."
 
 [case.linux-x86]
@@ -31,3 +31,23 @@ os = "macos-14"
 
 [case.macos-x86]
 os = "macos-13"
+install-tag = "custom-location"
+
+[case.macos-x86.test]
+
+assert-install-names = ["anaconda"]
+
+[[case.macos-x86.test.commands]]
+
+command = "bash"
+arguments = [
+  "-ceu",
+  "[[ -f ~/custom/anaconda3/bin/conda ]] && echo exists || echo missing",
+]
+assert-stdout-equals = "exists"
+
+[[case.macos-x86.test.commands]]
+
+command = "bash"
+arguments = ["-ceu", "~/custom/anaconda3/bin/conda --version"]
+assert-stdout-contains = "conda 4."

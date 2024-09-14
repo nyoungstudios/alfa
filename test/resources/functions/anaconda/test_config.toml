@@ -1,2 +1,8 @@
 [ anaconda ]
 tags = []
+
+[ "anaconda+custom-location" ]
+tags = ["custom-location"]
+
+[ "anaconda+custom-location".env ]
+ANACONDA_PREFIX = "~/custom/anaconda3"
