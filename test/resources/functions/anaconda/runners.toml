@@ -1,5 +1,5 @@
-# [common]
-# install-tag = "check"
+[common]
+teardown-tag = "check-version"
 
 [common.test]
 
@@ -13,14 +13,8 @@ assert-stdout-equals = "exists"
 
 [[common.test.commands]]
 
-command = "cat"
-arguments = ["~/.bashrc"]
-assert-stdout-contains = "conda 4."
-
-[[common.test.commands]]
-
 command = "bash"
-arguments = ["-ceu", "conda", "--version"]
+arguments = ["-ceu", "~/anaconda3/bin/conda", "--version"]
 assert-stdout-contains = "conda 4."
 
 [case.linux-x86]
