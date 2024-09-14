@@ -13,4 +13,5 @@ install_run_command() {
   done
   set -x
   eval "$cmd"
+  set +x
 }
