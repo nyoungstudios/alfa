@@ -1,4 +1,4 @@
-# this is how you can configure the test runner on a variety of different operating systems
+# this is how you can configure the test runner to run on a variety of different operating systems
 # for more information on how to configure this file, please see contributing-docs/04-how-to-test-functions.md
 [common]
 setup-tag = "setup"
