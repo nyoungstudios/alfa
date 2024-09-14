@@ -1,0 +1,66 @@
+name: Create release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "bin/**"
+      - "lib/**"
+  workflow_dispatch:
+
+jobs:
+  tag:
+    name: Create tag and release
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    outputs:
+      tag: ${{ steps.create-tag.outputs.tag }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: "0"
+
+      - name: Bump version and create tag
+        id: create-tag
+        uses: anothrNick/github-tag-action@1.70.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ steps.create-tag.outputs.tag }}" --title "${{ steps.create-tag.outputs.tag }}"
+
+  build-executables:
+    name: Build executables
+    uses: ./.github/workflows/build_alfa_cli.yml
+
+  upload-artifacts-to-release:
+    name: Upload artifacts to release
+    needs:
+      - tag
+      - build-executables
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
+
+      - name: List files
+        run: ls -alh
+
+      - name: Upload binary to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: alfa_*
+          tag: ${{ needs.tag.outputs.tag }}
+          file_glob: true

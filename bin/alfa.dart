@@ -1,20 +1,12 @@
-// run with dart run alfa
+/// run with dart run alfa
 import 'dart:io';
 
+import 'package:alfa/src/args.dart';
 import 'package:alfa/src/schema.dart';
 import 'package:args/args.dart';
 import 'package:json_schema/json_schema.dart';
 import 'package:shlex/shlex.dart' as shlex;
 import 'package:toml/toml.dart';
-
-void printUsageMsg(ArgParser ap, String msg) {
-  print(msg);
-  print('');
-  print('Usage: alfa [arguments]');
-  print('');
-  print('Options:');
-  print(ap.usage);
-}
 
 void main(List<String> args) async {
   // argument parser
@@ -36,31 +28,32 @@ void main(List<String> args) async {
   parser.addFlag('run-zsh',
       abbr: 'r', help: 'Runs zsh at the end', negatable: false);
 
-  ArgResults argResults;
+  late ArgResults argResults;
 
   try {
     argResults = parser.parse(args);
   } catch (e) {
-    printUsageMsg(parser, e.toString());
+    printUsageMsg(parser, 'alfa', e.toString());
     exit(1);
   }
 
   // checks required arguments
   if (argResults['help']) {
-    printUsageMsg(parser, 'The alfa command-line utility');
+    printUsageMsg(parser, 'alfa', 'The alfa command-line utility');
     exit(0);
   } else if (argResults['config'] == null) {
-    printUsageMsg(parser, 'Must pass a config file');
+    printUsageMsg(parser, 'alfa', 'Must pass a config file');
     exit(1);
   } else if (argResults['file'] == null) {
-    printUsageMsg(parser, 'Must pass a text file with items to install');
+    printUsageMsg(
+        parser, 'alfa', 'Must pass a text file with items to install');
     exit(1);
   }
 
   // gets environment variables
-  String user = Platform.environment['SUDO_USER'];
-  String alfaUser = Platform.environment['ALFA_USER'];
-  String alfaArch = Platform.environment['ALFA_ARCH'];
+  String? user = Platform.environment['SUDO_USER'];
+  String? alfaUser = Platform.environment['ALFA_USER'];
+  String? alfaArch = Platform.environment['ALFA_ARCH'];
   if (user == 'root' && alfaUser != '') {
     user = alfaUser;
   }
@@ -107,7 +100,7 @@ void main(List<String> args) async {
     if (line.isNotEmpty && !line.startsWith('#') && !line.startsWith('//')) {
       // only continues if names to install that are not commented out
       if (tagToInstallKey.containsKey(line)) {
-        namesToInstall.addAll(tagToInstallKey[line]);
+        namesToInstall.addAll(tagToInstallKey[line]!);
         // in the case where the tag and config name has the same name
         if (config.containsKey(line) &&
             await File("functions/${line.split('+')[0]}/install.sh").exists()) {
@@ -154,8 +147,8 @@ void main(List<String> args) async {
     } else {
       var tempConfig = await TomlDocument.load(configTomlPath);
       dictionary[baseName] = tempConfig.toMap();
-      if (!dictionary[baseName].containsKey('install_function') &&
-          !dictionary[baseName].containsKey(osName)) {
+      if (!dictionary[baseName]!.containsKey('install_function') &&
+          !dictionary[baseName]!.containsKey(osName)) {
         print(
             'Skipping install of "$name" since there is no install function for "$baseName" on operating system, $osName.');
       } else {
@@ -187,7 +180,7 @@ void main(List<String> args) async {
 
   for (String name in filteredNamesToInstall) {
     var baseName = name.split('+')[0];
-    var functionMap = dictionary[baseName];
+    var functionMap = dictionary[baseName]!;
 
     // if function map does not contain the install_function key, the install_function key should be nested within the os name key.
     if (!functionMap.containsKey('install_function')) {
@@ -201,7 +194,7 @@ void main(List<String> args) async {
     // checks if there are any environment variables to pass when installing this
     if (config[name].containsKey('env') && config[name]['env'].isNotEmpty) {
       config[name]['env'].forEach((key, value) {
-        command += '$key=${shlex.quote(value.toString())}; ';
+        command += 'export $key=${shlex.quote(value.toString())}; ';
       });
     }
 

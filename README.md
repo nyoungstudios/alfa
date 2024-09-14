@@ -1,6 +1,6 @@
 # Alfa
 
-📋 Alfa is tool to manage and share your dev environment configuration. It's modular approach allows you to easily group different configurations together. The goal was to create a way to install all of your favorite tools whether you are running on an x86 or ARM architecture computer for both on macOS and Linux operating systems.
+📋 Alfa is tool to manage and share your dev environment configuration. Its modular approach allows you to easily group different configurations together. The goal was to create a way to install all of your favorite tools whether you are running on an x86 or ARM architecture computer for both on macOS and Linux operating systems.
 
 ✈️ As a flight sim enthusiast, *Alfa* is named after the first word in the NATO phonetic alphabet. While getting a new computer is always exciting, setting it up with all your tools and settings can be a little tedious. I hope this will help simplify your preflight steps so that you can focus on the flying part.
 
@@ -30,7 +30,7 @@ This is the installer script (more on how to use it below):
 
 Config files are defined as `toml` files. This has the benefits of JSON, but friendlier for humans to read. Each entry in your configuration file defines what you like to install, any installation arguments, and the tags you like to use to group it together with other entries.
 
-The schema for the config file can be found [here](docs/ConfigSchema.md).
+The schema for the config file can be found [here](docs/config-schema.md).
 
 All the different things that you can install are defined in the [functions](functions/) folder. Take a look at the `README.md` for each of the function entries to see how to add them to your configuration file and what options to pass to it. The built-in functions includes the ability to install popular tools such as brew, Oh My Zsh (and plugins), Anaconda, NVM, Docker, and much more! If there is not an entry to install your favorite tool(s), it is easy to add a new entry - just run `./tools/create_function.sh entry_name` from the repository's root directory to get started.
 
@@ -38,7 +38,7 @@ All the different things that you can install are defined in the [functions](fun
 
 Once you create a configuration file of how you like to install all of the items you like, the install list file is a simple text file that contains the exact entries you like to install. The goal of having this file is so you can pick which items you want to install without installing everything in your configuration file (perhaps you have different tools you like to use at work vs on your personal computer).
 
-The schema for the install list text file can be found [here](docs/InstallListSchema.md).
+The schema for the install list text file can be found [here](docs/install-list-schema.md).
 
 ### Running the program
 

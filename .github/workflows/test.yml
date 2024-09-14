@@ -3,32 +3,217 @@ name: Test
 # Run only one unique workflow at a time on a pr
 # https://docs.github.com/en/actions/using-jobs/using-concurrency#example-using-a-fallback-value
 concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
 on:
   pull_request:
-    branches: [ main ]
     paths:
-      - 'functions/**'
+      - ".github/workflows/test.yml"
+      - "bin/**"
+      - "functions/**"
+      - "lib/**"
+      - "test/**"
+      - "pubspec.yaml"
   workflow_dispatch:
 
 jobs:
-  test:
+  build-executables:
+    name: Build executables
+    uses: ./.github/workflows/build_alfa_cli.yml
+
+  test-functions-schema:
+    name: Test functions schema
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    strategy:
+      matrix:
+        sdk: [stable, 3.0, 3.1, 3.2, 3.3, 3.4]
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: '0'
 
-      - uses: dart-lang/setup-dart@v1.3
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: ${{ matrix.sdk }}
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Run tests
+        run: dart test -n 'function schema'
+
+      - name: Verify alfa help works
+        run: dart run alfa -h
+
+  find-functions:
+    name: Find functions that changed
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      matrix: ${{ env.matrix }}
+      length: ${{ env.length }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dart-lang/setup-dart@v1
         with:
           sdk: stable
 
       - name: Install dependencies
         run: dart pub get
 
+      - name: Get available functions
+        run: dart run test/bin/get_functions.dart -f /tmp/filters.yml -m /tmp/matrix.json
+
+      - name: Print filters
+        run: cat /tmp/filters.yml
+
+      - name: Print matrix
+        run: jq . /tmp/matrix.json
+
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: /tmp/filters.yml
+
+      - name: Output changes to json
+        run: |
+          echo '${{ steps.changes.outputs.changes }}' > /tmp/changes.json
+          jq . /tmp/changes.json
+
+      - name: Create filtered matrix
+        run: |
+          # filters matrix with only changes
+          jq -c --argfile names /tmp/changes.json '{include: .include | map(select(.name | IN($names[])))}' /tmp/matrix.json > /tmp/filtered_matrix.json
+
+          # prints json file for debugging
+          jq . /tmp/filtered_matrix.json
+
+          # sets matrix output
+          echo "matrix=$(cat /tmp/filtered_matrix.json)" >> $GITHUB_ENV
+          echo "length=$(jq 'length' /tmp/changes.json)" >> $GITHUB_ENV
+
+  test-installing-functions:
+    name: Test installing functions
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    needs:
+      - build-executables
+      - test-functions-schema
+      - find-functions
+    if: ${{ needs.find-functions.outputs.length != '0' }}
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.find-functions.outputs.matrix) }}
+
+    env:
+      ALFA_TEST_CONTAINER_NAME: ${{ matrix.image && 'alfa-test' }}
+      ALFA_INSTALL_LOG_FILEPATH: alfa-install.log
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
+
+      - name: Set alfa permissions
+        run: chmod +x alfa_*
+
+      - name: Add setup to install list file
+        if: ${{ matrix.setup-tag }}
+        env:
+          INSTALL_ITEM: ${{ matrix.setup-tag }}
+        run: echo "$INSTALL_ITEM" >> test_install_list.txt
+
+      - name: Add install tag to install list file
+        if: ${{ matrix.install-tag }}
+        env:
+          INSTALL_ITEM: ${{ matrix.install-tag }}
+        run: echo "$INSTALL_ITEM" >> test_install_list.txt
+
+      - name: Add name to install list file
+        if: ${{ !matrix.install-tag }}
+        env:
+          INSTALL_ITEM: ${{ matrix.name }}
+        run: echo "$INSTALL_ITEM" >> test_install_list.txt
+
+      - name: Add teardown to install list file
+        if: ${{ matrix.teardown-tag }}
+        env:
+          INSTALL_ITEM: ${{ matrix.teardown-tag }}
+        run: echo "$INSTALL_ITEM" >> test_install_list.txt
+
+      - name: Print install list
+        run: cat test_install_list.txt
+
+      - name: Print help message
+        if: ${{ !matrix.image }}
+        run: |
+          sudo ./install.sh -h
+
+      - name: Test install
+        if: ${{ !matrix.image }}
+        run: |
+          set -euo pipefail
+          sudo ./install.sh -e -c test/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt 2>&1 | tee $ALFA_INSTALL_LOG_FILEPATH
+
+      - name: Create docker command script
+        if: ${{ matrix.image }}
+        run: |
+          SCRIPT=$(cat << EOF
+          #!/bin/bash
+          set -euo pipefail
+
+          ./install.sh -h
+
+          ./install.sh -e -c test/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt 2>&1 | tee $ALFA_INSTALL_LOG_FILEPATH
+          EOF
+          )
+
+          echo "$SCRIPT" > run.sh
+
+          chmod +x run.sh
+
+      - name: Setup arm emulation with qemu
+        if: ${{ matrix.image && matrix.platform == 'linux/arm64' }}
+        run: |
+          sudo apt-get update -q -y
+          sudo apt-get -qq install -y qemu qemu-user-static
+          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --credential yes
+
+      - name: Test install with docker
+        if: ${{ matrix.image }}
+        run: |
+          docker run \
+            --name "$ALFA_TEST_CONTAINER_NAME" \
+            -d \
+            -t \
+            --workdir "$GITHUB_WORKSPACE" \
+            -v "${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE}" \
+            ${{ matrix.platform && format('--platform {0}', matrix.platform) }} \
+            --entrypoint bash \
+            '${{ matrix.image }}'
+
+          docker exec "$ALFA_TEST_CONTAINER_NAME" "${GITHUB_WORKSPACE}/run.sh"
+
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Start docker container
+        if: ${{ matrix.image }}
+        run: |
+          docker start "$ALFA_TEST_CONTAINER_NAME"
+
       - name: Run tests
-        run: dart test tests/test_functions.dart
+        env:
+          ALFA_TEST_FUNCTION_NAME: ${{ matrix.name }}
+          ALFA_TEST_CASE_NAME: ${{ matrix.runner-name }}
+        run: |
+          dart test -n 'install logs'

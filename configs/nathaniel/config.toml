@@ -75,7 +75,9 @@ options = [
   "curl",
   "jq",
   "xclip",
-  "snapd"
+  "snapd",
+  "zip",
+  "unzip"
 ]
 
 [ "apt_get_packages+desktop" ]

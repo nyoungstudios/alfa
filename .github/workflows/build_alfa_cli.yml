@@ -1,88 +1,83 @@
 name: Build Alfa CLI
 
 on:
-  push:
-    branches: [ main ]
-    paths:
-      - 'bin/**'
-      - 'lib/**'
+  workflow_call:
   workflow_dispatch:
 
 jobs:
-  tag:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-
-    outputs:
-      tag: ${{ steps.create-tag.outputs.tag }}
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: '0'
-      - name: Bump version and create tag
-        id: create-tag
-        uses: anothrNick/github-tag-action@1.61.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WITH_V: true
-      - name: Create release
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release create "${{ steps.create-tag.outputs.tag }}" --title "${{ steps.create-tag.outputs.tag }}"
-
-  release:
-    needs: tag
+  build-executable:
+    name: Build executable
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
 
     strategy:
       matrix:
-        os: [ ubuntu-latest, macos-latest ]
+        include:
+          - name: linux-x86
+            os: ubuntu-22.04
+          - name: macos-arm
+            os: macos-14
+          - name: macos-x86
+            os: macos-13
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: '0'
 
-      - uses: dart-lang/setup-dart@v1.3
+      - name: Print uname info
+        run: uname -a
+
+      - name: Cache executable
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: alfa_*
+          key: alfa-${{ matrix.name }}-${{ hashFiles('bin/**', 'lib/**') }}
+
+      - uses: dart-lang/setup-dart@v1
+        if: steps.cache.outputs.cache-hit != 'true'
         with:
           sdk: stable
 
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: dart pub get
 
-      - name: Compile Executable
-        id: compile
+      - name: Compile executable
+        if: steps.cache.outputs.cache-hit != 'true'
         run: make
 
-      - name: Upload binary to release
-        uses: svenstaro/upload-release-action@v2
+      - uses: actions/upload-artifact@v4
         with:
-          file: alfa_*
-          tag: ${{ needs.tag.outputs.tag }}
-          file_glob: true
+          name: alfa-${{ matrix.name }}
+          path: alfa_*
 
-  release-on-arm:
-    needs: tag
+  build-executable-on-arm:
+    name: Build linux arm executable
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Cache executable
+        id: cache
+        uses: actions/cache@v4
         with:
-          fetch-depth: '0'
+          path: alfa_*
+          key: alfa-linux-arm-${{ hashFiles('bin/**', 'lib/**') }}
+
       - name: Setup arm emulation with qemu
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
           sudo apt-get update -q -y
           sudo apt-get -qq install -y qemu qemu-user-static
           docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --credential yes
 
       - name: Create docker command script
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
           SCRIPT=$(cat << EOF
-          #!/bin/sh
+          #!/bin/bash
           set -eu
 
           # installs dependencies
@@ -101,22 +96,22 @@ jobs:
           chmod +x run.sh
 
       - name: Cat docker command script
+        if: steps.cache.outputs.cache-hit != 'true'
         run: cat run.sh
 
       - name: Build arm executable with docker
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
           docker run \
             --rm \
             -t \
-            --workdir "${GITHUB_WORKSPACE}" \
+            --workdir "$GITHUB_WORKSPACE" \
             -v "${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE}" \
             --platform linux/arm64 \
             dart:stable \
             "${GITHUB_WORKSPACE}/run.sh"
 
-      - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@v2
+      - uses: actions/upload-artifact@v4
         with:
-          file: alfa_*
-          tag: ${{ needs.tag.outputs.tag }}
-          file_glob: true
+          name: alfa-linux-arm
+          path: alfa_*

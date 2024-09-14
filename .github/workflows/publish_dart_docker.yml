@@ -2,14 +2,15 @@ name: Publish Dart Docker Image
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
     paths:
-      - '.github/workflows/publish_dart_docker.yml'
-      - 'dart.Dockerfile'
-      - '.dart_config/**'
+      - ".github/workflows/publish_dart_docker.yml"
+      - ".dart_config/**"
+      - "dart.Dockerfile"
   schedule:
-      # on the 2nd and 16th of every month
-      - cron: '0 0 2,16 * *'
+    # on the 2nd and 16th of every month
+    - cron: "0 0 2,16 * *"
   workflow_dispatch:
 
 jobs:
@@ -29,8 +30,7 @@ jobs:
           - image: nateateteen/zshpod:full-min
             tags: nateateteen/zdartpod:full-min
     steps:
-      - name: Check out the repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
@@ -39,7 +39,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           file: dart.Dockerfile
           build-args: IMAGE_NAME=${{ matrix.image }}

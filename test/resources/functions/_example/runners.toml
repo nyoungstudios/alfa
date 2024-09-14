@@ -1,0 +1,48 @@
+# this is how you can configure the test runner to run on a variety of different operating systems
+# for more information on how to configure this file, please see contributing-docs/04-how-to-test-functions.md
+[common]
+setup-tag = "setup"
+teardown-tag = "teardown"
+
+[common.test]
+
+assert-install-names = ["_example+setup", "_example", "_example+teardown"]
+assert-log-contains = ["arg1\narg2"]
+
+[[common.test.commands]]
+
+command = "echo"
+arguments = ["hi"]
+assert-stdout-equals = "hi"
+
+# runs function on linux-x86 with a set of different setup/install/teardown steps
+[case.linux-x86]
+os = "ubuntu-22.04"
+install-tag = "special-install"
+setup-tag = "setup-special"
+teardown-tag = "teardown-special"
+
+# adds appropriate test checks that are different the the common assertions
+[case.linux-x86.test]
+
+assert-install-names = ["_example+setup-special", "_example+special-install", "_example+teardown-special"]
+assert-log-contains = ["runner called this function on a x86_64 computer\nspecial-install"]
+
+# runs function on linux x86 in a docker image
+[case.linux-x86-docker]
+os = "ubuntu-22.04"
+image = "phusion/baseimage:jammy-1.0.4"
+
+# runs function on linux arm in a docker image
+[case.linux-arm]
+os = "ubuntu-22.04"
+image = "phusion/baseimage:jammy-1.0.4"
+platform = "linux/arm64"
+
+# runs function on macos arm
+[case.macos-arm]
+os = "macos-14"
+
+# runs function on macos x86
+[case.macos-x86]
+os = "macos-13"

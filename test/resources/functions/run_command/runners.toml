@@ -1,0 +1,14 @@
+[common.test]
+
+assert-install-names = ["run_command"]
+assert-log-contains = [
+  "bash -ceu 'pwd && echo Hi $NAME && echo '\\''word with space'\\'''",
+  "Hi Maverick\nword with space",
+]
+
+# runs on both linux and macos since the function uses sed
+[case.linux]
+os = "ubuntu-22.04"
+
+[case.macos]
+os = "macos-13"
