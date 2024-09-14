@@ -1,3 +1,7 @@
+[common]
+
+setup-tag = "setup"
+
 [common.test]
 
 assert-install-names = ["awscli"]

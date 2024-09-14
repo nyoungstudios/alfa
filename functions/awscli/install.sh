@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 install_awscli_macos() {
   TMP_DIR="$(mktemp -d)"
   curl_or_wget -s "https://awscli.amazonaws.com/AWSCLIV2.pkg" "$TMP_DIR/awscliv2.zip"
