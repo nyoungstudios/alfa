@@ -1,0 +1,28 @@
+[common]
+
+setup-tag = "setup"
+
+[common.test]
+
+assert-install-names = ["apt_get_packages", "ohmyzsh"]
+
+[[common.test.commands]]
+
+command = "zsh"
+arguments = [
+  "-ceu",
+  "[[ -f ~/.oh-my-zsh ]] && echo exists || echo missing",
+]
+assert-stdout-equals = "exists"
+
+[[common.test.commands]]
+
+command = "cat"
+arguments = [
+  "~/.zshrc",
+]
+assert-stdout-contains = "ZSH_THEME=\"robbyrussell\""
+
+[case.default]
+os = "ubuntu-22.04"
+image = "phusion/baseimage:jammy-1.0.4"
