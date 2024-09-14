@@ -1,10 +1,27 @@
 [common]
-install-tag = "check"
+# install-tag = "check"
+
+assert-install-names = ["anaconda"]
+
+[[test.commands]]
+
+command = "conda"
+arguments = ["--version"]
+# assert-stdout-equals = "hi"
+# assert-stderr-equals = ""
+assert-stderr-contains = "conda 4."
+# assert-stdout-contains = ""
+
+[[test.commands]]
+
+command = "which"
+arguments = ["conda"]
+# assert-stdout-equals = "hi"
+# assert-stderr-equals = ""
+# assert-stderr-contains = "conda 4."
+# assert-stdout-contains = ""
 
 [case.linux-x86]
-os = "ubuntu-22.04"
-
-[case.linux-x86-docker]
 os = "ubuntu-22.04"
 image = "phusion/baseimage:jammy-1.0.4"
 

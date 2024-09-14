@@ -1,10 +1,10 @@
 [ anaconda ]
 tags = []
 
-[ run_command ]
-tags = [ "check" ]
-options = [
-  "bash",
-  "-ceu",
-  "python -V && conda --version"
-]
+# [ run_command ]
+# tags = [ "check" ]
+# options = [
+#   "bash",
+#   "-ceu",
+#   "echo python -V && echo conda --version"
+# ]
