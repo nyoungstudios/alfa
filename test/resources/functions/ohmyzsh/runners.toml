@@ -4,7 +4,7 @@ setup-tag = "setup"
 
 [common.test]
 
-assert-install-names = ["apt_get_packages", "ohmyzsh"]
+assert-install-names = ["apt_get_packages", "run_command", "ohmyzsh"]
 
 [[common.test.commands]]
 
@@ -14,6 +14,14 @@ arguments = [
   "[[ -d ~/.oh-my-zsh ]] && echo exists || echo missing",
 ]
 assert-stdout-equals = "exists"
+
+[[common.test.commands]]
+
+command = "ls"
+arguments = [
+  "~",
+  "-alt"
+]
 
 [[common.test.commands]]
 
