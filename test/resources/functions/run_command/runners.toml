@@ -3,5 +3,8 @@
 assert-install-names = ["run_command"]
 assert-logs-contains = "Hi Maverick\nword with space"
 
-[case.default]
+[case.linux]
 os = "ubuntu-22.04"
+
+[case.macos]
+os = "macos-13"
