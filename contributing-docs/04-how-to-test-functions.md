@@ -40,7 +40,7 @@ teardown-tag = "teardown-tag"
 [case.example.test]
 
 assert-install-names = ["setup_function_name", "function_name", "teardown_function_name"]
-assert-logs-contains = "logs"
+assert-log-contains = ["log part 1", "log part 2"]
 
 [[case.example.test.commands]]
 
@@ -69,7 +69,7 @@ assert-stdout-equals = "/usr/bin/whoami"
 - **teardown-tag** (optional) - this is the tag in the `test_config.toml` file which runs after the function you are testing.
 - **test** (optional) - all the keys relating to the making the assertions after the setup/install/teardown steps.
   - **assert-install-names** (optional) - the names of the keys in the `test_config.toml` file which were run.
-  - **assert-logs-contains** (optional) - a string to check that was printed in the logs while running the setup/install/teardown steps.
+  - **assert-log-contains** (optional) - a list of strings to check that was printed in the logs while running the setup/install/teardown steps.
   - **commands** (optional) - a list of any other commands to run for additional testing.
     - **command** (required) - a shell command to run in the containerized environment.
     - **arguments** (optional) - a list of arguments to pass to the command.

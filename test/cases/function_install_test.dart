@@ -107,14 +107,16 @@ void main() async {
 
       /// Runs checks based off of the install log output
       final List? assertInstallNames = getTestValue('assert-install-names');
-      final String? assertLogsContains = getTestValue('assert-logs-contains');
+      final List? assertLogContains = getTestValue('assert-log-contains');
 
       late final installLogs = getLogs();
       if (assertInstallNames != null) {
         expect(installLogs.installNames, assertInstallNames);
       }
-      if (assertLogsContains != null) {
-        expect(installLogs.logs, contains(assertLogsContains));
+      if (assertLogContains != null) {
+        for (String logPart in assertLogContains) {
+          expect(installLogs.logs, contains(logPart));
+        }
       }
 
       /// Runs any other commands for additional testing
