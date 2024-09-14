@@ -1,0 +1,10 @@
+[ apt_get_packages ]
+tags = [ "setup" ]
+options = [
+  "--no-install-recommends",
+  "zip",
+  "unzip"
+]
+
+[ awscli ]
+options = []
