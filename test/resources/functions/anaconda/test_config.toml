@@ -6,5 +6,5 @@ tags = [ "check" ]
 options = [
   "bash",
   "-ceu",
-  "echo 'this is awesome' && pwd"
+  "python -V && conda --version"
 ]
