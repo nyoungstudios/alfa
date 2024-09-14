@@ -35,7 +35,7 @@ install-tag = "custom-location"
 
 [case.macos-x86.test]
 
-assert-install-names = ["anaconda"]
+assert-install-names = ["anaconda+custom-location"]
 
 [[case.macos-x86.test.commands]]
 
