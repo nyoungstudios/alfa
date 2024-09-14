@@ -158,7 +158,7 @@ jobs:
         if: ${{ matrix.image }}
         run: |
           SCRIPT=$(cat << EOF
-          #!/bin/sh
+          #!/bin/bash
           set -euo pipefail
 
           ./install.sh -h
