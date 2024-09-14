@@ -78,7 +78,7 @@ jobs:
         run: |
           SCRIPT=$(cat << EOF
           #!/bin/sh
-          set -eu
+          set -euo pipefail
 
           # installs dependencies
           dart pub get

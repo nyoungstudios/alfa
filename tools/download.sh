@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -eu
+set -euo pipefail
 
 curl_or_wget() {
   # downloads file from url with curl or wget

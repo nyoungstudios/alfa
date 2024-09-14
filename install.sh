@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -eu
+set -euo pipefail
 
 # checks if install.sh is run from the correct directory
 if [[ ! -f "Makefile" ]]; then
