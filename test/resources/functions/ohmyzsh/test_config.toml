@@ -9,8 +9,9 @@ options = [
 [ run_command ]
 tags = [ "setup" ]
 options = [
-  "touch",
-  "~/.zshrc"
+  "bash",
+  "-ceu",
+  "touch ~/.zshrc"
 ]
 
 [ ohmyzsh ]
