@@ -15,7 +15,7 @@ assert-stdout-equals = "exists"
 
 command = "bash"
 arguments = ["-ceu", "~/anaconda3/bin/conda --version"]
-assert-stdout-contains = "conda 4."
+assert-stdout-contains = "conda 24."
 
 [case.linux-x86]
 os = "ubuntu-22.04"
@@ -50,4 +50,4 @@ assert-stdout-equals = "exists"
 
 command = "bash"
 arguments = ["-ceu", "~/custom/anaconda3/bin/conda --version"]
-assert-stdout-contains = "conda 4."
+assert-stdout-contains = "conda 24."
