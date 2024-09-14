@@ -33,7 +33,7 @@ jobs:
           path: alfa_*
           key: alfa-${{ matrix.name }}-${{ hashFiles('bin/**', 'lib/**') }}
 
-      - uses: dart-lang/setup-dart@v1.3
+      - uses: dart-lang/setup-dart@v1.6
         if: steps.cache.outputs.cache-hit != 'true'
         with:
           sdk: stable

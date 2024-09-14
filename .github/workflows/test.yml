@@ -30,7 +30,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: dart-lang/setup-dart@v1.3
+      - uses: dart-lang/setup-dart@v1.6
         with:
           sdk: stable
 
@@ -51,7 +51,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: dart-lang/setup-dart@v1.3
+      - uses: dart-lang/setup-dart@v1.6
         with:
           sdk: stable
 
@@ -193,7 +193,7 @@ jobs:
 
           docker exec "$ALFA_TEST_CONTAINER_NAME" "${GITHUB_WORKSPACE}/run.sh"
 
-      - uses: dart-lang/setup-dart@v1.3
+      - uses: dart-lang/setup-dart@v1.6
         with:
           sdk: stable
 
