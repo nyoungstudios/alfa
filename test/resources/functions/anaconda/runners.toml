@@ -7,18 +7,20 @@ assert-install-names = ["anaconda"]
 
 [[common.test.commands]]
 
-command = "conda"
-arguments = ["--version"]
+command = "bash"
+arguments = ["-ceu", "[[ -f ~/anaconda3/bin/conda ]] && echo exists || echo missing"]
+assert-stdout-equals = "exists"
+
+[[common.test.commands]]
+
+command = "bash"
+arguments = ["-ceu", "conda", "--version"]
 # assert-stdout-equals = "hi"
 # assert-stderr-equals = ""
 assert-stderr-contains = "conda 4."
 # assert-stdout-contains = ""
 
-[[common.test.commands]]
 
-command = "which"
-arguments = ["conda"]
-# assert-stdout-equals = "hi"
 # assert-stderr-equals = ""
 # assert-stderr-contains = "conda 4."
 # assert-stdout-contains = ""
