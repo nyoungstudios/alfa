@@ -26,19 +26,25 @@ jobs:
     name: Test functions schema
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    strategy:
+      matrix:
+        sdk: [stable, 3.0, 3.1, 3.2, 3.3, 3.4]
 
     steps:
       - uses: actions/checkout@v4
 
       - uses: dart-lang/setup-dart@v1
         with:
-          sdk: stable
+          sdk: ${{ matrix.sdk }}
 
       - name: Install dependencies
         run: dart pub get
 
       - name: Run tests
         run: dart test -n 'function schema'
+
+      - name: Verify alfa help works
+        run: dart run alfa -h
 
   find-functions:
     name: Find functions that changed
