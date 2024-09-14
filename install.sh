@@ -70,9 +70,9 @@ else
   while :; do sudo -v; sleep 59; done &
   loopPid="$!"
 
-  sudo --preserve-env=ALFA_USER,ALFA_ARCH ./$alfaCommand "$@"
-
   trap 'trap - SIGTERM && kill $(pgrep -P $loopPid) $loopPid' SIGINT SIGTERM EXIT
+
+  sudo --preserve-env=ALFA_USER,ALFA_ARCH ./$alfaCommand "$@"
 
 fi
 
