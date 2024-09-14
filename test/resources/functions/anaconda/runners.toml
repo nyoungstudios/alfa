@@ -5,13 +5,16 @@ assert-install-names = ["anaconda"]
 [[common.test.commands]]
 
 command = "bash"
-arguments = ["-ceu", "[[ -f ~/anaconda3/bin/conda ]] && echo exists || echo missing"]
+arguments = [
+  "-ceu",
+  "[[ -f ~/anaconda3/bin/conda ]] && echo exists || echo missing",
+]
 assert-stdout-equals = "exists"
 
 [[common.test.commands]]
 
-command = "bash"
-arguments = ["-ceu", "~/anaconda3/bin/conda", "--version"]
+command = "~/anaconda3/bin/conda"
+arguments = ["-version"]
 assert-stdout-contains = "conda 4."
 
 [case.linux-x86]
