@@ -4,6 +4,7 @@ tags = []
 [ run_command ]
 tags = [ "check-version" ]
 options = [
-  "conda",
-  "--version"
+  "bash",
+  "-ceu",
+  "conda --version"
 ]
