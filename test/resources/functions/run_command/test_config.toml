@@ -2,7 +2,7 @@
 options = [
   "bash",
   "-ceu",
-  "pwd && echo Hi $NAME"
+  "pwd && echo Hi $NAME && echo 'word with space'"
 ]
 
 [ run_command.env ]

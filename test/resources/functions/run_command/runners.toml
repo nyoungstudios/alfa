@@ -1,7 +1,7 @@
 [common.test]
 
 assert-install-names = ["run_command"]
-assert-logs-contains = "Hi Maverick"
+assert-logs-contains = "Hi Maverick\nword with space"
 
 [case.default]
 os = "ubuntu-22.04"
