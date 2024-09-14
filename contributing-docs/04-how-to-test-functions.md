@@ -48,8 +48,8 @@ command = "bash"
 arguments = ["-ceu", "echo hi"]
 assert-stdout-equals = "hi"
 # assert-stderr-equals = ""
-# assert-stderr-contains = ""
 # assert-stdout-contains = ""
+# assert-stderr-contains = ""
 
 [[case.example.test.commands]]
 
@@ -57,8 +57,8 @@ command = "which"
 arguments = ["whoami"]
 assert-stdout-equals = "/usr/bin/whoami"
 # assert-stderr-equals = ""
-# assert-stderr-contains = ""
 # assert-stdout-contains = ""
+# assert-stderr-contains = ""
 ```
 
 ### Test runner file schema
