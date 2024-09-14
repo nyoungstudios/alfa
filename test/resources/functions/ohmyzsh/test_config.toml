@@ -1,0 +1,18 @@
+[ apt_get_packages ]
+tags = [ "setup" ]
+options = [
+  "--no-install-recommends",
+  "git",
+  "zsh"
+]
+
+[ ohmyzsh ]
+options = []
+
+[ "ohmyzsh+custom" ]
+tags = [ "custom" ]
+options = []
+
+[ "ohmyzsh+custom".env ]
+ZSH = "~/.custom-oh-my-zsh"
+REPO = "nyoungstudios/ohmyzsh"
