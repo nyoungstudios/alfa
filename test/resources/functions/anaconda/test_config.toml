@@ -1,2 +1,10 @@
 [ anaconda ]
 tags = []
+
+[ run_command ]
+tags = [ "check" ]
+options = [
+  "bash",
+  "-ceu",
+  "which conda"
+]
