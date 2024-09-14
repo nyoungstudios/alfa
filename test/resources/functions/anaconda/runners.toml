@@ -15,7 +15,7 @@ assert-stdout-equals = "exists"
 
 command = "bash"
 arguments = ["-ceu", "~/anaconda3/bin/conda --help"]
-assert-stdout-contains = "usage: conda [-h] [-V] command"
+assert-stdout-contains = "conda is a tool for managing and deploying applications, environments and packages."
 
 [case.linux-x86]
 os = "ubuntu-22.04"
@@ -50,4 +50,4 @@ assert-stdout-equals = "exists"
 
 command = "bash"
 arguments = ["-ceu", "~/custom/anaconda3/bin/conda --help"]
-assert-stdout-contains = "usage: conda [-h] [-V] command"
+assert-stdout-contains = "conda is a tool for managing and deploying applications, environments and packages."
