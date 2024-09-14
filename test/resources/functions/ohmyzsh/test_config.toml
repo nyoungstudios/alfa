@@ -8,3 +8,11 @@ options = [
 
 [ ohmyzsh ]
 options = []
+
+
+[ "ohmyzsh+custom" ]
+options = []
+
+
+[ "ohmyzsh+custom".env ]
+REPO = "nyoungstudios/ohmyzsh"
