@@ -1,4 +1,4 @@
-name: Lint
+name: Lint Dart
 
 # Run only one unique workflow at a time on a pr
 # https://docs.github.com/en/actions/using-jobs/using-concurrency#example-using-a-fallback-value
@@ -8,13 +8,9 @@ concurrency:
 
 on:
   pull_request:
-    branches:
-      - main
     paths:
-      - ".github/workflows/lint.yml"
-      - "bin/**"
-      - "lib/**"
-      - "tests/**.dart"
+      - ".github/workflows/lint_dart.yml"
+      - "**.dart"
       - "pubspec.yaml"
   workflow_dispatch:
 
@@ -26,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: dart-lang/setup-dart@v1.3
+      - uses: dart-lang/setup-dart@v1
         with:
           sdk: stable
 
@@ -34,4 +30,4 @@ jobs:
         run: dart pub get
 
       - name: Run linter
-        run: dart analyze --fatal-infos
+        run: make lint

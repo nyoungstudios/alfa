@@ -1,0 +1,53 @@
+[common.test]
+
+assert-install-names = ["anaconda"]
+
+[[common.test.commands]]
+
+command = "bash"
+arguments = [
+  "-ceu",
+  "[[ -f ~/anaconda3/bin/conda ]] && echo exists || echo missing",
+]
+assert-stdout-equals = "exists"
+
+[[common.test.commands]]
+
+command = "bash"
+arguments = ["-ceu", "~/anaconda3/bin/conda --help"]
+assert-stdout-contains = "conda is a tool for managing and deploying applications, environments and packages."
+
+[case.linux-x86]
+os = "ubuntu-22.04"
+image = "phusion/baseimage:jammy-1.0.4"
+
+[case.linux-arm]
+os = "ubuntu-22.04"
+image = "phusion/baseimage:jammy-1.0.4"
+platform = "linux/arm64"
+
+[case.macos-arm]
+os = "macos-14"
+
+[case.macos-x86]
+os = "macos-13"
+install-tag = "custom-location"
+
+[case.macos-x86.test]
+
+assert-install-names = ["anaconda+custom-location"]
+
+[[case.macos-x86.test.commands]]
+
+command = "bash"
+arguments = [
+  "-ceu",
+  "[[ -f ~/custom/anaconda3/bin/conda ]] && echo exists || echo missing",
+]
+assert-stdout-equals = "exists"
+
+[[case.macos-x86.test.commands]]
+
+command = "bash"
+arguments = ["-ceu", "~/custom/anaconda3/bin/conda --help"]
+assert-stdout-contains = "conda is a tool for managing and deploying applications, environments and packages."

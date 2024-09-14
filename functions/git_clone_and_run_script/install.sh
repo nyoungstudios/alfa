@@ -1,6 +1,6 @@
 #!/bin/bash
 
-install_run_script() {
+install_git_clone_and_run_script() {
   # creates parent directory and cd's into it
   dir="${1/#\~/$HOME}"
   shift

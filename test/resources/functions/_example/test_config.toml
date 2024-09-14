@@ -1,0 +1,38 @@
+# normal install steps
+[ "_example+setup" ]
+options = [
+  "setup"
+]
+tags = [ "setup" ]
+
+[ _example ]
+options = [
+  "arg1",
+  "arg2"
+]
+
+[ "_example+teardown" ]
+options = [
+  "teardown"
+]
+tags = [ "teardown" ]
+
+# special install steps
+
+[ "_example+setup-special" ]
+options = [
+  "setup-special"
+]
+tags = [ "setup-special" ]
+
+[ "_example+special-install" ]
+options = [
+  "special-install"
+]
+tags = [ "special-install" ]
+
+[ "_example+teardown-special" ]
+options = [
+  "teardown-special"
+]
+tags = [ "teardown-special" ]
