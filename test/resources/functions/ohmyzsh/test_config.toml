@@ -2,6 +2,7 @@
 tags = [ "setup" ]
 options = [
   "--no-install-recommends",
+  "git",
   "zsh"
 ]
 
