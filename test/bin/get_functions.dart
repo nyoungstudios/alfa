@@ -1,4 +1,4 @@
-/// dart run test/get_functions.dart
+/// dart run test/bin/get_functions.dart
 /// gets functions to run tests for in Github Actions
 import 'dart:convert';
 import 'dart:io';

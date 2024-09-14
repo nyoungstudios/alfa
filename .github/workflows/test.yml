@@ -60,7 +60,7 @@ jobs:
         run: dart pub get
 
       - name: Get available functions
-        run: dart run test/get_functions.dart -f /tmp/filters.yml -m /tmp/matrix.json
+        run: dart run test/bin/get_functions.dart -f /tmp/filters.yml -m /tmp/matrix.json
 
       - name: Print filters
         run: cat /tmp/filters.yml
