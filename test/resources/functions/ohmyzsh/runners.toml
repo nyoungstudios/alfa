@@ -1,12 +1,15 @@
 [common]
 
+os = "ubuntu-22.04"
+image = "phusion/baseimage:jammy-1.0.4"
+
 setup-tag = "setup"
 
-[common.test]
+[case.default.test]
 
 assert-install-names = ["apt_get_packages", "ohmyzsh"]
 
-[[common.test.commands]]
+[[case.default.test.commands]]
 
 command = "bash"
 arguments = [
@@ -15,15 +18,7 @@ arguments = [
 ]
 assert-stdout-equals = "exists"
 
-[[common.test.commands]]
-
-command = "bash"
-arguments = [
-  "-ceu",
-  "ls ~ -alt"
-]
-
-[[common.test.commands]]
+[[case.default.test.commands]]
 
 command = "bash"
 arguments = [
@@ -32,13 +27,12 @@ arguments = [
 ]
 assert-stdout-contains = "ZSH_THEME=\"robbyrussell\""
 
-[case.default]
-os = "ubuntu-22.04"
-image = "phusion/baseimage:jammy-1.0.4"
-
 [case.custom]
-os = "ubuntu-22.04"
-image = "phusion/baseimage:jammy-1.0.4"
+install-tag = "custom"
+
+[case.custom.test]
+
+assert-install-names = ["apt_get_packages", "ohmyzsh+custom"]
 
 [[case.custom.test.commands]]
 
