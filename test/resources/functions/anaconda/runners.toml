@@ -14,8 +14,8 @@ assert-stdout-equals = "exists"
 [[common.test.commands]]
 
 command = "bash"
-arguments = ["-ceu", "~/anaconda3/bin/conda --version"]
-assert-stdout-contains = "conda 24."
+arguments = ["-ceu", "~/anaconda3/bin/conda --help"]
+assert-stdout-contains = "usage: conda [-h] [-V] command"
 
 [case.linux-x86]
 os = "ubuntu-22.04"
@@ -49,5 +49,5 @@ assert-stdout-equals = "exists"
 [[case.macos-x86.test.commands]]
 
 command = "bash"
-arguments = ["-ceu", "~/custom/anaconda3/bin/conda --version"]
-assert-stdout-contains = "conda 24."
+arguments = ["-ceu", "~/custom/anaconda3/bin/conda --help"]
+assert-stdout-contains = "usage: conda [-h] [-V] command"
