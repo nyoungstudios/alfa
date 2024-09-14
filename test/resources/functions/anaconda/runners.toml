@@ -1,9 +1,11 @@
-[common]
+# [common]
 # install-tag = "check"
+
+[common.test]
 
 assert-install-names = ["anaconda"]
 
-[[test.commands]]
+[[common.test.commands]]
 
 command = "conda"
 arguments = ["--version"]
@@ -12,7 +14,7 @@ arguments = ["--version"]
 assert-stderr-contains = "conda 4."
 # assert-stdout-contains = ""
 
-[[test.commands]]
+[[common.test.commands]]
 
 command = "which"
 arguments = ["conda"]
