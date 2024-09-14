@@ -9,11 +9,9 @@ options = [
 [ ohmyzsh ]
 options = []
 
-
 [ "ohmyzsh+custom" ]
 tags = [ "custom" ]
 options = []
-
 
 [ "ohmyzsh+custom".env ]
 REPO = "nyoungstudios/ohmyzsh"
