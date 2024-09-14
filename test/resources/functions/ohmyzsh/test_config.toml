@@ -14,5 +14,5 @@ tags = [ "custom" ]
 options = []
 
 [ "ohmyzsh+custom".env ]
-ZSH = "$HOME/.custom-oh-my-zsh"
+ZSH = "~/.custom-oh-my-zsh"
 REPO = "nyoungstudios/ohmyzsh"
