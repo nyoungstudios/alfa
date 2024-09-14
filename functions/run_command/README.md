@@ -24,7 +24,7 @@ There are no special environment variables, but you can pass any environment var
 options = [
   "bash",
   "-ceu",
-  "'pwd && echo Hi $NAME'"
+  "pwd && echo Hi $NAME"
 ]
 
 [ run_command.env ]
