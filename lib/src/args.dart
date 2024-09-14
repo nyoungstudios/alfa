@@ -1,3 +1,4 @@
+/// comment
 import 'package:args/args.dart';
 
 void printUsageMsg(ArgParser ap, String name, String msg) {
