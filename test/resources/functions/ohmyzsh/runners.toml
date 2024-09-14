@@ -39,6 +39,6 @@ assert-install-names = ["apt_get_packages", "ohmyzsh+custom"]
 command = "zsh"
 arguments = [
   "-ceu",
-  "cd ~/.oh-my-zsh && g config --get remote.origin.url",
+  "cd ~/.custom-oh-my-zsh && git config --get remote.origin.url",
 ]
 assert-stdout-contains = "nyoungstudios/ohmyzsh"
