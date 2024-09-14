@@ -34,6 +34,15 @@ install-tag = "custom"
 
 assert-install-names = ["apt_get_packages", "ohmyzsh+custom"]
 
+
+[[case.custom.test.commands]]
+
+command = "zsh"
+arguments = [
+  "-ceu",
+  "ls -alt ~",
+]
+
 [[case.custom.test.commands]]
 
 command = "zsh"
