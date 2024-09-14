@@ -11,7 +11,7 @@ assert-install-names = ["apt_get_packages", "ohmyzsh"]
 command = "zsh"
 arguments = [
   "-ceu",
-  "[[ -f ~/.oh-my-zsh ]] && echo exists || echo missing",
+  "[[ -d ~/.oh-my-zsh ]] && echo exists || echo missing",
 ]
 assert-stdout-equals = "exists"
 
