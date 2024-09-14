@@ -6,13 +6,5 @@ options = [
   "zsh"
 ]
 
-[ run_command ]
-tags = [ "setup" ]
-options = [
-  "bash",
-  "-ceu",
-  "touch ~/.zshrc"
-]
-
 [ ohmyzsh ]
 options = []

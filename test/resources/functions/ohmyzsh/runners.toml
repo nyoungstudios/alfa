@@ -4,11 +4,11 @@ setup-tag = "setup"
 
 [common.test]
 
-assert-install-names = ["apt_get_packages", "run_command", "ohmyzsh"]
+assert-install-names = ["apt_get_packages", "ohmyzsh"]
 
 [[common.test.commands]]
 
-command = "zsh"
+command = "bash"
 arguments = [
   "-ceu",
   "[[ -d ~/.oh-my-zsh ]] && echo exists || echo missing",
@@ -25,9 +25,10 @@ arguments = [
 
 [[common.test.commands]]
 
-command = "cat"
+command = "bash"
 arguments = [
-  "~/.zshrc",
+  "-ceu",
+  "cat ~/.zshrc",
 ]
 assert-stdout-contains = "ZSH_THEME=\"robbyrussell\""
 
