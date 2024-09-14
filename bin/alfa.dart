@@ -194,7 +194,7 @@ void main(List<String> args) async {
     // checks if there are any environment variables to pass when installing this
     if (config[name].containsKey('env') && config[name]['env'].isNotEmpty) {
       config[name]['env'].forEach((key, value) {
-        command += '$key=${shlex.quote(value.toString())}; ';
+        command += 'export $key=${shlex.quote(value.toString())}; ';
       });
     }
 
