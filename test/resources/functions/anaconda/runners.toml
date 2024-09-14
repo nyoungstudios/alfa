@@ -1,6 +1,3 @@
-[common]
-teardown-tag = "check-version"
-
 [common.test]
 
 assert-install-names = ["anaconda"]

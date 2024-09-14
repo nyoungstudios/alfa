@@ -1,10 +1,2 @@
 [ anaconda ]
 tags = []
-
-[ run_command ]
-tags = [ "check-version" ]
-options = [
-  "bash",
-  "-ceu",
-  "conda --version"
-]
