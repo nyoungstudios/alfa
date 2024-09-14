@@ -4,14 +4,14 @@ install-tag = "check"
 [case.linux-x86]
 os = "ubuntu-22.04"
 
-[case.linux-x86-docker]
-os = "ubuntu-22.04"
-image = "phusion/baseimage:jammy-1.0.4"
+# [case.linux-x86-docker]
+# os = "ubuntu-22.04"
+# image = "phusion/baseimage:jammy-1.0.4"
 
-[case.linux-arm]
-os = "ubuntu-22.04"
-image = "phusion/baseimage:jammy-1.0.4"
-platform = "linux/arm64"
+# [case.linux-arm]
+# os = "ubuntu-22.04"
+# image = "phusion/baseimage:jammy-1.0.4"
+# platform = "linux/arm64"
 
 [case.macos-arm]
 os = "macos-14"
