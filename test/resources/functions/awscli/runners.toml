@@ -10,6 +10,7 @@ assert-stdout-contains = "awscli/2"
 
 [case.linux-x86]
 os = "ubuntu-22.04"
+image = "phusion/baseimage:jammy-1.0.4"
 
 [case.linux-arm]
 os = "ubuntu-22.04"
