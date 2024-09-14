@@ -3,6 +3,7 @@
 assert-install-names = ["run_command"]
 assert-logs-contains = "Hi Maverick\nword with space"
 
+# runs on both linux and macos since the function uses sed
 [case.linux]
 os = "ubuntu-22.04"
 
