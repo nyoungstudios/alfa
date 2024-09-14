@@ -6,5 +6,5 @@ tags = [ "check" ]
 options = [
   "bash",
   "-ceu",
-  "python -V && pwd"
+  "'python -V && pwd'"
 ]
