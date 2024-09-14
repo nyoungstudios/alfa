@@ -1,4 +1,4 @@
-# normal install
+# normal install steps
 [ "_example+setup" ]
 options = [
   "setup"
@@ -17,7 +17,7 @@ options = [
 ]
 tags = [ "teardown" ]
 
-# special install
+# special install steps
 
 [ "_example+setup-special" ]
 options = [
@@ -29,7 +29,7 @@ tags = [ "setup-special" ]
 options = [
   "special-install"
 ]
-tags = [ "special-install  ~!@#$%^&*()_+-=`{}|[]\\;':\",./<>?" ]
+tags = [ "special-install" ]
 
 [ "_example+teardown-special" ]
 options = [
