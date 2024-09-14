@@ -1,6 +1,6 @@
 # Dart Setup
 
-The main program and test framework is written in the Dart programming language. This guide contains how to setup your Dart coding environment.
+The main program and test framework is written in the Dart programming language. This guide contains how to setup your Dart development environment.
 
 It does not really matter what editor you use; however, if you want to contribute to the Dart codebase and do not want to set up Dart on your local machine, you can use a containerized development environment with all of the requirements built-in. Here are two options:
 
