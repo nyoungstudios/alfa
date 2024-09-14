@@ -2,24 +2,32 @@
 
 setup-tag = "setup"
 
-# [common.test]
+[common.test]
 
-# assert-install-names = ["awscli"]
+assert-install-names = ["awscli"]
 
 [[common.test.commands]]
 
 command = "aws"
 arguments = ["--version"]
-assert-stdout-contains = "awscli/2"
+assert-stdout-contains = "aws-cli/2"
 
 [case.linux-x86]
 os = "ubuntu-22.04"
 image = "phusion/baseimage:jammy-1.0.4"
 
+[case.linux-x86.test]
+
+assert-install-names = ["apt_get_packages", "awscli"]
+
 [case.linux-arm]
 os = "ubuntu-22.04"
 image = "phusion/baseimage:jammy-1.0.4"
 platform = "linux/arm64"
+
+[case.linux-arm.test]
+
+assert-install-names = ["apt_get_packages", "awscli"]
 
 [case.macos-arm]
 os = "macos-14"
