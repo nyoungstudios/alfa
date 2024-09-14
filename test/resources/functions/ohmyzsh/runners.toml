@@ -17,10 +17,10 @@ assert-stdout-equals = "exists"
 
 [[common.test.commands]]
 
-command = "ls"
+command = "bash"
 arguments = [
-  "~",
-  "-alt"
+  "-ceu",
+  "ls ~ -alt"
 ]
 
 [[common.test.commands]]
