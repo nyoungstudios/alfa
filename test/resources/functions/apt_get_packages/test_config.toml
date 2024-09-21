@@ -1,0 +1,5 @@
+[ apt_get_packages ]
+options = [
+  "--no-install-recommends",
+  "jq"
+]
