@@ -1,0 +1,16 @@
+[common.test]
+
+assert-install-names = ["apt_get_packages"]
+
+[[common.test.commands]]
+
+command = "bash"
+arguments = [
+  "-ceu",
+  "which jq",
+]
+assert-stdout-equals = "/usr/bin/jq"
+
+[case.common]
+os = "ubuntu-22.04"
+image = "phusion/baseimage:jammy-1.0.4"
