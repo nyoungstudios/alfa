@@ -1,0 +1,26 @@
+[common]
+setup-tag = "setup"
+
+[[common.test.commands]]
+
+command = "bash"
+arguments = [
+  "-ceu",
+  "cat ~/.zshrc",
+]
+assert-stdout-contains = "plugins=(\n  git\n  copyfile\n  ### NEW PLUGINS HERE ###\n)\n"
+
+[case.linux]
+os = "ubuntu-22.04"
+image = "phusion/baseimage:jammy-1.0.4"
+
+[case.linux.test]
+
+assert-install-names = ["apt_get_packages", "ohmyzsh", "add_ohmyzsh_plugins"]
+
+[case.macos]
+os = "macos-13"
+
+[case.macos.test]
+
+assert-install-names = ["ohmyzsh", "add_ohmyzsh_plugins"]
