@@ -1,0 +1,4 @@
+[ zshenv ]
+options = [
+  "export TEST=value"
+]
