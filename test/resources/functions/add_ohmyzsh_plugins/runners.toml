@@ -8,7 +8,7 @@ arguments = [
   "-ceu",
   "cat ~/.zshrc",
 ]
-assert-stdout-contains = "plugins=(\n  git\n  copyfile\n###NEW PLUGINS HERE###\n)"
+assert-stdout-contains = "plugins=(\n  git\n  copyfile\n  ### NEW PLUGINS HERE ###\n)\n"
 
 [case.linux]
 os = "ubuntu-22.04"
