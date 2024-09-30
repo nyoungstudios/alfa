@@ -1,0 +1,17 @@
+[ apt_get_packages ]
+tags = [ "setup" ]
+options = [
+  "--no-install-recommends",
+  "git",
+  "zsh"
+]
+
+[ ohmyzsh ]
+tags = [ "setup" ]
+options = []
+
+[ add_ohmyzsh_plugins ]
+options = [
+  "git",
+  "copyfile"
+]
