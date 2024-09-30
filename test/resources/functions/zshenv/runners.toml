@@ -1,0 +1,15 @@
+[common.test]
+
+assert-install-names = ["zshenv"]
+
+[[common.test.commands]]
+
+command = "bash"
+arguments = [
+  "-ceu",
+  "cat ~/.zshenv",
+]
+assert-stdout-equals = "export TEST=value"
+
+[case.default]
+os = "ubuntu-22.04"
