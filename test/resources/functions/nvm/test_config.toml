@@ -1,3 +1,11 @@
+[ run_command ]
+tags = ["setup-bashrc"]
+options = [
+  "bash",
+  "-ceu",
+  "touch -a ~/.bashrc"
+]
+
 [ nvm ]
 options = []
 
