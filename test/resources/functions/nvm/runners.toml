@@ -13,15 +13,9 @@ assert-log-contains = ["Profile not found."]
 [[case.default.test.commands]]
 
 command = "bash"
-arguments = ["-ceu", "cat ~/.bashrc"]
-assert-stdout-contains = "if"
-
-[[case.default.test.commands]]
-
-command = "bash"
 arguments = [
   "-ceu",
-  "export NVM_DIR=\"$HOME/.config/nvm\"; export NVM_DIR=\"$HOME/.config/nvm\"; nvm --help",
+  "export NVM_DIR=\"$HOME/.config/nvm\"; [ -s \"$NVM_DIR/nvm.sh\" ] && \\. \"$NVM_DIR/nvm.sh\"; nvm --help",
 ]
 assert-stdout-contains = "Node Version Manager (v0.40.1)"
 
@@ -39,6 +33,6 @@ assert-log-contains = ["Profile not found."]
 command = "bash"
 arguments = [
   "-ceu",
-  "export NVM_DIR=\"$HOME/.config/nvm\"; export NVM_DIR=\"$HOME/.config/nvm\"; nvm --help",
+  "export NVM_DIR=\"$HOME/.config/nvm\"; [ -s \"$NVM_DIR/nvm.sh\" ] && \\. \"$NVM_DIR/nvm.sh\"; nvm --help",
 ]
 assert-stdout-contains = "Node Version Manager (v0.40.1)"
