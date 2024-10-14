@@ -1,0 +1,21 @@
+[common]
+os = "ubuntu-24.04"
+
+[case.default]
+
+[case.default.test]
+
+assert-install-names = ["nvm"]
+
+
+[[case.default.test.commands]]
+
+command = "bash"
+arguments = ["-ceu", "nvm --help"]
+assert-stdout-contains = "Node Version Manager (v0.40.1)"
+
+[[case.default.test.commands]]
+
+command = "bash"
+arguments = ["-ceu", "cat ~/.bashrc"]
+assert-stdout-contains = "nvm"
