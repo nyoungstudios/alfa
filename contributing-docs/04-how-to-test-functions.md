@@ -32,6 +32,8 @@ Here is an example test runner toml file:
 ```toml
 [case.example]
 os = "ubuntu-22.04"
+image = "phusion/baseimage:jammy-1.0.4"
+platform = "linux/amd64"
 
 install-tag = "install-tag"
 setup-tag = "setup-tag"
@@ -64,6 +66,8 @@ assert-stdout-equals = "/usr/bin/whoami"
 ### Test runner file schema
 
 - **os** (required) - this is the name of the GitHub Action Runner Image. In other words, this is the value passed to the `runs-on` key in the GitHub Action workflow. [Here is a list](https://github.com/actions/runner-images) of all available images.
+- **image** (optional) - this is the name of the Docker image to run the test install in. If not provided, it will run the test install on the GitHub Action Runner Image directly.
+- **platform** (optional) - this is the name of the Docker image platform. The default is the same architecture as the GitHub Action Runner Image.
 - **install-tag** (optional) - this is the tag in the `test_config.toml` file which runs the function you are testing. This value defaults to the name of the function you are testing; however, if you would like to test the same function with different inputs, you case use this tag to identify each one individually.
 - **setup-tag** (optional) - this is the tag in the `test_config.toml` file which runs before the function you are testing. This is useful if you need to install some dependencies prior to testing your function.
 - **teardown-tag** (optional) - this is the tag in the `test_config.toml` file which runs after the function you are testing.
