@@ -1,0 +1,29 @@
+[common]
+os = "ubuntu-22.04"
+image = "phusion/baseimage:jammy-1.0.4"
+
+[[common.test.commands]]
+
+command = "bash"
+arguments = [
+  "-ceu",
+  'export NVM_DIR="$HOME/.nvm"; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; nvm --help',
+]
+assert-stdout-contains = "Node Version Manager (v0.40.1)"
+
+[case.default]
+
+[case.default.test]
+
+assert-install-names = ["nvm"]
+# technically the profile should be automatically found when not passing the profile as /dev/null
+assert-log-contains = ["Profile not found."]
+
+[case.no-profile]
+
+install-tag = "nvm-no-profile"
+
+[case.no-profile.test]
+
+assert-install-names = ["nvm+no-profile"]
+assert-log-contains = ["Profile not found."]

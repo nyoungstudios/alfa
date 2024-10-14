@@ -1,0 +1,8 @@
+[ nvm ]
+options = []
+
+[ "nvm+no-profile" ]
+tags = ["nvm-no-profile"]
+options = [
+  "0"
+]
