@@ -1,11 +1,13 @@
 [common]
 os = "ubuntu-24.04"
+image = "phusion/baseimage:jammy-1.0.4"
 
 [case.default]
 
 [case.default.test]
 
 assert-install-names = ["nvm"]
+# assert-log-contains = ["Profile not found."]
 
 [[case.default.test.commands]]
 
@@ -16,5 +18,31 @@ assert-stdout-contains = "nvm"
 [[case.default.test.commands]]
 
 command = "bash"
-arguments = ["-ceu", "nvm --help"]
+arguments = [
+  "-ceu",
+  "export NVM_DIR=\"$HOME/.config/nvm\"; export NVM_DIR=\"$HOME/.config/nvm\"; nvm --help",
+]
+assert-stdout-contains = "Node Version Manager (v0.40.1)"
+
+[case.no-profile]
+
+install-tag = "nvm-no-profile"
+
+[case.no-profile.test]
+
+assert-install-names = ["nvm+no-profile"]
+
+[[case.no-profile.test.commands]]
+
+command = "bash"
+arguments = ["-ceu", "cat ~/.bashrc"]
+assert-stdout-contains = "nvm"
+
+[[case.no-profile.test.commands]]
+
+command = "bash"
+arguments = [
+  "-ceu",
+  "export NVM_DIR=\"$HOME/.config/nvm\"; export NVM_DIR=\"$HOME/.config/nvm\"; nvm --help",
+]
 assert-stdout-contains = "Node Version Manager (v0.40.1)"
