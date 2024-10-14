@@ -2,9 +2,6 @@
 
 install_nvm() {
   # installs nvm
-  echo "shell is: $SHELL"
-  echo "home is: $HOME"
-  ls ~ -alth
   if [[ "${1:-}" -eq 0 ]]; then
     # nvm installer will not change your profile or rc file.
     export PROFILE="/dev/null"

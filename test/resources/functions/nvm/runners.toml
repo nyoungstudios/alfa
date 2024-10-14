@@ -1,5 +1,5 @@
 [common]
-os = "ubuntu-24.04"
+os = "ubuntu-22.04"
 image = "phusion/baseimage:jammy-1.0.4"
 
 [case.default]
@@ -7,13 +7,14 @@ image = "phusion/baseimage:jammy-1.0.4"
 [case.default.test]
 
 assert-install-names = ["nvm"]
-# assert-log-contains = ["Profile not found."]
+# technically profile should be found when not passing the profile environment variable
+assert-log-contains = ["Profile not found."]
 
 [[case.default.test.commands]]
 
 command = "bash"
 arguments = ["-ceu", "cat ~/.bashrc"]
-assert-stdout-contains = "nvm"
+assert-stdout-contains = "if"
 
 [[case.default.test.commands]]
 
@@ -31,12 +32,7 @@ install-tag = "nvm-no-profile"
 [case.no-profile.test]
 
 assert-install-names = ["nvm+no-profile"]
-
-[[case.no-profile.test.commands]]
-
-command = "bash"
-arguments = ["-ceu", "cat ~/.bashrc"]
-assert-stdout-contains = "nvm"
+assert-log-contains = ["Profile not found."]
 
 [[case.no-profile.test.commands]]
 

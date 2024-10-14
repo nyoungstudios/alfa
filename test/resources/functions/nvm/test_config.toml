@@ -1,6 +1,9 @@
 [ nvm ]
 options = []
 
+[ nvm.env ]
+PROFILE = "/root/.bashrc"
+
 [ "nvm+no-profile" ]
 tags = ["nvm-no-profile"]
 options = [
