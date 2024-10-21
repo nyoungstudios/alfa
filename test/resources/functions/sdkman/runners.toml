@@ -1,0 +1,13 @@
+[common]
+os = "ubuntu-22.04"
+image = "phusion/baseimage:jammy-1.0.4"
+
+assert-install-names = ["sdkman"]
+
+[case.default.test]
+
+[[case.example.test.commands]]
+
+command = "bash"
+arguments = ["-ceu", "cat ~/.bashrc"]
+assert-stdout-contains = 'export SDKMAN_DIR="$HOME/.sdkman"'
