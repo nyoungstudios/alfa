@@ -6,7 +6,7 @@ assert-install-names = ["sdkman"]
 
 [case.default.test]
 
-[[case.example.test.commands]]
+[[case.default.test.commands]]
 
 command = "bash"
 arguments = ["-ceu", "cat ~/.bashrc"]
