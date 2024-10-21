@@ -2,7 +2,8 @@
 tags = [ "setup" ]
 options = [
   "--no-install-recommends",
-  "unzip"
+  "unzip",
+  "zip"
 ]
 
 [ sdkman ]
