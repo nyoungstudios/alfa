@@ -2,9 +2,11 @@
 os = "ubuntu-22.04"
 image = "phusion/baseimage:jammy-1.0.4"
 
+setup-tag = "setup"
+
 [common.test]
 
-assert-install-names = ["sdkman"]
+assert-install-names = ["apt_get_packages", "sdkman"]
 
 [[common.test.commands]]
 
