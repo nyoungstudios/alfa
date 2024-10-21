@@ -18,6 +18,6 @@ assert-stdout-contains = 'export SDKMAN_DIR="$HOME/.sdkman"'
 
 command = "bash"
 arguments = ["-ce", 'source "$HOME/.sdkman/bin/sdkman-init.sh"; sdk help']
-assert-stdout-contains = 'help'
+assert-stdout-contains = 'sdk - The command line interface (CLI) for SDKMAN!'
 
 [case.default]
