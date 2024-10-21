@@ -14,4 +14,10 @@ command = "bash"
 arguments = ["-ceu", "cat ~/.bashrc"]
 assert-stdout-contains = 'export SDKMAN_DIR="$HOME/.sdkman"'
 
+[[common.test.commands]]
+
+command = "bash"
+arguments = ["-ceu", 'source "$HOME/.sdkman/bin/sdkman-init.sh"; sdk help']
+assert-stdout-contains = 'help'
+
 [case.default]
