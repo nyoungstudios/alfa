@@ -158,6 +158,7 @@ tags = [ "terminal" ]
 [ install_ohmyzsh_plugins ]
 tags = [ "terminal" ]
 options = [
+  "https://github.com/nyoungstudios/zsh-history-on-success",
   "https://github.com/zsh-users/zsh-autosuggestions",
   "https://github.com/zsh-users/zsh-syntax-highlighting"
 ]
@@ -170,6 +171,7 @@ options = [
   "copyfile",
   "sudo",
   "zsh-autosuggestions",
+  "zsh-history-on-success",
   "zsh-syntax-highlighting"
 ]
 
