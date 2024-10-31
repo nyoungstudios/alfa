@@ -7,7 +7,24 @@ tags = [ "utilities" ]
 os = [ "macos" ]
 options = [
   "neofetch",
-  "jq"
+  "fastfetch",
+  "jq",
+  "ripgrep",
+  "parallel"
+]
+
+[ "brew_packages+exiftool" ]
+tags = [ "exiftool" ]
+os = [ "macos" ]
+options = [
+  "exiftool"
+]
+
+[ "brew_packages+scrcpy" ]
+tags = [ "scrcpy" ]
+os = [ "macos" ]
+options = [
+  "scrcpy"
 ]
 
 [ "brew_packages+db" ]
@@ -71,14 +88,32 @@ options = [
   "git",
   "zsh",
   "neofetch",
+  "fastfetch",
   "vim",
   "curl",
   "jq",
   "xclip",
   "snapd",
   "zip",
-  "unzip"
+  "unzip",
+  "ripgrep",
+  "parallel"
 ]
+
+[ "apt_get_packages+exiftool" ]
+tags = [ "exiftool" ]
+options = [
+  "--no-install-recommends",
+  "exiftool"
+]
+
+# not sure if snap is better here
+# [ "apt_get_packages+scrcpy" ]
+# tags = [ "scrcpy" ]
+# options = [
+#   "--no-install-recommends",
+#   "scrcpy"
+# ]
 
 [ "apt_get_packages+desktop" ]
 tags = [ "desktop" ]
@@ -187,6 +222,11 @@ options = [
 [ vimrc.env ]
 SET_AS_GIT_EDITOR = true
 
+[ "zshenv+utils" ]
+tags = [ "utilities" ]
+options = [
+  "export RIPGREP_CONFIG_PATH=~/.ripgreprc"
+]
 
 [ jetbrains_toolbox ]
 tags = [ "jetbrains" ]
