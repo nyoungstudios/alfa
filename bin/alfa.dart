@@ -20,11 +20,14 @@ void main(List<String> args) async {
       help:
           'Will exit immediately if any of the commands run has a non-zero exit status.',
       negatable: false);
-  parser.addOption('config',
+  parser.addMultiOption('config',
       abbr: 'c',
-      help: 'Config toml file with mappings of names to tags and options');
-  parser.addOption('file',
-      abbr: 'f', help: 'Text file with items to install (names or tags)');
+      help:
+          'Config toml file with mappings of names to tags and options. Can pass multiple.');
+  parser.addMultiOption('file',
+      abbr: 'f',
+      help:
+          'Text file with items to install (names or tags). Can pass multiple.');
   parser.addFlag('run-zsh',
       abbr: 'r', help: 'Runs zsh at the end', negatable: false);
 
@@ -41,10 +44,10 @@ void main(List<String> args) async {
   if (argResults['help']) {
     printUsageMsg(parser, 'alfa', 'The alfa command-line utility');
     exit(0);
-  } else if (argResults['config'] == null) {
+  } else if (argResults['config'].isEmpty) {
     printUsageMsg(parser, 'alfa', 'Must pass a config file');
     exit(1);
-  } else if (argResults['file'] == null) {
+  } else if (argResults['file'].isEmpty) {
     printUsageMsg(
         parser, 'alfa', 'Must pass a text file with items to install');
     exit(1);
@@ -64,8 +67,11 @@ void main(List<String> args) async {
   print('Running alfa on $osName $alfaArch');
 
   // loads config file which maps the install keys to the tags
-  var configFile = await TomlDocument.load(argResults['config']);
-  var config = configFile.toMap();
+  Map config = {};
+  for (var configFilepath in argResults['config']) {
+    var configFile = await TomlDocument.load(configFilepath);
+    config.addAll(configFile.toMap());
+  }
 
   // validates config.toml file
   final validationResults = JsonSchema.create(configSchema).validate(config);
@@ -92,8 +98,11 @@ void main(List<String> args) async {
   // stores an ordered set of the names of the things to install
   var namesToInstall = <String>{};
 
-  // reads input file
-  List<String> lines = await File(argResults['file']).readAsLines();
+  // reads input files
+  List<String> lines = [];
+  for (var file in argResults['file']) {
+    lines.addAll(await File(file).readAsLines());
+  }
 
   for (String line in lines) {
     line = line.trim();
