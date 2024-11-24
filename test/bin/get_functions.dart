@@ -69,11 +69,16 @@ void main(List<String> args) async {
       ];
       final Map data = (await TomlDocument.load(runnersPath)).toMap();
 
+      Map common = {};
+      if (data.containsKey('common')) {
+        common = filterTestKey(data['common']);
+      }
+
       data['case'].forEach((runnerName, extraIncludes) {
         include.add({
           'name': basename,
           'runner-name': runnerName,
-          ...filterTestKey(data['common']),
+          ...common,
           ...filterTestKey(extraIncludes)
         });
       });
