@@ -1,4 +1,4 @@
-/// run with dart run alfaa
+/// run with dart run alfa
 import 'dart:io';
 
 import 'package:alfa/src/args.dart';
