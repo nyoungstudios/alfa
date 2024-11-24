@@ -1,23 +1,21 @@
-[common]
+[case.default]
 os = "ubuntu-22.04"
 image = "phusion/baseimage:jammy-1.0.4"
 
 setup-tag = "setup"
 
-[common.test]
+[case.default.test]
 
 assert-install-names = ["apt_get_packages", "sdkman"]
 
-[[common.test.commands]]
+[[case.default.test.commands]]
 
 command = "bash"
 arguments = ["-ceu", "cat ~/.bashrc"]
 assert-stdout-contains = 'export SDKMAN_DIR="$HOME/.sdkman"'
 
-[[common.test.commands]]
+[[case.default.test.commands]]
 
 command = "bash"
 arguments = ["-ce", 'source "$HOME/.sdkman/bin/sdkman-init.sh"; sdk help']
 assert-stdout-contains = 'sdk - The command line interface (CLI) for SDKMAN!'
-
-[case.default]
