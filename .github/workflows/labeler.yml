@@ -1,4 +1,4 @@
-name: "Pull Request Labeler"
+name: Pull Request Labeler
 on:
   pull_request:
 
@@ -10,3 +10,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/labeler@v5
+        with:
+          sync-labels: true
