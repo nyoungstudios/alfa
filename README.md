@@ -48,7 +48,7 @@ To install your config, run the install script from the repo's root directory. H
 ./install.sh -c configs/nathaniel/config.toml -f configs/nathaniel/install_list.txt -e -r
 ```
 
-- The `-c` and `-f` arguments are required and respectively set the configuration and install list files
+- The `-c` and `-f` arguments are required and respectively set the configuration and install list files. You can pass multiple config and/or install list files, and it will evaluate them in that order. For example, `./install.sh -c config1.toml -c config2.toml -f list1.txt -f list2.txt`.
 - `-e` runs it in strict mode (will fail and exit immediately if a step fails)
 - `-r` runs zsh after all of the installation is done so you can see the changes without restarting the terminal (I am bias towards zsh, but hope to make this installer a bit less opinionated in the future)
 
