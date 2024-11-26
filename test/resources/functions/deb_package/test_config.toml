@@ -1,4 +1,4 @@
-[ pacman_packages ]
+[ deb_package ]
 options = [
-  "jq"
+  "https://github.com/fastfetch-cli/fastfetch/releases/download/2.30.1/fastfetch-linux-amd64.deb"
 ]
