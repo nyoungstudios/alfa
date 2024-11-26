@@ -1,0 +1,12 @@
+[case.default]
+
+os = "ubuntu-24.04"
+
+[case.default.test]
+
+assert-install-names = ["deb_package"]
+
+[[case.default.test.commands]]
+
+command = "fastfetch"
+assert-stdout-contains = "Ubuntu noble 24.04 x86_64"
