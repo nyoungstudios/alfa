@@ -1,0 +1,16 @@
+[case.default]
+os = "ubuntu-22.04"
+image = "phusion/baseimage:jammy-1.0.4"
+
+[case.default.test]
+assert-install-names = ["git_clone"]
+
+[[case.default.test.commands]]
+command = "ls"
+arguments = ["/tmp/git-projects"]
+assert-stdout-contains = "alfa"
+
+[[case.default.test.commands]]
+command = "ls"
+arguments = ["/tmp/git-projects"]
+assert-stdout-contains = "forgoodfirstissue"

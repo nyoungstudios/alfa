@@ -1,0 +1,6 @@
+[ git_clone ]
+options = [
+  "/tmp/git-projects",
+  "https://github.com/nyoungstudios/alfa.git",
+  "https://github.com/github/forgoodfirstissue.git"
+]
