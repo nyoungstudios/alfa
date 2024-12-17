@@ -1,0 +1,8 @@
+[ install_binary ]
+options = [
+  "https://example.com/path/to/binary"
+]
+
+[ install_binary.env ]
+ALFA_INSTALL_BIN_DIR = "/usr/local/bin"
+ALFA_INSTALL_PERMISSIONS = "755"
