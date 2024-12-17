@@ -1,6 +1,5 @@
 [case.default]
-os = "ubuntu-22.04"
-image = "phusion/baseimage:jammy-1.0.4"
+os = "ubuntu-24.04"
 
 [case.default.test]
 assert-install-names = ["git_clone"]
