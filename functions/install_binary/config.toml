@@ -1,0 +1,3 @@
+macos.install_function = "install_binary_macos"
+linux.install_function = "install_binary_linux"
+sudo = true
