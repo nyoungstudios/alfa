@@ -24,11 +24,11 @@ jobs:
 
   test-functions-schema:
     name: Test functions schema
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     strategy:
       matrix:
-        sdk: [stable, 3.0, 3.1, 3.2, 3.3, 3.4]
+        sdk: [stable, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6]
 
     steps:
       - uses: actions/checkout@v4
@@ -48,7 +48,7 @@ jobs:
 
   find-functions:
     name: Find functions that changed
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: 15
     outputs:
       matrix: ${{ env.matrix }}
@@ -152,13 +152,13 @@ jobs:
       - name: Print help message
         if: ${{ !matrix.image }}
         run: |
-          sudo ./install.sh -h
+          ./install.sh -h
 
       - name: Test install
         if: ${{ !matrix.image }}
         run: |
           set -euo pipefail
-          sudo ./install.sh -e -c test/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt 2>&1 | tee $ALFA_INSTALL_LOG_FILEPATH
+          ./install.sh -e -c test/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt 2>&1 | tee $ALFA_INSTALL_LOG_FILEPATH
 
       - name: Create docker command script
         if: ${{ matrix.image }}
@@ -181,7 +181,7 @@ jobs:
         if: ${{ matrix.image && matrix.platform == 'linux/arm64' }}
         run: |
           sudo apt-get update -q -y
-          sudo apt-get -qq install -y qemu qemu-user-static
+          sudo apt-get -qq install -y qemu-user qemu-user-static
           docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --credential yes
 
       - name: Test install with docker

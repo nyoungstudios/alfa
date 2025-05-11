@@ -31,7 +31,7 @@ Here is an example test runner toml file:
 
 ```toml
 [case.example]
-os = "ubuntu-22.04"
+os = "ubuntu-24.04"
 image = "phusion/baseimage:jammy-1.0.4"
 platform = "linux/amd64"
 

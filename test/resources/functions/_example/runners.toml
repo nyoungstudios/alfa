@@ -17,7 +17,7 @@ assert-stdout-equals = "hi"
 
 # runs function on linux-x86 with a set of different setup/install/teardown steps
 [case.linux-x86]
-os = "ubuntu-22.04"
+os = "ubuntu-24.04"
 install-tag = "special-install"
 setup-tag = "setup-special"
 teardown-tag = "teardown-special"
@@ -30,12 +30,12 @@ assert-log-contains = ["runner called this function on a x86_64 computer\nspecia
 
 # runs function on linux x86 in a docker image
 [case.linux-x86-docker]
-os = "ubuntu-22.04"
+os = "ubuntu-24.04"
 image = "phusion/baseimage:jammy-1.0.4"
 
 # runs function on linux arm in a docker image
 [case.linux-arm]
-os = "ubuntu-22.04"
+os = "ubuntu-24.04"
 image = "phusion/baseimage:jammy-1.0.4"
 platform = "linux/arm64"
 

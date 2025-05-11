@@ -8,7 +8,7 @@ assert-log-contains = [
 
 # runs on both linux and macos since the function uses sed
 [case.linux]
-os = "ubuntu-22.04"
+os = "ubuntu-24.04"
 
 [case.macos]
 os = "macos-13"
