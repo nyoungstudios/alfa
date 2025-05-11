@@ -1,0 +1,14 @@
+[case.default]
+
+os = "ubuntu-24.04"
+image = "fedora:41"
+
+[case.default.test]
+
+assert-install-names = ["yum_packages"]
+
+[[case.default.test.commands]]
+
+command = "jq"
+arguments = ["--help"]
+assert-stdout-contains = "jq - commandline JSON processor"

@@ -1,0 +1,9 @@
+# Adds release label if the pr modifies files related to the Dart alfa executable
+# see .github/workflows/release.yml
+release:
+  - all:
+      - changed-files:
+          - any-glob-to-any-file:
+              - "bin/**"
+              - "lib/**"
+      - base-branch: "main"
