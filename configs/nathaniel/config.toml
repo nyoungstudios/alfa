@@ -112,7 +112,8 @@ options = [
 # tags = [ "scrcpy" ]
 # options = [
 #   "--no-install-recommends",
-#   "scrcpy"
+#   "adb",
+#   "scrcpy",
 # ]
 
 [ "apt_get_packages+desktop" ]
@@ -295,7 +296,8 @@ options = [
   "mohsen1.prettify-json",
   "ms-azuretools.vscode-docker",
   "ms-vscode-remote.remote-containers",
-  "redhat.vscode-yaml"
+  "redhat.vscode-yaml",
+  "tamasfe.even-better-toml"
 ]
 
 [ "vscode_extensions+python" ]
