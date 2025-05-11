@@ -17,4 +17,4 @@ arguments = [
   "-ceu",
   "eval \"$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\" && brew"
 ]
-assert-stdout-contains = "brew commands\n  brew help [COMMAND]\n  man brew"
+assert-stderr-contains = "Further help:\n  brew commands\n  brew help [COMMAND]\n  man brew"
