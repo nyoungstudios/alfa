@@ -8,7 +8,7 @@ image = "phusion/baseimage:noble-1.0.2"
 
 [case.default.test]
 
-assert-install-names = ["apt_get_packages", "brew", "brew_packages"]
+assert-install-names = ["apt_get_packages", "brew", "run_command", "brew_packages"]
 
 [[case.default.test.commands]]
 

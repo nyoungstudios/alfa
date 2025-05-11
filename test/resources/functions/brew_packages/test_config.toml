@@ -10,6 +10,7 @@ tags = [ "setup" ]
 options = []
 
 [ run_command ]
+tags = [ "setup" ]
 options = [
   "bash",
   "-ceu",
