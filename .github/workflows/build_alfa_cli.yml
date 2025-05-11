@@ -53,7 +53,7 @@ jobs:
 
   build-executable-on-arm:
     name: Build linux arm executable
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
 
     steps:
@@ -70,7 +70,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
           sudo apt-get update -q -y
-          sudo apt-get -qq install -y qemu qemu-user-static
+          sudo apt-get -qq install -y qemu-user qemu-user-static
           docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --credential yes
 
       - name: Create docker command script
