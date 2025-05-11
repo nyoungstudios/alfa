@@ -1,6 +1,10 @@
+[common]
+
+setup-tag = "setup"
+
 [case.default]
 os = "ubuntu-24.04"
-image = "phusion/baseimage:jammy-1.0.4"
+image = "phusion/baseimage:noble-1.0.2"
 
 [case.default.test]
 
