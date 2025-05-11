@@ -1,0 +1,16 @@
+[ apt_get_packages ]
+tags = [ "setup" ]
+options = [
+  "--no-install-recommends",
+  "git"
+]
+
+[ brew ]
+tags = [ "setup" ]
+options = []
+
+[ brew_packages ]
+options = [
+  "jq",
+  "ripgrep"
+]
