@@ -1,0 +1,25 @@
+[case.default]
+os = "ubuntu-24.04"
+image = "phusion/baseimage:jammy-1.0.4"
+
+[case.default.test]
+
+assert-install-names = ["brew"]
+
+[[case.default.test.commands]]
+
+command = "bash"
+arguments = [
+  "-ceu",
+  "brew",
+]
+assert-stdout-contains = "brew commands\n  brew help [COMMAND]\n  man brew"
+
+[[case.default.test.commands]]
+
+command = "bash"
+arguments = [
+  "-ceu",
+  "man brew",
+]
+assert-stdout-contains = "brew - The Missing Package Manager for macOS (or Linux)"
