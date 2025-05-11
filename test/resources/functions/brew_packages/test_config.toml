@@ -1,24 +1,19 @@
-[ apt_get_packages ]
-tags = [ "setup" ]
-options = [
-  "--no-install-recommends",
-  "git"
-]
+[apt_get_packages]
+tags = ["setup"]
+options = ["--no-install-recommends", "git"]
 
-[ brew ]
-tags = [ "setup" ]
+[brew]
+tags = ["setup"]
 options = []
 
-[ run_command ]
-tags = [ "setup" ]
+[run_command]
+tags = ["setup"]
 options = [
   "bash",
   "-ceu",
-  "echo 'eval \"$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\"' >> ~/.bashrc"
+  "echo 'eval \"$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\"' > /tmp/load_brew.sh",
 ]
 
-[ brew_packages ]
-options = [
-  "jq",
-  "ripgrep"
-]
+[brew_packages]
+options = ["jq", "ripgrep"]
+env = { BASH_ENV = "/tmp/load_brew.sh" }

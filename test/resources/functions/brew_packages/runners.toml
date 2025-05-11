@@ -15,7 +15,7 @@ assert-install-names = ["apt_get_packages", "brew", "run_command", "brew_package
 command = "bash"
 arguments = [
   "-ceu",
-  "jq"
+  "eval \"$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\" && jq"
 ]
 assert-stdout-contains = "jq - commandline JSON processor"
 
@@ -24,6 +24,6 @@ assert-stdout-contains = "jq - commandline JSON processor"
 command = "bash"
 arguments = [
   "-ceu",
-  "rg --help"
+  "eval \"$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\" && rg --help"
 ]
 assert-stdout-contains = "ripgrep (rg) recursively searches the current directory"
