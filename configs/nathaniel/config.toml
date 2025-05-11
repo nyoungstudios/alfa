@@ -20,13 +20,6 @@ options = [
   "exiftool"
 ]
 
-[ "brew_packages+scrcpy" ]
-tags = [ "scrcpy" ]
-os = [ "macos" ]
-options = [
-  "scrcpy"
-]
-
 [ "brew_packages+db" ]
 tags = [ "database" ]
 os = [ "macos" ]
@@ -106,15 +99,6 @@ options = [
   "--no-install-recommends",
   "exiftool"
 ]
-
-# not sure if snap is better here
-# [ "apt_get_packages+scrcpy" ]
-# tags = [ "scrcpy" ]
-# options = [
-#   "--no-install-recommends",
-#   "adb",
-#   "scrcpy",
-# ]
 
 [ "apt_get_packages+desktop" ]
 tags = [ "desktop" ]
