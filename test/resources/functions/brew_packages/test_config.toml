@@ -9,6 +9,13 @@ options = [
 tags = [ "setup" ]
 options = []
 
+[ run_command ]
+options = [
+  "bash",
+  "-ceu",
+  "echo 'eval \"$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\"' >> ~/.bashrc"
+]
+
 [ brew_packages ]
 options = [
   "jq",
