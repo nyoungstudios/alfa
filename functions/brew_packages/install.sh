@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ls /tmp -alt
-echo "bash env: $BASH_ENV"
+echo "bash env: ${BASH_ENV:-}"
 
 
 brew_install() {
