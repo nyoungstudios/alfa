@@ -1,0 +1,20 @@
+[common]
+
+setup-tag = "setup"
+
+[case.default]
+os = "ubuntu-24.04"
+image = "phusion/baseimage:noble-1.0.2"
+
+[case.default.test]
+
+assert-install-names = ["apt_get_packages", "brew"]
+
+[[case.default.test.commands]]
+
+command = "bash"
+arguments = [
+  "-ceu",
+  "eval \"$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\" && brew"
+]
+assert-stderr-contains = "Further help:\n  brew commands\n  brew help [COMMAND]\n  man brew"
