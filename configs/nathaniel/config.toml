@@ -81,7 +81,6 @@ options = [
   "git",
   "zsh",
   "neofetch",
-  "fastfetch",
   "vim",
   "curl",
   "jq",
@@ -91,6 +90,12 @@ options = [
   "unzip",
   "ripgrep",
   "parallel"
+]
+
+[ "deb_package+fastfetch" ]
+tags = [ "utilities", "fastfetch" ]
+options = [
+  "https://github.com/fastfetch-cli/fastfetch/releases/download/2.42.0/fastfetch-linux-amd64.deb"
 ]
 
 [ "apt_get_packages+exiftool" ]
