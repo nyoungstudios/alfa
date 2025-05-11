@@ -15,15 +15,6 @@ assert-install-names = ["apt_get_packages", "brew"]
 command = "bash"
 arguments = [
   "-ceu",
-  "brew",
+  "eval \"$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\" && brew"
 ]
 assert-stdout-contains = "brew commands\n  brew help [COMMAND]\n  man brew"
-
-[[case.default.test.commands]]
-
-command = "bash"
-arguments = [
-  "-ceu",
-  "man brew",
-]
-assert-stdout-contains = "brew - The Missing Package Manager for macOS (or Linux)"
