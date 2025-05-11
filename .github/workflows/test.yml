@@ -152,13 +152,13 @@ jobs:
       - name: Print help message
         if: ${{ !matrix.image }}
         run: |
-          sudo ./install.sh -h
+          ./install.sh -h
 
       - name: Test install
         if: ${{ !matrix.image }}
         run: |
           set -euo pipefail
-          sudo ./install.sh -e -c test/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt 2>&1 | tee $ALFA_INSTALL_LOG_FILEPATH
+          ./install.sh -e -c test/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt 2>&1 | tee $ALFA_INSTALL_LOG_FILEPATH
 
       - name: Create docker command script
         if: ${{ matrix.image }}
