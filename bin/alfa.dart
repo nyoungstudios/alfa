@@ -28,6 +28,9 @@ void main(List<String> args) async {
       abbr: 'f',
       help:
           'Text file with items to install (names or tags). Can pass multiple.');
+  parser.addMultiOption('install',
+      help:
+          'Pass the items to install (names or tags) directly in the command line instead of using the --file option. Can pass multiple.');
   parser.addFlag('run-zsh',
       abbr: 'r', help: 'Runs zsh at the end', negatable: false);
 
@@ -45,11 +48,16 @@ void main(List<String> args) async {
     printUsageMsg(parser, 'alfa', 'The alfa command-line utility');
     exit(0);
   } else if (argResults['config'].isEmpty) {
-    printUsageMsg(parser, 'alfa', 'Must pass a config file');
+    printUsageMsg(parser, 'alfa', 'Must pass a config file with --config');
     exit(1);
-  } else if (argResults['file'].isEmpty) {
+  } else if (argResults['file'].isEmpty && argResults['install'].isEmpty) {
     printUsageMsg(
-        parser, 'alfa', 'Must pass a text file with items to install');
+        parser, 'alfa', 'Must pass items to install with --file or --install');
+    exit(1);
+  } else if (argResults['file'].isNotEmpty &&
+      argResults['install'].isNotEmpty) {
+    printUsageMsg(parser, 'alfa',
+        'Can only use one of --file or --install to install items');
     exit(1);
   }
 
@@ -98,11 +106,12 @@ void main(List<String> args) async {
   // stores an ordered set of the names of the things to install
   var namesToInstall = <String>{};
 
-  // reads input files
+  // reads input files and adds all items passed in the command line
   List<String> lines = [];
   for (var file in argResults['file']) {
     lines.addAll(await File(file).readAsLines());
   }
+  lines.addAll(argResults['install']);
 
   for (String line in lines) {
     line = line.trim();

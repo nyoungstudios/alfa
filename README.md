@@ -40,6 +40,8 @@ Once you create a configuration file of how you like to install all of the items
 
 The schema for the install list text file can be found [here](docs/install-list-schema.md).
 
+Alternatively, you can also pass the items you want to install directly in the command line if you do not want to create a text file to store this information.
+
 ### Running the program
 
 To install your config, run the install script from the repo's root directory. Here is what the command would look like if you want to install my config:
@@ -48,9 +50,14 @@ To install your config, run the install script from the repo's root directory. H
 ./install.sh -c configs/nathaniel/config.toml -f configs/nathaniel/install_list.txt -e -r
 ```
 
-- The `-c` and `-f` arguments are required and respectively set the configuration and install list files. You can pass multiple config and/or install list files, and it will evaluate them in that order. For example, `./install.sh -c config1.toml -c config2.toml -f list1.txt -f list2.txt`.
-- `-e` runs it in strict mode (will fail and exit immediately if a step fails)
-- `-r` runs zsh after all of the installation is done so you can see the changes without restarting the terminal (I am bias towards zsh, but hope to make this installer a bit less opinionated in the future)
+- The `--config` (`-c`) argument is required and sets the install configuration file to use.
+- To pass the items to install, you can pass a text file using the `--file` (`-f`) argument with each line in the file containing the item you want to install.
+- Alternatively, you can pass the items to install directly in the command line using the `--install` argument.
+- You can pass multiple items to all the above options, and it will evaluate them in that order. For example,
+  - `./install.sh -c config1.toml -c config2.toml -f list1.txt -f list2.txt`.
+  - `./install.sh -c config1.toml -c config2.toml --install name1 --install name2`.
+- `--exit` (`-e`) runs it in strict mode (will fail and exit immediately if a step fails)
+- `--run-zsh` (`-r`) runs zsh after all of the installation is done so you can see the changes without restarting the terminal (I am bias towards zsh, but hope to make this installer a bit less opinionated in the future)
 
 ## Other Cool Features
 
