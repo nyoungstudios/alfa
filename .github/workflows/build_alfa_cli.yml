@@ -21,7 +21,7 @@ jobs:
             os: macos-13
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Print uname info
         run: uname -a
@@ -57,7 +57,7 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Cache executable
         id: cache
