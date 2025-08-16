@@ -13,4 +13,3 @@ arguments = [
   "cat ~/.zshenv",
 ]
 assert-stdout-equals = "export TEST=value"
-# comment
