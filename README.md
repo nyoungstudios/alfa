@@ -38,7 +38,7 @@ All the different things that you can install are defined in the [functions](fun
 
 Once you create a configuration file of how you like to install all of the items you like, the install list file is a simple text file that contains the exact entries you like to install. The goal of having this file is so you can pick which items you want to install without installing everything in your configuration file (perhaps you have different tools you like to use at work vs on your personal computer).
 
-The schema for the install list text file can be found [here](docs/install-list-schema.md).
+The schema for the install list text file can be found [here](docs/install-list-schema.md)!
 
 Alternatively, you can also pass the items you want to install directly in the command line if you do not want to create a text file to store this information.
 
