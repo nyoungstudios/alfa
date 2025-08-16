@@ -31,7 +31,7 @@ jobs:
         sdk: [stable, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: dart-lang/setup-dart@v1
         with:
@@ -55,7 +55,7 @@ jobs:
       length: ${{ env.length }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: dart-lang/setup-dart@v1
         with:
@@ -113,7 +113,7 @@ jobs:
       ALFA_INSTALL_LOG_FILEPATH: alfa-install.log
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: actions/download-artifact@v4
         with:
