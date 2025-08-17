@@ -16,6 +16,7 @@ Accepts exactly 1 argument.
 
 `ALFA_INSTALL_BINARY_NAME` - The name of the installed binary file. Defaults to basename of the URL or local filepath.
 `ALFA_INSTALL_BINARY_BIN_DIR` - The directory to install the binary file. Defaults to `/usr/local/bin`.
+`ALFA_INSTALL_BINARY_OWNER_AND_GROUP` - The owner and group of the binary file. Defaults to `root`.
 `ALFA_INSTALL_BINARY_PERMISSIONS` - The permissions to set for the binary file. Defaults to `755`.
 
 ## Example
@@ -30,5 +31,6 @@ options = [
 # these would be the defaults in this example
 ALFA_INSTALL_BINARY_NAME = "binary"
 ALFA_INSTALL_BINARY_BIN_DIR = "/usr/local/bin"
+ALFA_INSTALL_BINARY_OWNER_AND_GROUP = "root"
 ALFA_INSTALL_BINARY_PERMISSIONS = "755"
 ```
