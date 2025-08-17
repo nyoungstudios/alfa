@@ -1,6 +1,9 @@
-[common.test]
+[case.linux-x86]
+os = "ubuntu-24.04"
 
-[[common.test.commands]]
+install-tag = "install_binary+linux"
+
+[[case.linux-x86.test.commands]]
 
 command = "bash"
 arguments = [
@@ -9,12 +12,34 @@ arguments = [
 ]
 assert-stdout-contains = "Client Version: v1.33.4"
 
-[case.linux-x86]
-os = "ubuntu-24.04"
+[[case.linux-x86.test.commands]]
 
-install-tag = "install_binary+linux"
+command = "bash"
+arguments = [
+  "-ceu",
+  "ls -alth /usr/local/bin/kubectl",
+]
+assert-stdout-contains = "-rwxr-xr-x"
 
 [case.macos-arm]
 os = "macos-14"
 
 install-tag = "install_binary+macos"
+
+[[case.linux-x86.test.commands]]
+
+command = "bash"
+arguments = [
+  "-ceu",
+  "custom_kubectl version --client",
+]
+assert-stdout-contains = "Client Version: v1.33.4"
+
+[[case.linux-x86.test.commands]]
+
+command = "bash"
+arguments = [
+  "-ceu",
+  "ls -alth /usr/bin/custom_kubectl",
+]
+assert-stdout-contains = "-rwxrwxrwx"
