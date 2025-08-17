@@ -1,16 +1,15 @@
 [ "install_binary+linux" ]
-os = ["linux"]
 options = [
   "https://dl.k8s.io/release/v1.33.4/bin/linux/amd64/kubectl"
 ]
 
-[ "install_binary+macos" ]
-os = ["macos"]
-options = [
-  "https://dl.k8s.io/release/v1.33.4/bin/darwin/arm64/kubectl"
-]
-
-[ "install_binary+macos".env ]
+[ "install_binary+linux".env ]
 ALFA_INSTALL_BINARY_NAME = "custom_kubectl"
 ALFA_INSTALL_BINARY_BIN_DIR = "/usr/bin"
 ALFA_INSTALL_BINARY_PERMISSIONS = "777"
+
+
+[ "install_binary+macos" ]
+options = [
+  "https://dl.k8s.io/release/v1.33.4/bin/darwin/arm64/kubectl"
+]
