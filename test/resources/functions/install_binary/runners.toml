@@ -48,7 +48,7 @@ assert-stdout-contains = "-rwxr-xr-x"
 os = "ubuntu-24.04"
 
 setup-tag = "local-file-setup"
-install-tag = "install_binary+linuxlocal_file"
+install-tag = "install_binary+local_file"
 
 [[case.local-linux.test.commands]]
 
