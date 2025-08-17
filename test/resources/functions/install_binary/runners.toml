@@ -43,3 +43,18 @@ arguments = [
   "ls -alth /usr/local/bin/kubectl",
 ]
 assert-stdout-contains = "-rwxr-xr-x"
+
+[case.local-linux]
+os = "ubuntu-24.04"
+
+setup-tag = "local-file-setup"
+install-tag = "install_binary+linuxlocal_file"
+
+[[case.http-linux.test.commands]]
+
+command = "bash"
+arguments = [
+  "-ceu",
+  "hello",
+]
+assert-stdout-equals = "hello"

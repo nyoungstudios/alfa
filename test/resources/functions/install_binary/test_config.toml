@@ -13,3 +13,16 @@ ALFA_INSTALL_BINARY_PERMISSIONS = "777"
 options = [
   "https://dl.k8s.io/release/v1.33.4/bin/darwin/arm64/kubectl"
 ]
+
+[ run_command ]
+tags = ["local-file-setup"]
+options = [
+  "bash",
+  "-ceu",
+  "echo '#!/bin/bash\necho hello' > /tmp/hello"
+]
+
+[ "install_binary+local_file" ]
+options = [
+  "/tmp/hello"
+]
