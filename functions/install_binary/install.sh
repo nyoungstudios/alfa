@@ -26,10 +26,9 @@ install_binary() {
   fi
 
   installDir="${ALFA_INSTALL_BINARY_BIN_DIR:-/usr/local/bin}"
-  installOwnerAndGroup="${ALFA_INSTALL_BINARY_OWNER_AND_GROUP:-root}"
 
   # BSD and GNU versions of install are different but work the same for these options
-  install -o "$installOwnerAndGroup" -g "$installOwnerAndGroup" -m "${ALFA_INSTALL_BINARY_PERMISSIONS:-755}" "$binaryLocalPath" "$installDir/$binaryName"
+  install -m "${ALFA_INSTALL_BINARY_PERMISSIONS:-755}" "$binaryLocalPath" "$installDir/$binaryName"
 
   # cleans up temporary directory
   if [[ "$isHttp" == "true" ]]; then
