@@ -107,7 +107,7 @@ if [[ -n "$shellToRun" ]]; then
   echo "--------------------------------------------"
   # TODO: remove hasRunZsh conditional on next major release (v2.X.X)
   if [[ "$hasRunZsh" == "1" ]]; then
-    echo "Warning: the '--run-zsh' flag will be deprecated in v2. Please use '--run-shell zsh' instead."
+    echo "Warning: the '--run-zsh' flag is deprecated and will be removed in v2. Please use '--run-shell zsh' instead."
     echo
   fi
   echo 'Run "chsh -s $(which '"$shellToRun"')" to change your default shell to '"$shellToRun"'. Logout and log back in to see the changes.'
