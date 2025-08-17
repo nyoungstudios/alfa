@@ -50,7 +50,7 @@ os = "ubuntu-24.04"
 setup-tag = "local-file-setup"
 install-tag = "install_binary+linuxlocal_file"
 
-[[case.http-linux.test.commands]]
+[[case.local-linux.test.commands]]
 
 command = "bash"
 arguments = [
