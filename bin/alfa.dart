@@ -31,8 +31,13 @@ void main(List<String> args) async {
   parser.addMultiOption('install',
       help:
           'Pass the items to install (names or tags) directly in the command line instead of using the --file option. Can pass multiple.');
+
+  // TODO: remove run-zsh flag with next major release (v2.X.X), keeping for backwards compatibility
   parser.addFlag('run-zsh',
-      abbr: 'r', help: 'Runs zsh at the end', negatable: false);
+      help: 'Runs zsh at the end', negatable: false, hide: true);
+
+  parser.addOption('run-shell',
+      abbr: 'r', help: 'Runs the specified shell in login mode at the end');
 
   late ArgResults argResults;
 

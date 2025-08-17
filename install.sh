@@ -76,25 +76,35 @@ else
 
 fi
 
-hasHelp="0"
-hasDryRun="0"
-hasRunShell="0"
+runShellFlag="0"
+shellToRun=""
 
-# checks if the help, dry-run, and run-zsh arguments were passed
+# additional checks after running the alfa executable
+# exits on help and dry-run
+# runs shell if the run-shell argument is passed
 for argument in "$@"
 do
   if [[ "$argument" == "-h" || "$argument" == "--help" ]]; then
-    hasHelp="1"
+    exit
   elif [[ "$argument" == "-n" || "$argument" == "--dry-run" ]]; then
-    hasDryRun="1"
-  elif [[ "$argument" == "-r" || "$argument" == "--run-zsh" ]]; then
-    hasRunShell="1"
+    exit
+  elif [[ "$argument" == "--run-zsh" ]]; then
+    # TODO: remove run-zsh flag with next major release (v2.X.X), keeping for backwards compatibility
+    shellToRun="zsh"
+  elif [[ "$argument" == "-r" || "$argument" == "--run-shell" ]]; then
+    runShellFlag="1"
+  elif [[ "$runShellFlag" == "1" ]]; then
+    shellToRun="$argument"
+    runShellFlag="0"
   fi
 done
 
-# runs zsh
-if [[ "$hasHelp" == "0" && "$hasDryRun" == "0" && "$hasRunShell" == "1" ]]; then
-  echo 'Run "chsh -s $(which zsh)" to change your default shell to zsh. Logout and log back in to see the changes.'
-  # runs zsh so you can see all the new changes
-  exec zsh -l
+# runs the shell
+if [[ -n "$shellToRun" ]]; then
+  echo
+  echo "--------------------------------------------"
+  echo 'Run "chsh -s $(which '"$shellToRun"')" to change your default shell to '"$shellToRun"'. Logout and log back in to see the changes.'
+  echo "Running a new '$shellToRun' shell in login mode..."
+  # runs the shell in login mode so you can see all the new changes
+  exec "$shellToRun" -l
 fi
