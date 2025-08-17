@@ -1,0 +1,60 @@
+[case.http-linux]
+os = "ubuntu-24.04"
+
+install-tag = "install_binary+linux"
+
+[[case.http-linux.test.commands]]
+
+command = "bash"
+arguments = [
+  "-ceu",
+  "custom_kubectl version --client",
+]
+assert-stdout-contains = "Client Version: v1.33.4"
+
+[[case.http-linux.test.commands]]
+
+command = "bash"
+arguments = [
+  "-ceu",
+  "ls -alth /usr/bin/custom_kubectl",
+]
+assert-stdout-contains = "-rwxrwxrwx"
+
+[case.http-macos]
+os = "macos-14"
+
+install-tag = "install_binary+macos"
+
+[[case.http-macos.test.commands]]
+
+command = "bash"
+arguments = [
+  "-ceu",
+  "kubectl version --client",
+]
+assert-stdout-contains = "Client Version: v1.33.4"
+
+[[case.http-macos.test.commands]]
+
+command = "bash"
+arguments = [
+  "-ceu",
+  "ls -alth /usr/local/bin/kubectl",
+]
+assert-stdout-contains = "-rwxr-xr-x"
+
+[case.local-linux]
+os = "ubuntu-24.04"
+
+setup-tag = "local-file-setup"
+install-tag = "install_binary+local_file"
+
+[[case.local-linux.test.commands]]
+
+command = "bash"
+arguments = [
+  "-ceu",
+  "hello",
+]
+assert-stdout-equals = "hello"
