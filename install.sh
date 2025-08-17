@@ -76,6 +76,7 @@ else
 
 fi
 
+hasRunZsh="0"
 runShellFlag="0"
 shellToRun=""
 
@@ -90,6 +91,7 @@ do
     exit
   elif [[ "$argument" == "--run-zsh" ]]; then
     # TODO: remove run-zsh flag with next major release (v2.X.X), keeping for backwards compatibility
+    hasRunZsh="1"
     shellToRun="zsh"
   elif [[ "$argument" == "-r" || "$argument" == "--run-shell" ]]; then
     runShellFlag="1"
@@ -103,6 +105,11 @@ done
 if [[ -n "$shellToRun" ]]; then
   echo
   echo "--------------------------------------------"
+  # TODO: remove hasRunZsh conditional on next major release (v2.X.X)
+  if [[ "$hasRunZsh" == "1" ]]; then
+    echo "Warning: the '--run-zsh' flag will be deprecated in v2. Please use '--run-shell zsh' instead."
+    echo
+  fi
   echo 'Run "chsh -s $(which '"$shellToRun"')" to change your default shell to '"$shellToRun"'. Logout and log back in to see the changes.'
   echo "Running a new '$shellToRun' shell in login mode..."
   # runs the shell in login mode so you can see all the new changes
