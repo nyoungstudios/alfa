@@ -1,37 +1,37 @@
 #!/bin/bash
 
-install_binary_macos() {
-  local url="$1"
-  local tmp_dir
-  tmp_dir=$(mktemp -d)
-  local binary_name
-  binary_name=$(basename "$url")
+install_binary() {
+  url="$1"
 
-  curl_or_wget "$url" "$tmp_dir/$binary_name"
+  # checks if it is a remote or local file
+  if [[ "$url" =~ ^https?:// ]]; then
+    isHttp=true
+  else
+    isHttp=false
+  fi
 
-  local install_dir="${ALFA_INSTALL_BIN_DIR:-/usr/local/bin}"
-  local install_permissions="${ALFA_INSTALL_PERMISSIONS:-755}"
+  if [[ -z "${ALFA_INSTALL_BINARY_NAME:-}" ]]; then
+    binaryName=$(basename "$url")
+  else
+    binaryName="$ALFA_INSTALL_BINARY_NAME"
+  fi
 
-  sudo cp "$tmp_dir/$binary_name" "$install_dir"
-  sudo chmod "$install_permissions" "$install_dir/$binary_name"
+  # downloads if it is a remote file
+  if [[ "$isHttp" == "true" ]]; then
+    tmpDir=$(mktemp -d)
+    curl_or_wget "$url" "$tmpDir/$binaryName"
+    binaryLocalPath="$tmpDir/$binaryName"
+  else
+    binaryLocalPath="$url"
+  fi
 
-  rm -rf "$tmp_dir"
-}
+  installDir="${ALFA_INSTALL_BINARY_BIN_DIR:-/usr/local/bin}"
 
-install_binary_linux() {
-  local url="$1"
-  local tmp_dir
-  tmp_dir=$(mktemp -d)
-  local binary_name
-  binary_name=$(basename "$url")
+  # BSD and GNU versions of install are different but work the same for these options
+  install -o root -g root -m "${ALFA_INSTALL_BINARY_PERMISSIONS:-755}" "$binaryLocalPath" "$installDir/$binaryName"
 
-  curl_or_wget "$url" "$tmp_dir/$binary_name"
-
-  local install_dir="${ALFA_INSTALL_BIN_DIR:-/usr/local/bin}"
-  local install_permissions="${ALFA_INSTALL_PERMISSIONS:-755}"
-
-  sudo cp "$tmp_dir/$binary_name" "$install_dir"
-  sudo chmod "$install_permissions" "$install_dir/$binary_name"
-
-  rm -rf "$tmp_dir"
+  # cleans up temporary directory
+  if [[ "$isHttp" == "true" ]]; then
+    rm -rf "$tmpDir"
+  fi
 }
