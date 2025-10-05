@@ -22,7 +22,7 @@ arguments = [
 assert-stdout-contains = "-rwxrwxrwx"
 
 [case.http-macos]
-os = "macos-14"
+os = "macos-15"
 
 install-tag = "install_binary+macos"
 

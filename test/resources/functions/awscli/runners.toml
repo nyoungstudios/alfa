@@ -30,7 +30,7 @@ platform = "linux/arm64"
 assert-install-names = ["apt_get_packages", "awscli"]
 
 [case.macos-arm]
-os = "macos-14"
+os = "macos-15"
 
 [case.macos-x86]
-os = "macos-13"
+os = "macos-15-intel"

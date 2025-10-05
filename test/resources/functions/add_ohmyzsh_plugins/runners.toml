@@ -19,7 +19,7 @@ image = "phusion/baseimage:jammy-1.0.4"
 assert-install-names = ["apt_get_packages", "ohmyzsh", "add_ohmyzsh_plugins"]
 
 [case.macos]
-os = "macos-13"
+os = "macos-15-intel"
 
 [case.macos.test]
 
