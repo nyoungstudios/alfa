@@ -21,7 +21,7 @@ jobs:
             os: macos-15-intel
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Print uname info
         run: uname -a
@@ -57,7 +57,7 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Cache executable
         id: cache
