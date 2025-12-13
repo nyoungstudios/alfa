@@ -28,7 +28,7 @@ jobs:
 
       - name: Cache executable
         id: cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: alfa_*
           key: alfa-${{ matrix.name }}-${{ hashFiles('bin/**', 'lib/**') }}
@@ -61,7 +61,7 @@ jobs:
 
       - name: Cache executable
         id: cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: alfa_*
           key: alfa-linux-arm-${{ hashFiles('bin/**', 'lib/**') }}
