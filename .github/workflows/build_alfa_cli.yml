@@ -46,7 +46,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: make
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         with:
           name: alfa-${{ matrix.name }}
           path: alfa_*
@@ -111,7 +111,7 @@ jobs:
             dart:stable \
             "${GITHUB_WORKSPACE}/run.sh"
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         with:
           name: alfa-linux-arm
           path: alfa_*
