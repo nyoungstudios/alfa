@@ -61,12 +61,17 @@ void main(List<String> args) async {
 
     if (await File(testConfigPath).exists() &&
         await File(runnersPath).exists()) {
-      filters[basename] = [
-        '${entry.path}/config.toml',
-        '${entry.path}/install.sh',
-        runnersPath,
-        testConfigPath,
-      ];
+      // always run _example
+      if (basename == '_example') {
+        filters[basename] = ['**'];
+      } else {
+        filters[basename] = [
+          '${entry.path}/config.toml',
+          '${entry.path}/install.sh',
+          runnersPath,
+          testConfigPath,
+        ];
+      }
       final Map data = (await TomlDocument.load(runnersPath)).toMap();
 
       Map common = {};
