@@ -9,6 +9,7 @@ concurrency:
 on:
   pull_request:
     paths:
+      - ".github/workflows/build_alfa_cli.yml"
       - ".github/workflows/test.yml"
       - "bin/**"
       - "functions/**"
