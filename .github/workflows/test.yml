@@ -74,7 +74,7 @@ jobs:
       - name: Print matrix
         run: jq . /tmp/matrix.json
 
-      - uses: dorny/paths-filter@v3
+      - uses: dorny/paths-filter@v4
         id: changes
         with:
           filters: /tmp/filters.yml
