@@ -25,30 +25,26 @@ curl_or_wget() {
   fi
 
   if command -v curl >/dev/null 2>&1; then
-    # if curl is installed
+    curl_opts='-L'
     if [ "$silent" = '1' ]; then
-      if [ -n "$output" ]; then
-        curl -fsSL -o "$output" "$url"
-      else
-        curl -fsSL "$url"
-      fi
-    elif [ -n "$output" ]; then
-      curl -L -o "$output" "$url"
+      curl_opts='-fsSL'
+    fi
+
+    if [ -n "$output" ]; then
+      curl $curl_opts -o "$output" "$url"
     else
-      curl -L "$url"
+      curl $curl_opts "$url"
     fi
   elif command -v wget >/dev/null 2>&1; then
-    # if wget is installed
+    wget_opts=''
     if [ "$silent" = '1' ]; then
-      if [ -n "$output" ]; then
-        wget -q -O "$output" "$url"
-      else
-        wget -q -O - "$url"
-      fi
-    elif [ -n "$output" ]; then
-      wget -O "$output" "$url"
+      wget_opts='-q'
+    fi
+
+    if [ -n "$output" ]; then
+      wget $wget_opts -O "$output" "$url"
     else
-      wget -O - "$url"
+      wget $wget_opts -O - "$url"
     fi
   else
     echo 'Must have curl or wget installed'
