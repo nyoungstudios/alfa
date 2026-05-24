@@ -1,0 +1,16 @@
+[ apt_get_packages ]
+tags = ["setup"]
+options = [
+  "--no-install-recommends",
+  "git",
+  "zsh"
+]
+
+[ ohmyzsh ]
+tags = ["setup"]
+options = []
+
+[ install_ohmyzsh_plugins ]
+options = [
+  "https://github.com/zsh-users/zsh-autosuggestions"
+]

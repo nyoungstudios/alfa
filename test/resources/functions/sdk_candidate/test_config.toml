@@ -1,0 +1,18 @@
+[ apt_get_packages ]
+tags = ["setup"]
+options = [
+  "--no-install-recommends",
+  "unzip",
+  "zip",
+  "default-jre-headless"
+]
+
+[ sdkman ]
+tags = ["setup"]
+options = []
+
+[ sdk_candidate ]
+options = [
+  "maven",
+  "3.9.11"
+]

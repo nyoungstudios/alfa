@@ -1,0 +1,20 @@
+[case.default]
+os = "ubuntu-24.04"
+
+[case.default.test]
+assert-install-names = ["git_config"]
+
+[[case.default.test.commands]]
+command = "git"
+arguments = ["config", "--global", "--get", "user.name"]
+assert-stdout-equals = "Alfa Test User"
+
+[[case.default.test.commands]]
+command = "git"
+arguments = ["config", "--global", "--get", "user.email"]
+assert-stdout-equals = "alfa-test@example.com"
+
+[[case.default.test.commands]]
+command = "bash"
+arguments = ["-ceu", "[[ -f ~/.ssh/id_rsa ]] && echo exists || echo missing"]
+assert-stdout-equals = "exists"

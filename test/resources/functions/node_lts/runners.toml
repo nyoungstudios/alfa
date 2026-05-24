@@ -1,0 +1,15 @@
+[common]
+setup-tag = "setup"
+os = "ubuntu-24.04"
+image = "phusion/baseimage:jammy-1.0.4"
+
+[case.default.test]
+assert-install-names = ["nvm", "node_lts"]
+
+[[case.default.test.commands]]
+command = "bash"
+arguments = [
+  "-ceu",
+  'export NVM_DIR="$HOME/.nvm"; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; nvm alias default',
+]
+assert-stdout-contains = "-> v"

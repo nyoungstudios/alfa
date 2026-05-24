@@ -1,0 +1,8 @@
+[ nvm ]
+tags = ["setup"]
+options = []
+
+[ node_version ]
+options = [
+  "20.11.1"
+]

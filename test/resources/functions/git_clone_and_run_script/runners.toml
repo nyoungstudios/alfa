@@ -1,0 +1,15 @@
+[case.default]
+os = "ubuntu-24.04"
+
+[case.default.test]
+assert-install-names = ["git_clone_and_run_script"]
+
+[[case.default.test.commands]]
+command = "bash"
+arguments = ["-ceu", "cat /tmp/git_clone_and_run_script_marker"]
+assert-stdout-equals = "marker"
+
+[[case.default.test.commands]]
+command = "bash"
+arguments = ["-ceu", "[[ ! -d /tmp/git-projects/Hello-World ]] && echo removed || echo exists"]
+assert-stdout-equals = "removed"

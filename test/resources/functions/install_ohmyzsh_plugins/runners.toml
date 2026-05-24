@@ -1,0 +1,14 @@
+[common]
+setup-tag = "setup"
+
+[case.default]
+os = "ubuntu-24.04"
+image = "phusion/baseimage:jammy-1.0.4"
+
+[case.default.test]
+assert-install-names = ["apt_get_packages", "ohmyzsh", "install_ohmyzsh_plugins"]
+
+[[case.default.test.commands]]
+command = "bash"
+arguments = ["-ceu", "[[ -d ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]] && echo exists || echo missing"]
+assert-stdout-equals = "exists"

@@ -1,0 +1,18 @@
+[common]
+setup-tag = "setup"
+
+[case.default]
+os = "ubuntu-24.04"
+
+[case.default.test]
+assert-install-names = ["run_command", "vimrc"]
+
+[[case.default.test.commands]]
+command = "bash"
+arguments = ["-ceu", "[[ -d ~/.vim_runtime ]] && echo exists || echo missing"]
+assert-stdout-equals = "exists"
+
+[[case.default.test.commands]]
+command = "git"
+arguments = ["config", "--global", "--get", "core.editor"]
+assert-stdout-equals = "vim"

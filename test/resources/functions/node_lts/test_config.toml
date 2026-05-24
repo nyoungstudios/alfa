@@ -1,0 +1,6 @@
+[ nvm ]
+tags = ["setup"]
+options = []
+
+[ node_lts ]
+options = []
