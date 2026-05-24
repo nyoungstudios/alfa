@@ -15,6 +15,7 @@ on:
       - "functions/**"
       - "lib/**"
       - "test/**"
+      - "Makefile"
       - "pubspec.yaml"
   workflow_dispatch:
 
