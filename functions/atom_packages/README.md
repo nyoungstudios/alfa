@@ -11,12 +11,13 @@ Installs atom packages.
 Accepts any number of arguments.
 
 - each argument is an atom package to install
+- local package directories are linked with `apm link`
 
 ## Example
 
 ```toml
 [ atom_packages ]
 options = [
-  "pretty-json"
+  "./path/to/local/atom-package"
 ]
 ```

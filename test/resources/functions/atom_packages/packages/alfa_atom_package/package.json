@@ -1,0 +1,9 @@
+{
+  "name": "alfa-atom-package",
+  "version": "1.0.0",
+  "description": "Local Atom package fixture used in install tests.",
+  "main": "./lib/main",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  }
+}

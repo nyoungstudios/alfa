@@ -17,5 +17,5 @@ options = [
 
 [ atom_packages ]
 options = [
-  "pretty-json"
+  "./test/resources/functions/atom_packages/packages/alfa_atom_package"
 ]
