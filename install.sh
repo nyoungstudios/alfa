@@ -126,8 +126,8 @@ if [ ! -f "$alfaCommand" ]; then
     version="$(grep -Ev '^((//|#)|[[:space:]]*$)' version.txt | head -n 1 || true)"
   fi
 
-  if [ -f functions.sh ] && { [ "$version" = 'latest' ] || version_is_greater_than "$version" 'v1.1.0'; }; then
-    echo 'Get the latest commit from origin/main or specify alfa version <= v1.1.0'
+  if [ "$version" != 'latest' ] && ! version_is_greater_than "$version" 'v1.1.0'; then
+    echo 'Get the latest commit from origin/main or specify alfa version > v1.1.0 or "latest"'
     exit 1
   fi
 
