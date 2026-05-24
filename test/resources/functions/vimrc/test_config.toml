@@ -1,3 +1,11 @@
+[ run_command ]
+tags = ["setup"]
+options = [
+  "bash",
+  "-ceu",
+  "echo vimrc setup"
+]
+
 [ vimrc ]
 options = []
 
