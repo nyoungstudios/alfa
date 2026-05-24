@@ -15,6 +15,7 @@ on:
       - "functions/**"
       - "lib/**"
       - "test/**"
+      - "Makefile"
       - "pubspec.yaml"
   workflow_dispatch:
 
@@ -119,6 +120,9 @@ jobs:
       - uses: actions/download-artifact@v8
         with:
           merge-multiple: true
+
+      - name: List files
+        run: ls -alh
 
       - name: Set alfa permissions
         run: chmod +x alfa_*

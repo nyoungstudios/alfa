@@ -1,26 +1,31 @@
-.PHONY: help clean rename lint fix
+.PHONY: all help build clean clean-cache clean-all lint fix
 
-all: build rename
+all: build
 
 help:
 	@echo 'help - Show this message'
-	@echo 'clean - remove dart package files'
 	@echo 'build - compiles an alfa executable'
+	@echo 'clean - remove alfa executable'
+	@echo 'clean-cache - remove dart package files'
+	@echo 'clean-all - runs clean and clean cache'
 	@echo 'lint - runs the dart linter'
 	@echo 'fix - applies the dart linting changes'
 
+BIN_NAME := $(shell ./get_executable_name.sh)
+SRCS := $(shell find bin lib -name '*.dart')
+
+$(BIN_NAME): $(SRCS)
+	dart compile exe bin/alfa.dart -o $(BIN_NAME)
+
+build: $(BIN_NAME)
+
 clean:
-	@rm -rf .dart_tool
-	@rm -rf .packages
-	@rm -rf pubspec.lock
+	rm -f $(BIN_NAME)
 
-alfa:
-	dart compile exe bin/alfa.dart -o alfa
+clean-cache:
+	rm -rf .dart_tool .packages pubspec.lock
 
-build: alfa
-
-rename: build
-	@./rename.sh
+clean-all: clean clean-cache
 
 lint:
 	@dart analyze --fatal-infos
