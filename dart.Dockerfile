@@ -9,7 +9,8 @@ ARG _USER="gitpod"
 USER root
 
 # install dart
-RUN apt-get update && \
+RUN find /etc/apt/sources.list.d/ -name "*nginx*" -delete; \
+    apt-get update && \
     apt-get install -y --no-install-recommends gnupg2 curl git ca-certificates apt-transport-https openssh-client && \
     curl https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
     curl https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list && \

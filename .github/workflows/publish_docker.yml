@@ -3,7 +3,7 @@ name: Publish Docker Image
 on:
   push:
     branches:
-      - main
+      - "**"
     paths:
       - ".github/workflows/publish_docker.yml"
       - "templates/**"
@@ -48,5 +48,5 @@ jobs:
           build-args: |
             IMAGE_NAME=${{ matrix.image }}
             MIN=${{ matrix.min }}
-          push: true
+          push: ${{ github.ref_name == 'main' }}
           tags: ${{ matrix.tags }}
