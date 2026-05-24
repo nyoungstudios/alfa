@@ -154,12 +154,12 @@ if [ ! -f "$alfaCommand" ]; then
   chmod +x "$alfaCommand"
 fi
 
+export ALFA_ARCH="$unameMachine"
+export ALFA_USER="${SUDO_USER:-${USER:-}}"
+
 if [ "$exitAfterAlfa" = '1' ]; then
   exec "./$alfaCommand" "$@"
 fi
-
-export ALFA_ARCH="$unameMachine"
-export ALFA_USER="${SUDO_USER:-${USER:-}}"
 
 # runs the alfa command depending upon if sudo exists
 if ! command -v sudo >/dev/null 2>&1; then
