@@ -1,0 +1,9 @@
+[common]
+setup-tag = "setup"
+teardown-tag = "teardown"
+
+[case.default]
+os = "ubuntu-24.04"
+
+[case.default.test]
+assert-install-names = ["run_command", "jetbrains_toolbox", "run_command+teardown"]
