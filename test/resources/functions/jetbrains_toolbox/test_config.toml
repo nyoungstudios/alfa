@@ -21,12 +21,15 @@ options = [
 python - <<'INNER'
 from pathlib import Path
 import os, signal
+import sys
 pid = Path('/tmp/xvfb.pid')
 if pid.exists():
     try:
         os.kill(int(pid.read_text().strip()), signal.SIGTERM)
-    except Exception:
+    except (ProcessLookupError, ValueError):
         pass
+    except Exception as exc:
+        print(f'warning: failed to stop Xvfb: {exc}', file=sys.stderr)
 INNER
 '''
 ]
