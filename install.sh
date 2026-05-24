@@ -127,7 +127,7 @@ if [ ! -f "$alfaCommand" ]; then
   fi
 
   if [ -f functions.sh ] && { [ "$version" = 'latest' ] || version_is_greater_than "$version" 'v1.1.0'; }; then
-    echo 'Get the lastest commit from origin/main or specify alfa version <= v1.1.0'
+    echo 'Get the latest commit from origin/main or specify alfa version <= v1.1.0'
     exit 1
   fi
 
