@@ -76,7 +76,7 @@ jobs:
       - name: Create docker command script
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          SCRIPT=$(cat << EOF
+          SCRIPT=$(cat << 'EOF'
           #!/bin/bash
           set -eu
 
