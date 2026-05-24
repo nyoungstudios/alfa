@@ -3,7 +3,7 @@ tags = ["setup"]
 options = [
   "bash",
   "-ceu",
-  "mkdir -p /tmp/mockbin && printf '#!/bin/bash\necho "$@" >> /tmp/apm_calls.log\n' > /tmp/mockbin/apm && chmod +x /tmp/mockbin/apm && : > /tmp/apm_calls.log"
+  'mkdir -p /tmp/mockbin && printf "#!/bin/bash\necho "$@" >> /tmp/apm_calls.log\n" > /tmp/mockbin/apm && chmod +x /tmp/mockbin/apm && : > /tmp/apm_calls.log'
 ]
 
 [ atom_packages ]

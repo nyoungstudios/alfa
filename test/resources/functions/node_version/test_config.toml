@@ -3,7 +3,7 @@ tags = ["setup"]
 options = [
   "bash",
   "-ceu",
-  "mkdir -p ~/.nvm && printf 'nvm() { echo "$@" >> /tmp/nvm_version_calls.log; }\n' > ~/.nvm/nvm.sh && : > /tmp/nvm_version_calls.log"
+  'mkdir -p ~/.nvm && printf "nvm() { echo \"$@\" >> /tmp/nvm_version_calls.log; }\n" > ~/.nvm/nvm.sh && : > /tmp/nvm_version_calls.log'
 ]
 
 [ node_version ]

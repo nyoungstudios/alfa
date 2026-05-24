@@ -3,7 +3,7 @@ tags = ["setup"]
 options = [
   "bash",
   "-ceu",
-  "mkdir -p /tmp/mockbin && printf '#!/bin/bash\necho "$@" >> /tmp/brew_pkg_calls.log\n' > /tmp/mockbin/brew && chmod +x /tmp/mockbin/brew && : > /tmp/brew_pkg_calls.log"
+  'mkdir -p /tmp/mockbin && printf "#!/bin/bash\necho "$@" >> /tmp/brew_pkg_calls.log\n" > /tmp/mockbin/brew && chmod +x /tmp/mockbin/brew && : > /tmp/brew_pkg_calls.log'
 ]
 
 [ brew_packages ]
