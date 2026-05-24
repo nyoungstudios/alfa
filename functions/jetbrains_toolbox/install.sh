@@ -13,7 +13,7 @@ install_jetbrains_toolbox() {
     ./jetbrains-toolbox
   else
     ./jetbrains-toolbox --appimage-extract >/dev/null
-    ./squashfs-root/AppRun
+    APPDIR="$(pwd)/squashfs-root" ./squashfs-root/AppRun
   fi
   popd
   rm -rf "$filepath" "$output_folder"
