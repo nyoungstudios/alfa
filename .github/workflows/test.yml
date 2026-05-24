@@ -121,6 +121,9 @@ jobs:
         with:
           merge-multiple: true
 
+      - name: List files
+        run: ls -alh
+
       - name: Set alfa permissions
         run: chmod +x alfa_*
 
