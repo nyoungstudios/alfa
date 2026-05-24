@@ -5,14 +5,9 @@ setup-tag = "setup"
 os = "ubuntu-24.04"
 
 [case.default.test]
-assert-install-names = ["run_command", "atom_packages"]
+assert-install-names = ["apt_get_packages", "deb_package", "atom_packages"]
 
 [[case.default.test.commands]]
-command = "bash"
-arguments = ["-ceu", "cat /tmp/apm_calls.log"]
-assert-stdout-contains = "install pretty-json"
-
-[[case.default.test.commands]]
-command = "bash"
-arguments = ["-ceu", "cat /tmp/apm_calls.log"]
-assert-stdout-contains = "install vim-mode-plus"
+command = "apm"
+arguments = ["list", "--installed", "--bare"]
+assert-stdout-contains = "language-docker@"

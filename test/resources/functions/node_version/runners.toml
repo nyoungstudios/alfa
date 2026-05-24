@@ -1,13 +1,15 @@
 [common]
 setup-tag = "setup"
-
-[case.default]
 os = "ubuntu-24.04"
+image = "phusion/baseimage:jammy-1.0.4"
 
 [case.default.test]
-assert-install-names = ["run_command", "node_version"]
+assert-install-names = ["nvm", "node_version"]
 
 [[case.default.test.commands]]
 command = "bash"
-arguments = ["-ceu", "cat /tmp/nvm_version_calls.log"]
-assert-stdout-contains = "install 20.11.1"
+arguments = [
+  "-ceu",
+  'export NVM_DIR="$HOME/.nvm"; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; nvm version 20.11.1',
+]
+assert-stdout-equals = "v20.11.1"

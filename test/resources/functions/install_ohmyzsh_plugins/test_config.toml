@@ -1,12 +1,16 @@
-[ run_command ]
+[ apt_get_packages ]
 tags = ["setup"]
 options = [
-  "bash",
-  "-ceu",
-  "mkdir -p ~/.oh-my-zsh/custom/plugins /tmp/omz-plugin && git -C /tmp/omz-plugin init && printf '# plugin\n' > /tmp/omz-plugin/README.md && git -C /tmp/omz-plugin add README.md && git -C /tmp/omz-plugin -c user.name='a' -c user.email='a@b.c' commit -m init"
+  "--no-install-recommends",
+  "git",
+  "zsh"
 ]
+
+[ ohmyzsh ]
+tags = ["setup"]
+options = []
 
 [ install_ohmyzsh_plugins ]
 options = [
-  "/tmp/omz-plugin"
+  "https://github.com/zsh-users/zsh-autosuggestions"
 ]

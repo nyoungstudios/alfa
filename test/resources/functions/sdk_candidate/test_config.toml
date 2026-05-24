@@ -1,13 +1,18 @@
-[ run_command ]
+[ apt_get_packages ]
 tags = ["setup"]
 options = [
-  "bash",
-  "-ceu",
-  'mkdir -p ~/.sdkman/bin && printf "sdk() { echo \"$@\" >> /tmp/sdk_calls.log; }\n" > ~/.sdkman/bin/sdkman-init.sh && : > /tmp/sdk_calls.log'
+  "--no-install-recommends",
+  "unzip",
+  "zip",
+  "default-jre-headless"
 ]
+
+[ sdkman ]
+tags = ["setup"]
+options = []
 
 [ sdk_candidate ]
 options = [
-  "java",
-  "21.0.2-tem"
+  "maven",
+  "3.9.11"
 ]

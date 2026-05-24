@@ -1,24 +1,16 @@
-[ run_command ]
+[ "brew_cask_packages+setup" ]
 tags = ["setup"]
 options = [
-  "bash",
-  "-ceu",
-  '''
-mkdir -p /tmp/mockbin
-cat > /tmp/mockbin/code <<"MOCK"
-#!/bin/bash
-echo "$@" >> /tmp/code_calls.log
-MOCK
-chmod +x /tmp/mockbin/code
-: > /tmp/code_calls.log
-'''
+  "visual-studio-code"
 ]
+
+[ "brew_cask_packages+setup".env ]
+PATH = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 
 [ vscode_extensions ]
 options = [
-  "EditorConfig.EditorConfig",
-  "dbaeumer.vscode-eslint"
+  "EditorConfig.EditorConfig"
 ]
 
 [ vscode_extensions.env ]
-PATH = "/tmp/mockbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+PATH = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"

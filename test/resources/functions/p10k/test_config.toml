@@ -1,26 +1,14 @@
-[ run_command ]
+[ apt_get_packages ]
 tags = ["setup"]
 options = [
-  "bash",
-  "-ceu",
-  '''
-mkdir -p /tmp/mockbin ~/.oh-my-zsh/custom/themes
-cat > /tmp/mockbin/git <<"MOCK"
-#!/bin/bash
-if [ "$1" = "clone" ]; then
-  dst="${@: -1}"
-  mkdir -p "$dst"
-fi
-echo "$@" >> /tmp/p10k_git_calls.log
-MOCK
-chmod +x /tmp/mockbin/git
-: > /tmp/p10k_git_calls.log
-printf "ZSH_THEME=\"robbyrussell\"\n" > ~/.zshrc
-'''
+  "--no-install-recommends",
+  "git",
+  "zsh"
 ]
+
+[ ohmyzsh ]
+tags = ["setup"]
+options = []
 
 [ p10k ]
 options = []
-
-[ p10k.env ]
-PATH = "/tmp/mockbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"

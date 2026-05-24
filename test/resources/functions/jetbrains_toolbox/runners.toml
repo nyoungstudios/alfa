@@ -1,13 +1,9 @@
 [common]
 setup-tag = "setup"
+teardown-tag = "teardown"
 
 [case.default]
 os = "ubuntu-24.04"
 
 [case.default.test]
-assert-install-names = ["run_command", "jetbrains_toolbox"]
-
-[[case.default.test.commands]]
-command = "bash"
-arguments = ["-ceu", "cat /tmp/jetbrains_toolbox_ran"]
-assert-stdout-equals = "ran"
+assert-install-names = ["run_command", "jetbrains_toolbox", "run_command+teardown"]

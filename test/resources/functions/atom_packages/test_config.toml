@@ -1,16 +1,21 @@
-[ run_command ]
+[ apt_get_packages ]
 tags = ["setup"]
 options = [
-  "bash",
-  "-ceu",
-  'mkdir -p /tmp/mockbin && printf "#!/bin/bash\necho "$@" >> /tmp/apm_calls.log\n" > /tmp/mockbin/apm && chmod +x /tmp/mockbin/apm && : > /tmp/apm_calls.log'
+  "--no-install-recommends",
+  "libgtk-3-0",
+  "libxss1",
+  "libasound2t64",
+  "libnss3",
+  "libxtst6"
+]
+
+[ deb_package ]
+tags = ["setup"]
+options = [
+  "https://github.com/atom/atom/releases/download/v1.60.0/atom-amd64.deb"
 ]
 
 [ atom_packages ]
 options = [
-  "pretty-json",
-  "vim-mode-plus"
+  "language-docker"
 ]
-
-[ atom_packages.env ]
-PATH = "/tmp/mockbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"

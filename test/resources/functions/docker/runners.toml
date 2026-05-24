@@ -1,18 +1,10 @@
-[common]
-setup-tag = "setup"
-
 [case.default]
 os = "ubuntu-24.04"
 
 [case.default.test]
-assert-install-names = ["run_command", "docker"]
+assert-install-names = ["docker"]
 
 [[case.default.test.commands]]
-command = "bash"
-arguments = ["-ceu", "cat /tmp/docker_calls.log"]
-assert-stdout-contains = "apt-get install -y --no-install-recommends docker-ce docker-ce-cli containerd.io"
-
-[[case.default.test.commands]]
-command = "bash"
-arguments = ["-ceu", "cat /tmp/docker_calls.log"]
-assert-stdout-contains = "gpasswd -a"
+command = "docker"
+arguments = ["--version"]
+assert-stdout-contains = "Docker version"

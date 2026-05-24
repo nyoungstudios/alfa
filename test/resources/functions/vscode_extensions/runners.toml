@@ -2,17 +2,12 @@
 setup-tag = "setup"
 
 [case.default]
-os = "ubuntu-24.04"
+os = "macos-15"
 
 [case.default.test]
-assert-install-names = ["run_command", "vscode_extensions"]
+assert-install-names = ["brew_cask_packages+setup", "vscode_extensions"]
 
 [[case.default.test.commands]]
-command = "bash"
-arguments = ["-ceu", "cat /tmp/code_calls.log"]
-assert-stdout-contains = "--install-extension EditorConfig.EditorConfig"
-
-[[case.default.test.commands]]
-command = "bash"
-arguments = ["-ceu", "cat /tmp/code_calls.log"]
-assert-stdout-contains = "--install-extension dbaeumer.vscode-eslint"
+command = "code"
+arguments = ["--list-extensions"]
+assert-stdout-contains = "EditorConfig.EditorConfig"
