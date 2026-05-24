@@ -10,4 +10,4 @@ assert-install-names = ["brew_cask_packages+setup", "vscode_extensions"]
 [[case.default.test.commands]]
 command = "code"
 arguments = ["--list-extensions"]
-assert-stdout-contains = "EditorConfig.EditorConfig"
+assert-stdout-contains = "editorconfig.editorconfig"
