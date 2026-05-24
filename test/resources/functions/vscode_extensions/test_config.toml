@@ -3,7 +3,15 @@ tags = ["setup"]
 options = [
   "bash",
   "-ceu",
-  'mkdir -p /tmp/mockbin && printf "#!/bin/bash\necho \"$@\" >> /tmp/code_calls.log\n" > /tmp/mockbin/code && chmod +x /tmp/mockbin/code && : > /tmp/code_calls.log'
+  '''
+mkdir -p /tmp/mockbin
+cat > /tmp/mockbin/code <<"MOCK"
+#!/bin/bash
+echo "$@" >> /tmp/code_calls.log
+MOCK
+chmod +x /tmp/mockbin/code
+: > /tmp/code_calls.log
+'''
 ]
 
 [ vscode_extensions ]

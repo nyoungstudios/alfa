@@ -3,7 +3,28 @@ tags = ["setup"]
 options = [
   "bash",
   "-ceu",
-  'mkdir -p /tmp/mockbin && printf "#!/bin/bash\necho curl \"$@\" >> /tmp/jetbrains_calls.log\nout=\"${@: -1}\"\necho archive > \"$out\"\n" > /tmp/mockbin/curl && printf "#!/bin/bash\necho tar \"$@\" >> /tmp/jetbrains_calls.log\nmkdir -p /tmp/jetbrains-toolbox-tmp/jetbrains-toolbox-1.25.12627\nprintf \"#!/bin/bash\\\\necho ran > /tmp/jetbrains_toolbox_ran\\\\n\" > /tmp/jetbrains-toolbox-tmp/jetbrains-toolbox-1.25.12627/jetbrains-toolbox\nchmod +x /tmp/jetbrains-toolbox-tmp/jetbrains-toolbox-1.25.12627/jetbrains-toolbox\n" > /tmp/mockbin/tar && chmod +x /tmp/mockbin/curl /tmp/mockbin/tar && : > /tmp/jetbrains_calls.log && rm -f /tmp/jetbrains_toolbox_ran'
+  '''
+mkdir -p /tmp/mockbin
+cat > /tmp/mockbin/curl <<"MOCK"
+#!/bin/bash
+echo curl "$@" >> /tmp/jetbrains_calls.log
+out="${@: -1}"
+echo archive > "$out"
+MOCK
+cat > /tmp/mockbin/tar <<"MOCK"
+#!/bin/bash
+echo tar "$@" >> /tmp/jetbrains_calls.log
+mkdir -p /tmp/jetbrains-toolbox-tmp/jetbrains-toolbox-1.25.12627
+cat > /tmp/jetbrains-toolbox-tmp/jetbrains-toolbox-1.25.12627/jetbrains-toolbox <<"TOOLBOX"
+#!/bin/bash
+echo ran > /tmp/jetbrains_toolbox_ran
+TOOLBOX
+chmod +x /tmp/jetbrains-toolbox-tmp/jetbrains-toolbox-1.25.12627/jetbrains-toolbox
+MOCK
+chmod +x /tmp/mockbin/curl /tmp/mockbin/tar
+: > /tmp/jetbrains_calls.log
+rm -f /tmp/jetbrains_toolbox_ran
+'''
 ]
 
 [ jetbrains_toolbox ]
