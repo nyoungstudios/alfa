@@ -176,7 +176,8 @@ jobs:
 
           ./install.sh -h
 
-          ./install.sh -e -c test/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt 2>&1 | tee $ALFA_INSTALL_LOG_FILEPATH
+          ./install.sh -e -c test/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt > $ALFA_INSTALL_LOG_FILEPATH 2>&1
+          cat $ALFA_INSTALL_LOG_FILEPATH
           EOF
           )
 
