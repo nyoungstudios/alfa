@@ -10,6 +10,6 @@ assert-install-names = ["nvm", "node_lts"]
 command = "bash"
 arguments = [
   "-ceu",
-  'export NVM_DIR="$HOME/.nvm"; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; nvm version --lts',
+  'export NVM_DIR="$HOME/.nvm"; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; nvm alias default',
 ]
-assert-stdout-contains = "v"
+assert-stdout-contains = "-> v"
