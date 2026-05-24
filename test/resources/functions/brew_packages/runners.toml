@@ -5,6 +5,6 @@ os = "ubuntu-24.04"
 assert-install-names = ["brew_packages"]
 
 [[case.default.test.commands]]
-command = "hello"
+command = "/home/linuxbrew/.linuxbrew/bin/hello"
 arguments = []
 assert-stdout-equals = "Hello, world!"
