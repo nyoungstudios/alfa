@@ -1,0 +1,18 @@
+[common]
+setup-tag = "setup"
+
+[case.default]
+os = "ubuntu-24.04"
+
+[case.default.test]
+assert-install-names = ["run_command", "brew_packages"]
+
+[[case.default.test.commands]]
+command = "bash"
+arguments = ["-ceu", "cat /tmp/brew_pkg_calls.log"]
+assert-stdout-contains = "install jq"
+
+[[case.default.test.commands]]
+command = "bash"
+arguments = ["-ceu", "cat /tmp/brew_pkg_calls.log"]
+assert-stdout-contains = "install neofetch"

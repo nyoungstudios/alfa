@@ -1,0 +1,13 @@
+[ run_command ]
+tags = ["setup"]
+options = [
+  "bash",
+  "-ceu",
+  "mkdir -p ~/.sdkman/bin && printf 'sdk() { echo "$@" >> /tmp/sdk_calls.log; }\n' > ~/.sdkman/bin/sdkman-init.sh && : > /tmp/sdk_calls.log"
+]
+
+[ sdk_candidate ]
+options = [
+  "java",
+  "21.0.2-tem"
+]

@@ -1,0 +1,13 @@
+[common]
+setup-tag = "setup"
+
+[case.default]
+os = "ubuntu-24.04"
+
+[case.default.test]
+assert-install-names = ["run_command", "install_ohmyzsh_plugins"]
+
+[[case.default.test.commands]]
+command = "bash"
+arguments = ["-ceu", "[[ -d ~/.oh-my-zsh/custom/plugins/omz-plugin ]] && echo exists || echo missing"]
+assert-stdout-equals = "exists"

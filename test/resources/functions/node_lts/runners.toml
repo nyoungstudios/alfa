@@ -1,0 +1,13 @@
+[common]
+setup-tag = "setup"
+
+[case.default]
+os = "ubuntu-24.04"
+
+[case.default.test]
+assert-install-names = ["run_command", "node_lts"]
+
+[[case.default.test.commands]]
+command = "bash"
+arguments = ["-ceu", "cat /tmp/nvm_lts_calls.log"]
+assert-stdout-contains = "install --lts"

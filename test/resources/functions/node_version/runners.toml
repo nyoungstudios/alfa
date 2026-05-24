@@ -1,0 +1,13 @@
+[common]
+setup-tag = "setup"
+
+[case.default]
+os = "ubuntu-24.04"
+
+[case.default.test]
+assert-install-names = ["run_command", "node_version"]
+
+[[case.default.test.commands]]
+command = "bash"
+arguments = ["-ceu", "cat /tmp/nvm_version_calls.log"]
+assert-stdout-contains = "install 20.11.1"

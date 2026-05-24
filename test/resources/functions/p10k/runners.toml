@@ -1,0 +1,18 @@
+[common]
+setup-tag = "setup"
+
+[case.default]
+os = "ubuntu-24.04"
+
+[case.default.test]
+assert-install-names = ["run_command", "p10k"]
+
+[[case.default.test.commands]]
+command = "bash"
+arguments = ["-ceu", "[[ -f ~/.p10k.zsh ]] && echo exists || echo missing"]
+assert-stdout-equals = "exists"
+
+[[case.default.test.commands]]
+command = "bash"
+arguments = ["-ceu", "grep '^ZSH_THEME="powerlevel10k/powerlevel10k"$' ~/.zshrc"]
+assert-stdout-equals = "ZSH_THEME="powerlevel10k/powerlevel10k""

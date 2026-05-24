@@ -1,0 +1,15 @@
+[ run_command ]
+tags = ["setup"]
+options = [
+  "bash",
+  "-ceu",
+  "rm -rf /tmp/mock-vimrc ~/.vim_runtime ~/.vimrc && mkdir -p /tmp/mock-vimrc && git -C /tmp/mock-vimrc init && printf '#!/bin/bash\necho source ~/.vimrc > ~/.vimrc\n' > /tmp/mock-vimrc/install_awesome_vimrc.sh && chmod +x /tmp/mock-vimrc/install_awesome_vimrc.sh && git -C /tmp/mock-vimrc add install_awesome_vimrc.sh && git -C /tmp/mock-vimrc -c user.name='a' -c user.email='a@b.c' commit -m init"
+]
+
+[ vimrc ]
+options = [
+  "/tmp/mock-vimrc"
+]
+
+[ vimrc.env ]
+SET_AS_GIT_EDITOR = "true"

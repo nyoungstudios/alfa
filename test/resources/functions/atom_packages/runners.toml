@@ -1,0 +1,18 @@
+[common]
+setup-tag = "setup"
+
+[case.default]
+os = "ubuntu-24.04"
+
+[case.default.test]
+assert-install-names = ["run_command", "atom_packages"]
+
+[[case.default.test.commands]]
+command = "bash"
+arguments = ["-ceu", "cat /tmp/apm_calls.log"]
+assert-stdout-contains = "install pretty-json"
+
+[[case.default.test.commands]]
+command = "bash"
+arguments = ["-ceu", "cat /tmp/apm_calls.log"]
+assert-stdout-contains = "install vim-mode-plus"

@@ -1,0 +1,13 @@
+[common]
+setup-tag = "setup"
+
+[case.default]
+os = "ubuntu-24.04"
+
+[case.default.test]
+assert-install-names = ["run_command", "brew_cask_packages"]
+
+[[case.default.test.commands]]
+command = "bash"
+arguments = ["-ceu", "cat /tmp/brew_calls.log"]
+assert-stdout-contains = "install google-chrome --cask"

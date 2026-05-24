@@ -1,0 +1,9 @@
+[ git_clone_and_run_script ]
+options = [
+  "/tmp/git-projects",
+  "/home/runner/work/alfa/alfa",
+  "bash -ceu 'echo marker > /tmp/git_clone_and_run_script_marker'"
+]
+
+[ git_clone_and_run_script.env ]
+ALFA_REMOVE_REPO = "true"

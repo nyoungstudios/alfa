@@ -1,0 +1,15 @@
+[ run_command ]
+tags = ["setup"]
+options = [
+  "bash",
+  "-ceu",
+  "mkdir -p /tmp/mockbin && printf '#!/bin/bash\necho "$@" >> /tmp/brew_calls.log\n' > /tmp/mockbin/brew && chmod +x /tmp/mockbin/brew && : > /tmp/brew_calls.log"
+]
+
+[ brew_cask_packages ]
+options = [
+  "google-chrome"
+]
+
+[ brew_cask_packages.env ]
+PATH = "/tmp/mockbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"

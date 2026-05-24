@@ -1,0 +1,16 @@
+[ run_command ]
+tags = ["setup"]
+options = [
+  "bash",
+  "-ceu",
+  "mkdir -p /tmp/mockbin && printf '#!/bin/bash\necho "$@" >> /tmp/snap_calls.log\n' > /tmp/mockbin/snap && chmod +x /tmp/mockbin/snap && : > /tmp/snap_calls.log"
+]
+
+[ snap_package ]
+options = [
+  "kubectl",
+  "--classic"
+]
+
+[ snap_package.env ]
+PATH = "/tmp/mockbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
