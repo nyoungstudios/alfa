@@ -3,7 +3,7 @@ name: Publish Dart Docker Image
 on:
   push:
     branches:
-      - main
+      - "**"
     paths:
       - ".github/workflows/publish_dart_docker.yml"
       - ".dart_config/**"
