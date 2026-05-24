@@ -17,5 +17,5 @@ options = [
 
 [ atom_packages ]
 options = [
-  "language-docker"
+  "pretty-json"
 ]
