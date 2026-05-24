@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 set -eu
 
@@ -10,68 +10,46 @@ curl_or_wget() {
   # output file is where to save the url contents to. Will output to stdout if not provided.
 
   # flags
-  silent=0
+  silent='0'
 
-  # sets input arguments
-  newArgs=()
-
-  for arg in "$@"
-  do
-    if [[ "$arg" == "-s" ]];
-    then
-      silent=1
-    else
-      newArgs+=("$arg")
-    fi
-  done
-
-  set -- "${newArgs[@]}"
+  if [ "${1:-}" = '-s' ]; then
+    silent='1'
+    shift
+  fi
 
   # sets positional arguments
   url="${1:-}"
   output="${2:-}"
 
-  if [[ -z "$url" ]];
-  then
-    echo "Must provide url"
+  if [ -z "$url" ]; then
+    echo 'Must provide url'
     exit 1
   fi
 
-  commandToRun=""
-
-  if command -v "curl" > /dev/null 2>&1; then
-    # if curl is installed
-    commandToRun="curl -L"
-    if [[ "$silent" == 1 ]];
-    then
-      commandToRun="$commandToRun -fsS"
+  if command -v curl >/dev/null 2>&1; then
+    curl_opts='-L'
+    if [ "$silent" = '1' ]; then
+      curl_opts='-fsSL'
     fi
 
-    if ! [[ -z "$output" ]];
-    then
-      commandToRun="$commandToRun -o '$output'"
-    fi
-  elif command -v "wget" > /dev/null 2>&1; then
-    # if wget is installed
-    commandToRun="wget"
-    if [[ "$silent" == 1 ]];
-    then
-      commandToRun="$commandToRun -q"
-    fi
-
-    if [[ -z "$output" ]];
-    then
-      commandToRun="$commandToRun -O-"
+    if [ -n "$output" ]; then
+      curl "$curl_opts" -o "$output" "$url"
     else
-      commandToRun="$commandToRun -O '$output'"
+      curl "$curl_opts" "$url"
+    fi
+  elif command -v wget >/dev/null 2>&1; then
+    wget_opts=''
+    if [ "$silent" = '1' ]; then
+      wget_opts='-q'
+    fi
+
+    if [ -n "$output" ]; then
+      wget "$wget_opts" -O "$output" "$url"
+    else
+      wget "$wget_opts" -O - "$url"
     fi
   else
-    echo "Must have curl or wget installed"
+    echo 'Must have curl or wget installed'
     exit 1
   fi
-
-  commandToRun="$commandToRun '$url'"
-
-  eval $commandToRun
-
 }
