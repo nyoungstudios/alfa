@@ -9,12 +9,7 @@ install_jetbrains_toolbox() {
   curl_or_wget "https://download.jetbrains.com/toolbox/${version}.tar.gz" "$filepath"
   tar -xvf "$filepath" -C "$output_folder"
   pushd "${output_folder}/${version}"
-  if ldconfig -p 2>/dev/null | grep -q "libfuse.so.2"; then
-    ./jetbrains-toolbox
-  else
-    ./jetbrains-toolbox --appimage-extract >/dev/null
-    APPDIR="$(pwd)/squashfs-root" ./squashfs-root/AppRun
-  fi
+  ./jetbrains-toolbox
   popd
   rm -rf "$filepath" "$output_folder"
 }
