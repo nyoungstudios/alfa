@@ -33,9 +33,9 @@ curl_or_wget() {
     fi
 
     if [ -n "$output" ]; then
-      curl $curl_opts -o "$output" "$url"
+      curl "$curl_opts" -o "$output" "$url"
     else
-      curl $curl_opts "$url"
+      curl "$curl_opts" "$url"
     fi
   elif command -v wget >/dev/null 2>&1; then
     wget_opts=''
@@ -44,9 +44,9 @@ curl_or_wget() {
     fi
 
     if [ -n "$output" ]; then
-      wget $wget_opts -O "$output" "$url"
+      wget "$wget_opts" -O "$output" "$url"
     else
-      wget $wget_opts -O - "$url"
+      wget "$wget_opts" -O - "$url"
     fi
   else
     echo 'Must have curl or wget installed'
