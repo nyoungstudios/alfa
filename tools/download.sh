@@ -9,6 +9,7 @@ curl_or_wget() {
   # url is the url to download
   # output file is where to save the url contents to. Will output to stdout if not provided.
 
+  # flags
   silent='0'
 
   if [ "${1:-}" = '-s' ]; then
@@ -16,6 +17,7 @@ curl_or_wget() {
     shift
   fi
 
+  # sets positional arguments
   url="${1:-}"
   output="${2:-}"
 

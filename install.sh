@@ -85,7 +85,9 @@ runShellFlag='0'
 shellToRun=''
 exitAfterAlfa='0'
 
-# parse arguments that affect install.sh behavior
+# parse arguments from alfa executable that affect this script's behavior
+# skips sudo checks on --help and --dry-run flags
+# and runs a shell after installation if --run-zsh or --run-shell is provided
 for argument in "$@"
 do
   if [ "$argument" = '-h' ] || [ "$argument" = '--help' ]; then
