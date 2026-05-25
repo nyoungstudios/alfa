@@ -5,7 +5,7 @@ install_jetbrains_toolbox() {
   output_folder="/tmp/jetbrains-toolbox-tmp"
   archive_name="jetbrains-toolbox-3.4.3.81140"
 
-  if [[ "$ALFA_ARCH" == "aarch64" || "$ALFA_ARCH" == "arm64" ]]; then
+  if [[ "$ALFA_ARCH" == "aarch64" ]]; then
     archive_name+="-arm64"
   fi
 
