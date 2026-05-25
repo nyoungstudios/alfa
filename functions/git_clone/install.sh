@@ -5,7 +5,15 @@ git_clone_repo() {
   # repo's project name.
   # the first argument is the local directory and all arguments following
   # are the urls
-  dir="${1/#\~/$HOME}"
+  dir="$1"
+  case "$dir" in
+    '~')
+      dir="$HOME"
+      ;;
+    '~/'*)
+      dir="$HOME/${dir#\~/}"
+      ;;
+  esac
   shift
   mkdir -p "$dir"
   for repo in "$@"
