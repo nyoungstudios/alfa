@@ -9,7 +9,8 @@
         "args": { "IMAGE_NAME": "mcr.microsoft.com/devcontainers/base:ubuntu", "_USER": "vscode" }
     },
     "features": {
-        "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+        // https://github.com/devcontainers/features/tree/main/src/docker-in-docker
+        "ghcr.io/devcontainers/features/docker-in-docker:3": {}
     },
     "customizations": {
         "vscode": {
