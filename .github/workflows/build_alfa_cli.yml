@@ -48,8 +48,12 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: dart pub get
 
-      - name: Compile executable
-        if: steps.cache.outputs.cache-hit != 'true'
+      - name: Native compile executable
+        if: steps.cache.outputs.cache-hit != 'true' && ! matrix.cross-compile
+        run: make
+
+      - name: Cross compile executable
+        if: steps.cache.outputs.cache-hit != 'true' && matrix.cross-compile
         env:
           CROSS_COMPILE_TARGET: ${{ matrix.cross-compile }}
         run: make "$CROSS_COMPILE_TARGET"
