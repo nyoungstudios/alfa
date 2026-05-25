@@ -14,9 +14,9 @@ assert-stdout-equals = "exists"
 command = "bash"
 arguments = [
   "-ceu",
-  'readlink -f ~/.local/bin/jetbrains-toolbox | sed "s|^$HOME|~|"',
+  'target="$(readlink -f ~/.local/bin/jetbrains-toolbox)"; [[ "$target" == "$HOME/.local/share/JetBrains/Toolbox/bin/jetbrains-toolbox" ]] && echo matched || echo unmatched',
 ]
-assert-stdout-equals = "~/.local/share/JetBrains/Toolbox/bin/jetbrains-toolbox"
+assert-stdout-equals = "matched"
 
 [case.linux-x86]
 os = "ubuntu-24.04"
