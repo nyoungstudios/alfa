@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # A bash script to install something
 # 1. Do not name the function to install something the same as an existing command. For example, the function to install brew
@@ -11,7 +11,7 @@
 
 install_example() {
   # example function
-  echo "$ALFA_USER called this function on a $ALFA_ARCH computer"
+  echo "$ALFA_USER called this function on a $ALFA_ARCH computer using the $(ps -p $$ -o comm=) shell"
   for item in "$@"
   do
     echo "$item"
