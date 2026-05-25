@@ -6,9 +6,9 @@ assert-install-names = ["jetbrains_toolbox"]
 command = "bash"
 arguments = [
   "-ceu",
-  "[[ -x ~/.local/bin/jetbrains-toolbox ]] && echo exists || echo missing",
+  "~/.local/bin/jetbrains-toolbox --version",
 ]
-assert-stdout-equals = "exists"
+assert-stdout-contains = "Toolbox"
 
 [[common.test.commands]]
 command = "bash"
