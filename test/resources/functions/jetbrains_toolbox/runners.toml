@@ -23,5 +23,5 @@ os = "ubuntu-24.04"
 
 [case.linux-arm]
 os = "ubuntu-24.04"
-image = "phusion/baseimage:jammy-1.0.4"
+image = "ubuntu:24.04"
 platform = "linux/arm64"

@@ -15,7 +15,7 @@ install_jetbrains_toolbox() {
 
   extracted_dir="$(find "$output_folder" -mindepth 1 -maxdepth 1 -type d -name 'jetbrains-toolbox-*' | head -n 1)"
   if [[ -z "$extracted_dir" ]]; then
-    echo 'Unable to find extracted JetBrains Toolbox directory'
+    echo 'Unable to find extracted JetBrains Toolbox directory' >&2
     rm -rf "$filepath" "$output_folder"
     return 1
   fi
