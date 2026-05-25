@@ -29,7 +29,7 @@ ENV PATH="$PATH:/usr/lib/dart/bin"
 WORKDIR /home/$_USER/.dart
 
 # copies dart config files
-ADD .dart_config/ .
+COPY --chown=$_USER .dart_config/ .
 
 # sets user back to gitpod
 USER $_USER
