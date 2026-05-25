@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 install_apk_packages() {
   # installs apk packages

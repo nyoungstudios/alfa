@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 install_yum_packages() {
   # installs yum packages

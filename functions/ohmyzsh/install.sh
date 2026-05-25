@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 install_ohmyzsh() {
   # eval command to support evaluating environment variable strings passed from the config

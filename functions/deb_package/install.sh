@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 install_deb_package() {
   # installs a deb package

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 git_clone_repo() {
   # clones any number of git repositories to a local folder while retaining the

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 prettify_terminal_macos() {
   # clone Powerlevel10k repo and copy .p10k.zsh config file

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 brew_install_cask() {
   # installs brew cask packages

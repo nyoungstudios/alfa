@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 install_node_lts() {
   # installs the latest node lts version

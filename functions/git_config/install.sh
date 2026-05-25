@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 create_git_config() {
   # sets up git config name and email
