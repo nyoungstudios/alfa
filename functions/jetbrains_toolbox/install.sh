@@ -10,10 +10,17 @@ install_jetbrains_toolbox() {
   fi
 
   mkdir -p "$output_folder"
-  curl_or_wget -s "https://download.jetbrains.com/toolbox/${archive_name}.tar.gz" "$filepath"
+  if ! curl_or_wget -s "https://download.jetbrains.com/toolbox/${archive_name}.tar.gz" "$filepath"; then
+    echo "Failed to download JetBrains Toolbox archive: ${archive_name}.tar.gz" >&2
+    rm -rf "$filepath" "$output_folder"
+    return 1
+  fi
   tar -xf "$filepath" -C "$output_folder"
 
-  extracted_dir="$(find "$output_folder" -mindepth 1 -maxdepth 1 -type d -name 'jetbrains-toolbox-*' | head -n 1)"
+  extracted_dir="${output_folder}/${archive_name}"
+  if [[ ! -d "$extracted_dir" ]]; then
+    extracted_dir="$(find "$output_folder" -mindepth 1 -maxdepth 1 -type d -name 'jetbrains-toolbox-*' | head -n 1)"
+  fi
   if [[ -z "$extracted_dir" ]]; then
     echo 'Unable to find extracted JetBrains Toolbox directory' >&2
     rm -rf "$filepath" "$output_folder"
