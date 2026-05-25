@@ -7,11 +7,8 @@ git_clone_repo() {
   # are the urls
   dir="$1"
   case "$dir" in
-    '~')
-      dir="$HOME"
-      ;;
-    '~/'*)
-      dir="$HOME/${dir#\~/}"
+    '~'*)
+      dir="$HOME${dir#\~/}"
       ;;
   esac
   shift
