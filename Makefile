@@ -4,8 +4,11 @@ all: build
 
 help:
 	@echo 'help - Show this message'
-	@echo 'build - compiles an alfa executable'
-	@echo 'clean - remove alfa executable'
+	@echo 'build - compiles an alfa executable for the current operating system and architecture'
+	@echo 'alfa_linux_armv7 - cross compiles an alfa executable for linux armv7'
+	@echo 'alfa_linux_aarch64 - cross compiles an alfa executable for linux aarch64'
+	@echo 'alfa_linux_riscv64 - cross compiles an alfa executable for linux riscv64'
+	@echo 'clean - remove native and cross compiled alfa executables'
 	@echo 'clean-cache - remove dart package files'
 	@echo 'clean-all - runs clean and clean cache'
 	@echo 'lint - runs the dart linter'
