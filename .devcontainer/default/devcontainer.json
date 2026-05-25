@@ -1,0 +1,35 @@
+// For documentation, see https://aka.ms/devcontainer.json
+{
+    "name": "default",
+    "build": {
+        "context": "../..",
+        "dockerfile": "../../dart.Dockerfile",
+        // https://github.com/devcontainers/images/tree/main/src/base-ubuntu
+        // includes git, oh-my-zsh, make
+        "args": { "IMAGE_NAME": "mcr.microsoft.com/devcontainers/base:ubuntu", "_USER": "vscode" }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "dart-code.dart-code",
+                "DavidAnson.vscode-markdownlint",
+                "editorconfig.editorconfig",
+                "tamasfe.even-better-toml"
+            ]
+        }
+    },
+    // caching the bash and zsh history files
+    "initializeCommand": "mkdir -p ${localEnv:HOME}/.cache/${localWorkspaceFolderBasename}-dev-container && touch -a ${localEnv:HOME}/.cache/${localWorkspaceFolderBasename}-dev-container/.bash_history && touch -a ${localEnv:HOME}/.cache/${localWorkspaceFolderBasename}-dev-container/.zsh_history",
+
+    "onCreateCommand": "dart pub get",
+
+    "runArgs": ["--name", "${localWorkspaceFolderBasename}-default-devcontainer"],
+
+    // See non-root user documentation: https://aka.ms/vscode-remote/containers/non-root
+    "remoteUser": "vscode",
+    "mounts": [
+        // mounting the bash and zsh history files
+        "source=${localEnv:HOME}/.cache/${localWorkspaceFolderBasename}-dev-container/.bash_history,target=/home/vscode/.bash_history,type=bind,consistency=delegated",
+        "source=${localEnv:HOME}/.cache/${localWorkspaceFolderBasename}-dev-container/.zsh_history,target=/home/vscode/.zsh_history,type=bind,consistency=delegated"
+    ]
+}
