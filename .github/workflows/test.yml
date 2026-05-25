@@ -197,7 +197,7 @@ jobs:
           chmod +x run.sh
 
       - name: Setup arm emulation with qemu
-        if: ${{ matrix.image && matrix.platform == 'linux/arm64' }}
+        if: ${{ matrix.image && matrix.platform }}
         run: |
           sudo apt-get update -q -y
           sudo apt-get -qq install -y qemu-user qemu-user-static

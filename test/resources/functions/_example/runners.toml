@@ -31,13 +31,23 @@ assert-log-contains = ["runner called this function on a x86_64 computer using t
 # runs function on linux x86 in a docker image
 [case.linux-x86-docker]
 os = "ubuntu-24.04"
-image = "phusion/baseimage:jammy-1.0.4"
+image = "ubuntu:24.04"
 
 # runs function on linux arm in a docker image
 [case.linux-arm]
 os = "ubuntu-24.04"
-image = "phusion/baseimage:jammy-1.0.4"
+image = "ubuntu:24.04"
 platform = "linux/arm64"
+
+[case.linux-riscv64]
+os = "ubuntu-24.04"
+image = "ubuntu:24.04"
+platform = "linux/riscv64"
+
+[case.linux-armv7]
+os = "ubuntu-24.04"
+image = "ubuntu:24.04"
+platform = "linux/arm/v7"
 
 # runs function on macos arm
 [case.macos-arm]
