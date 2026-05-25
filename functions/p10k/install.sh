@@ -8,7 +8,13 @@ prettify_terminal_macos() {
 
   # edit the .zshrc
   echo "Changing .zshrc file to Powerlevel10k theme"
-  cat ~/.zshrc | pbcopy && cat templates/p10k_init.zsh <(echo) templates/zshrc_disable_flag.zsh > ~/.zshrc && pbpaste >> ~/.zshrc
+  temp_zshrc_file=$(mktemp)
+  cat ~/.zshrc > "$temp_zshrc_file"
+  cat templates/p10k_init.zsh > ~/.zshrc
+  echo "" >> ~/.zshrc
+  cat templates/zshrc_disable_flag.zsh >> ~/.zshrc
+  cat "$temp_zshrc_file" >> ~/.zshrc
+  rm "$temp_zshrc_file"
   echo "" >> ~/.zshrc
   cat templates/p10k_config.zsh >> ~/.zshrc
   echo "" >> ~/.zshrc
