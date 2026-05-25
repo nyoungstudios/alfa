@@ -8,7 +8,7 @@ git_clone_repo() {
   dir="$1"
   case "$dir" in
     '~'*)
-      dir="$HOME${dir#\~/}"
+      dir="$HOME${dir#\~}"
       ;;
   esac
   shift
