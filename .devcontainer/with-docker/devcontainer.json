@@ -1,6 +1,6 @@
 // For documentation, see https://aka.ms/devcontainer.json
 {
-    "name": "full",
+    "name": "with-docker",
     "build": {
         "context": "../..",
         "dockerfile": "../../dart.Dockerfile",
@@ -26,7 +26,7 @@
 
     "onCreateCommand": "dart pub get",
 
-    "runArgs": ["--name", "${localWorkspaceFolderBasename}-full-devcontainer"],
+    "runArgs": ["--name", "${localWorkspaceFolderBasename}-with-docker-devcontainer"],
 
     // See non-root user documentation: https://aka.ms/vscode-remote/containers/non-root
     "remoteUser": "vscode",
