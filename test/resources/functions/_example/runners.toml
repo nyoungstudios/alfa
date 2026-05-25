@@ -26,7 +26,7 @@ teardown-tag = "teardown-special"
 [case.linux-x86.test]
 
 assert-install-names = ["_example+setup-special", "_example+special-install", "_example+teardown-special"]
-assert-log-contains = ["runner called this function on a x86_64 computer\nspecial-install"]
+assert-log-contains = ["runner called this function on a x86_64 computer using the sh shell\nspecial-install"]
 
 # runs function on linux x86 in a docker image
 [case.linux-x86-docker]
