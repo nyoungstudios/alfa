@@ -19,8 +19,17 @@ $(BIN_NAME): $(SRCS)
 
 build: $(BIN_NAME)
 
+alfa_linux_armv7: $(SRCS)
+	dart compile exe bin/alfa.dart --target-os=linux --target-arch=arm -o alfa_linux_armv7
+
+alfa_linux_aarch64: $(SRCS)
+	dart compile exe bin/alfa.dart --target-os=linux --target-arch=arm64 -o alfa_linux_aarch64
+
+alfa_linux_riscv64: $(SRCS)
+	dart compile exe bin/alfa.dart --target-os=linux --target-arch=riscv64 -o alfa_linux_riscv64
+
 clean:
-	rm -f $(BIN_NAME)
+	rm -f $(BIN_NAME) alfa_linux_armv7 alfa_linux_aarch64 alfa_linux_riscv64
 
 clean-cache:
 	rm -rf .dart_tool .packages pubspec.lock

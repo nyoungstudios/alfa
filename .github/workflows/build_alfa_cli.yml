@@ -19,6 +19,12 @@ jobs:
             os: macos-15
           - name: macos-x86
             os: macos-15-intel
+          - name: linux-armv7
+            os: ubuntu-24.04
+            cross-compile: alfa_linux_armv7
+          - name: linux-riscv64
+            os: ubuntu-24.04
+            cross-compile: alfa_linux_riscv64
 
     steps:
       - uses: actions/checkout@v6
@@ -44,7 +50,9 @@ jobs:
 
       - name: Compile executable
         if: steps.cache.outputs.cache-hit != 'true'
-        run: make
+        env:
+          CROSS_COMPILE_TARGET: ${{ matrix.cross-compile }}
+        run: make "$CROSS_COMPILE_TARGET"
 
       - uses: actions/upload-artifact@v7
         with:
