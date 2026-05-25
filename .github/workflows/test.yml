@@ -178,13 +178,6 @@ jobs:
             apk add --no-cache bash libc6-compat
           fi
 
-          if ! command -v curl >/dev/null 2>&1 && ! command -v wget >/dev/null 2>&1; then
-            if command -v apt-get >/dev/null 2>&1; then
-              apt-get update -q -y
-              apt-get -qq install -y curl
-            fi
-          fi
-
           ./install.sh -h
 
           set +e
