@@ -174,6 +174,13 @@ jobs:
           #!/bin/bash
           set -euo pipefail
 
+          if ! command -v curl >/dev/null 2>&1 && ! command -v wget >/dev/null 2>&1; then
+            if command -v apt-get >/dev/null 2>&1; then
+              apt-get update -q -y
+              apt-get -qq install -y curl
+            fi
+          fi
+
           ./install.sh -h
 
           ./install.sh -e -c test/resources/functions/${{ matrix.name }}/test_config.toml -f test_install_list.txt 2>&1 | tee $ALFA_INSTALL_LOG_FILEPATH
