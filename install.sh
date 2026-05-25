@@ -119,7 +119,7 @@ if [ "$unameSystem" = "Linux" ]; then
       alfaCommand="alfa_linux_$unameMachine"
       ;;
     armv7l)
-      alfaCommand="alfa_linux_arm7"
+      alfaCommand="alfa_linux_armv7"
       ;;
     *)
       echo "alfa cannot run on Linux for architecture: ${unameMachine}"
