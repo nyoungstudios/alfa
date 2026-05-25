@@ -226,7 +226,7 @@ void main(List<String> args) async {
     // sets executable
     String executable;
     if (user == null || user == 'root') {
-      executable = nameToInterpreter[baseName]!.split(' ')[1];
+      executable = nameToInterpreter[baseName]!.split(' ')[0];
     } else {
       executable = 'sudo';
     }
