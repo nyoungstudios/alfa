@@ -1,0 +1,13 @@
+[ run_command ]
+tags = ["setup"]
+options = [
+  "bash",
+  "-ceu",
+  "echo vimrc setup"
+]
+
+[ vimrc ]
+options = []
+
+[ vimrc.env ]
+SET_AS_GIT_EDITOR = "true"

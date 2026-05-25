@@ -1,0 +1,5 @@
+[ git_config ]
+options = [
+  "Alfa Test User",
+  "alfa-test@example.com"
+]

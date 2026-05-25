@@ -1,0 +1,9 @@
+[ git_clone_and_run_script ]
+options = [
+  "/tmp/git-projects",
+  "https://github.com/octocat/Hello-World.git",
+  "bash -ceu 'test -f README && echo marker > /tmp/git_clone_and_run_script_marker'"
+]
+
+[ git_clone_and_run_script.env ]
+ALFA_REMOVE_REPO = "true"

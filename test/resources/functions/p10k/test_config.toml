@@ -1,0 +1,14 @@
+[ apt_get_packages ]
+tags = ["setup"]
+options = [
+  "--no-install-recommends",
+  "git",
+  "zsh"
+]
+
+[ ohmyzsh ]
+tags = ["setup"]
+options = []
+
+[ p10k ]
+options = []

@@ -1,0 +1,10 @@
+[case.default]
+os = "ubuntu-24.04"
+
+[case.default.test]
+assert-install-names = ["docker"]
+
+[[case.default.test.commands]]
+command = "docker"
+arguments = ["--version"]
+assert-stdout-contains = "Docker version"

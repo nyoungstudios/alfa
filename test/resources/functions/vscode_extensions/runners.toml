@@ -1,0 +1,13 @@
+[common]
+setup-tag = "setup"
+
+[case.default]
+os = "macos-15"
+
+[case.default.test]
+assert-install-names = ["brew_cask_packages+setup", "vscode_extensions"]
+
+[[case.default.test.commands]]
+command = "code"
+arguments = ["--list-extensions"]
+assert-stdout-contains = "editorconfig.editorconfig"

@@ -1,0 +1,4 @@
+[ apk_packages ]
+options = [
+  "jq"
+]

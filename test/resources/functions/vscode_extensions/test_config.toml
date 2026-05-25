@@ -1,0 +1,16 @@
+[ "brew_cask_packages+setup" ]
+tags = ["setup"]
+options = [
+  "visual-studio-code"
+]
+
+[ "brew_cask_packages+setup".env ]
+PATH = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+
+[ vscode_extensions ]
+options = [
+  "EditorConfig.EditorConfig"
+]
+
+[ vscode_extensions.env ]
+PATH = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"

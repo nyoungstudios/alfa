@@ -1,0 +1,10 @@
+[case.default]
+os = "macos-15"
+
+[case.default.test]
+assert-install-names = ["brew_cask_packages"]
+
+[[case.default.test.commands]]
+command = "chromedriver"
+arguments = ["--version"]
+assert-stdout-contains = "ChromeDriver"
