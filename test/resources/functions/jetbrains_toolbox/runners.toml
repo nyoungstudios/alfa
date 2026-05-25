@@ -1,0 +1,27 @@
+[common]
+[common.test]
+assert-install-names = ["jetbrains_toolbox"]
+
+[[common.test.commands]]
+command = "bash"
+arguments = [
+  "-ceu",
+  "~/.local/bin/jetbrains-toolbox --version",
+]
+assert-stdout-contains = "Toolbox"
+
+[[common.test.commands]]
+command = "bash"
+arguments = [
+  "-ceu",
+  'target="$(readlink -f ~/.local/bin/jetbrains-toolbox)"; [[ "$target" == "$HOME/.local/share/JetBrains/Toolbox/bin/jetbrains-toolbox" ]] && echo matched || echo unmatched',
+]
+assert-stdout-equals = "matched"
+
+[case.linux-x86]
+os = "ubuntu-24.04"
+
+[case.linux-arm]
+os = "ubuntu-24.04"
+image = "phusion/baseimage:noble-1.0.3"
+platform = "linux/arm64"
