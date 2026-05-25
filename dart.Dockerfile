@@ -26,13 +26,13 @@ RUN find /etc/apt/sources.list.d/ -name "*nginx*" -delete; \
 # sets path
 ENV PATH="$PATH:/usr/lib/dart/bin"
 
+# sets user back to gitpod
+USER $_USER
+
 WORKDIR /home/$_USER/.dart
 
 # copies dart config files
 COPY --chown=$_USER .dart_config/ .
-
-# sets user back to gitpod
-USER $_USER
 
 RUN dart --disable-analytics && \
     echo "\ndart-tool=$(date '+%Y-%m-%d'),1" >> ~/.dart-tool/dart-flutter-telemetry.config
