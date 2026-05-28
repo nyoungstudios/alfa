@@ -175,8 +175,8 @@ jobs:
           set -eu
 
           if command -v apk >/dev/null 2>&1; then
-            if ! apk add --no-cache gcompat >/dev/null 2>&1 && ! apk add --no-cache libc6-compat >/dev/null 2>&1; then
-              echo "Failed to install Alpine glibc compatibility packages (gcompat/libc6-compat)." >&2
+            if ! apk add --no-cache gcompat >/dev/null 2>&1; then
+              echo "Failed to install Alpine glibc compatibility package gcompat." >&2
               exit 1
             fi
           fi
