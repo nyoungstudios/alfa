@@ -1,0 +1,8 @@
+[case.default]
+os = "ubuntu-24.04"
+setup-tag = "setup"
+
+[case.default.test]
+
+assert-install-names = ["_example_dash_script"]
+assert-log-contains = ["runner called this function on a x86_64 computer using the dash shell\narg1\narg2"]

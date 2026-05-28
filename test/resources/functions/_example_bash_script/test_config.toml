@@ -1,0 +1,5 @@
+[ _example_bash_script ]
+options = [
+  "arg1",
+  "arg2"
+]

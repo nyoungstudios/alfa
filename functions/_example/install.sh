@@ -10,7 +10,6 @@
 #    what the user has installed.
 
 install_example() {
-  # example function
   echo "$ALFA_USER called this function on a $ALFA_ARCH computer using the $(ps -p $$ -o comm=) shell"
   for item in "$@"
   do
