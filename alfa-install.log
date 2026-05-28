@@ -1,0 +1,26 @@
+Running alfa on linux x86_64
+
+--------------------------------------------
+These are the things that will be installed:
+nvm, node_version
+
+--------------------------------------------
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 16563    0 16563    0     0   988k      0 --:--:-- --:--:-- --:--:-- 1010k
+=> nvm is already installed in /root/.nvm, trying to update the script
+
+=> Profile not found. Tried  (as defined in $PROFILE), ~/.bashrc, ~/.bash_profile, ~/.zprofile, ~/.zshrc, and ~/.profile.
+=> Create one of them and run this script again
+   OR
+=> Append the following lines to the correct file yourself:
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+=> Close and reopen your terminal to start using nvm or run the following to use it now:
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+/bin/sh: 14: /root/.nvm/nvm.sh: _: parameter not set
+alfa exiting with code: 2
