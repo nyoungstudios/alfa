@@ -1,7 +1,7 @@
 #!/bin/sh
 
 install_node() {
-  # installs specfied version of node; otherwise, will install latest version
+  # installs specified version of node; otherwise, will install latest version
   NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
   . "$NVM_DIR/nvm.sh"
   if [ -z "$1" ];
