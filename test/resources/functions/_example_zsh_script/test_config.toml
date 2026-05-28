@@ -4,7 +4,6 @@ options = [
   "zsh"
 ]
 
-
 [ _example_zsh_script ]
 options = [
   "arg1",
