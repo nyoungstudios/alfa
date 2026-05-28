@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 install_node() {
   # installs specified version of node; otherwise, will install latest version

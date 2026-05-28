@@ -7,7 +7,7 @@ nvm, node_version
 --------------------------------------------
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 16563    0 16563    0     0   988k      0 --:--:-- --:--:-- --:--:-- 1010k
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 16563    0 16563    0     0  1049k      0 --:--:-- --:--:-- --:--:-- 1078k
 => nvm is already installed in /root/.nvm, trying to update the script
 
 => Profile not found. Tried  (as defined in $PROFILE), ~/.bashrc, ~/.bash_profile, ~/.zprofile, ~/.zshrc, and ~/.profile.
@@ -22,5 +22,10 @@ export NVM_DIR="$HOME/.nvm"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-/bin/sh: 14: /root/.nvm/nvm.sh: _: parameter not set
-alfa exiting with code: 2
+Downloading and installing node v20.11.1...
+Downloading https://nodejs.org/dist/v20.11.1/node-v20.11.1-linux-x64.tar.gz...
+####                                                                       6.1%########################################                                  56.7%######################################################################## 100.0%
+Computing checksum with sha256sum
+Checksums matched!
+Now using node v20.11.1 (npm v10.2.4)
+Creating default alias: default -> 20.11.1 (-> v20.11.1 *)
