@@ -5,4 +5,4 @@
 # tests a single function
 name=$1
 shift
-/bin/bash -euc "source functions/$name/install.sh; $*"
+/bin/sh -euc "source functions/$name/install.sh; $*"
