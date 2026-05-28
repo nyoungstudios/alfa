@@ -1,4 +1,4 @@
-[ _example_zsh_script ]
+[ _example_usr_bin_env_script ]
 options = [
   "arg1",
   "arg2"
