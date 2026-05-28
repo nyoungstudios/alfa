@@ -11,7 +11,7 @@
 - `git`
 - `wget` or `curl`
 
-> Note: If you are using an Alpine based operating system, you'll need to install gcompat for glibc compatibility.
+> Note: If you are using an Alpine based operating system, you'll need to install `gcompat` for glibc compatibility.
 
 ## Getting Started
 
