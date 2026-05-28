@@ -1,15 +1,15 @@
-#!/bin/bash
+#!/bin/sh
 
 install_run_command() {
   cmd=""
   for arg in "$@"
   do
     quotedArg="'$(echo "$arg" | sed "s/'/'\"'\"'/g")'"
-    if [[ ! -z "$cmd" ]];
+    if [ -n "$cmd" ];
     then
-      cmd+=" "
+      cmd="${cmd} "
     fi
-    cmd+="$quotedArg"
+    cmd="${cmd}${quotedArg}"
   done
   set -x
   eval "$cmd"
