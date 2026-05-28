@@ -7,9 +7,11 @@
 ## Prerequisites
 
 - Unix like operating system: macOS, Linux, or Windows WSL.
-- `bash`
+- A POSIX shell (like `sh`). Although some specific tools require `bash` to install
 - `git`
 - `wget` or `curl`
+
+> Note: If you are using an alpine operating system, you'll need to install gcompat or libc6-compat for glibc compatibility.
 
 ## Getting Started
 
