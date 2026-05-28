@@ -1,0 +1,8 @@
+[case.default]
+os = "ubuntu-24.04"
+setup-tag = "setup"
+
+[case.default.test]
+
+assert-install-names = ["apt_get_packages", "_example_zsh_script"]
+assert-log-contains = ["runner called this function on a x86_64 computer using the zsh shell\narg1\narg2"]

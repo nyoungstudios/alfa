@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 install_ohmyzsh_plugins() {
   # installs plugins for ohmyzsh

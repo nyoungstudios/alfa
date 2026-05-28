@@ -32,7 +32,7 @@ echo "install_function = \"install_$1\"" > "$folder/config.toml"
 
 # create install.sh
 SCRIPT=$(cat << EOF
-#!/bin/bash
+#!/bin/sh
 
 install_$1() {
 

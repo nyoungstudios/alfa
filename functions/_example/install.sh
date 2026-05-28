@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 
-# A bash script to install something
+# A sh script to install something
 # 1. Do not name the function to install something the same as an existing command. For example, the function to install brew
 #    is not called "brew", but rather "install_brew".
 # 2. To access the list of "options" in the config.toml file you pass to the installer, use the "$@" variable.
@@ -10,8 +10,7 @@
 #    what the user has installed.
 
 install_example() {
-  # example function
-  echo "$ALFA_USER called this function on a $ALFA_ARCH computer"
+  echo "$ALFA_USER called this function on a $ALFA_ARCH computer using the $(ps -p $$ -o comm=) shell"
   for item in "$@"
   do
     echo "$item"

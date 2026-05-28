@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 install_awscli_macos() {
   TMP_DIR="$(mktemp -d)"

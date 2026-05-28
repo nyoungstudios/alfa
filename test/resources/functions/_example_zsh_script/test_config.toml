@@ -1,0 +1,11 @@
+[ apt_get_packages ]
+tags = ["setup"]
+options = [
+  "zsh"
+]
+
+[ _example_zsh_script ]
+options = [
+  "arg1",
+  "arg2"
+]

@@ -1,4 +1,5 @@
 /// run with dart run alfa
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:alfa/src/args.dart';
@@ -10,7 +11,7 @@ import 'package:toml/toml.dart';
 
 void main(List<String> args) async {
   // argument parser
-  var parser = ArgParser();
+  final parser = ArgParser();
   parser.addFlag('help',
       abbr: 'h', help: 'Print this usage information.', negatable: false);
   parser.addFlag('dry-run',
@@ -68,21 +69,21 @@ void main(List<String> args) async {
 
   // gets environment variables
   String? user = Platform.environment['SUDO_USER'];
-  String? alfaUser = Platform.environment['ALFA_USER'];
-  String? alfaArch = Platform.environment['ALFA_ARCH'];
+  final String? alfaUser = Platform.environment['ALFA_USER'];
+  final String? alfaArch = Platform.environment['ALFA_ARCH'];
   if (user == 'root' && alfaUser != '') {
     user = alfaUser;
   }
 
   // gets operating system
   // valid options (linux, macos)
-  var osName = Platform.operatingSystem;
+  final osName = Platform.operatingSystem;
   print('Running alfa on $osName $alfaArch');
 
   // loads config file which maps the install keys to the tags
   Map config = {};
-  for (var configFilepath in argResults['config']) {
-    var configFile = await TomlDocument.load(configFilepath);
+  for (final configFilepath in argResults['config']) {
+    final configFile = await TomlDocument.load(configFilepath);
     config.addAll(configFile.toMap());
   }
 
@@ -90,7 +91,7 @@ void main(List<String> args) async {
   final validationResults = JsonSchema.create(configSchema).validate(config);
   if (!validationResults.isValid) {
     print("${argResults['config']} is not formatted correctly.");
-    for (var error in validationResults.errors) {
+    for (final error in validationResults.errors) {
       print(error);
     }
     exit(1);
@@ -100,9 +101,9 @@ void main(List<String> args) async {
   Map<String, List<String>> tagToInstallKey = {};
 
   config.forEach((key, value) {
-    var tags = value['tags'];
+    final tags = value['tags'];
     if (tags != null) {
-      for (String tag in tags) {
+      for (final String tag in tags) {
         tagToInstallKey.putIfAbsent(tag, () => []).add(key);
       }
     }
@@ -113,7 +114,7 @@ void main(List<String> args) async {
 
   // reads input files and adds all items passed in the command line
   List<String> lines = [];
-  for (var file in argResults['file']) {
+  for (final file in argResults['file']) {
     lines.addAll(await File(file).readAsLines());
   }
   lines.addAll(argResults['install']);
@@ -137,16 +138,28 @@ void main(List<String> args) async {
 
   // for storing map of names to install functions
   Map<String, Map> dictionary = {};
+  Map<String, String> nameToInterpreter = {};
   List<String> filteredNamesToInstall = [];
+
+  const validInterpreters = {
+    '/bin/bash',
+    '/bin/dash',
+    '/bin/sh',
+    '/bin/zsh',
+    '/usr/bin/env bash',
+    '/usr/bin/env dash',
+    '/usr/bin/env sh',
+    '/usr/bin/env zsh',
+  };
 
   // filters invalid names to install
   for (String name in namesToInstall) {
-    var baseName = name.split('+')[0];
+    final String baseName = name.split('+')[0];
 
-    String installScriptPath = 'functions/$baseName/install.sh';
-    String configTomlPath = 'functions/$baseName/config.toml';
-    File installScript = File(installScriptPath);
-    File configToml = File(configTomlPath);
+    final String installScriptPath = 'functions/$baseName/install.sh';
+    final String configTomlPath = 'functions/$baseName/config.toml';
+    final File installScript = File(installScriptPath);
+    final File configToml = File(configTomlPath);
 
     if (!config.containsKey(name)) {
       print(
@@ -168,7 +181,21 @@ void main(List<String> args) async {
       print(
           'Skipping install of "$name" since the operating system, $osName, is not in ${config[name]['os']}.');
     } else {
-      var tempConfig = await TomlDocument.load(configTomlPath);
+      final String firstLineOfScript = await installScript
+          .openRead()
+          .transform(utf8.decoder)
+          .transform(LineSplitter())
+          .first;
+
+      if (!firstLineOfScript.startsWith('#!') ||
+          !validInterpreters.contains(firstLineOfScript.substring(2))) {
+        print(
+            'Trying to install "$baseName", install script "$installScriptPath" does not have a valid interpreter: "$firstLineOfScript"');
+        exit(1);
+      }
+      nameToInterpreter[baseName] = firstLineOfScript.substring(2);
+
+      final tempConfig = await TomlDocument.load(configTomlPath);
       dictionary[baseName] = tempConfig.toMap();
       if (!dictionary[baseName]!.containsKey('install_function') &&
           !dictionary[baseName]!.containsKey(osName)) {
@@ -193,16 +220,17 @@ void main(List<String> args) async {
     exit(0);
   }
 
-  // sets executable
-  String executable;
-  if (user == null || user == 'root') {
-    executable = '/bin/bash';
-  } else {
-    executable = 'sudo';
-  }
-
   for (String name in filteredNamesToInstall) {
-    var baseName = name.split('+')[0];
+    final baseName = name.split('+')[0];
+
+    // sets executable
+    String executable;
+    if (user == null || user == 'root') {
+      executable = nameToInterpreter[baseName]!.split(' ')[0];
+    } else {
+      executable = 'sudo';
+    }
+
     var functionMap = dictionary[baseName]!;
 
     // if function map does not contain the install_function key, the install_function key should be nested within the os name key.
@@ -210,7 +238,7 @@ void main(List<String> args) async {
       functionMap = functionMap[osName];
     }
 
-    var functionName = functionMap['install_function'];
+    final functionName = functionMap['install_function'];
 
     String command = '';
 
@@ -222,7 +250,7 @@ void main(List<String> args) async {
     }
 
     command +=
-        'source tools/download.sh; source functions/$baseName/install.sh; $functionName';
+        '. tools/download.sh; . functions/$baseName/install.sh; $functionName';
 
     // checks if there are any options to pass when installing this
     if (config[name].containsKey('options') &&
@@ -233,29 +261,37 @@ void main(List<String> args) async {
 
     List<String> arguments = [];
 
-    if (user != null && user != 'root') {
+    if (user == null || user == 'root') {
+      var interpreterCommands = nameToInterpreter[baseName]!.split(' ');
+      if (interpreterCommands.length > 1) {
+        arguments.add(interpreterCommands[1]);
+      }
+    } else {
       if (!functionMap.containsKey('sudo') || !functionMap['sudo']) {
         // run in user mode
         arguments = ['-u', user];
       }
 
-      arguments
-          .addAll(['--preserve-env=ALFA_USER,ALFA_ARCH', '--', '/bin/bash']);
+      arguments.addAll([
+        '--preserve-env=ALFA_USER,ALFA_ARCH',
+        '--',
+        ...nameToInterpreter[baseName]!.split(' ')
+      ]);
     }
 
     arguments.addAll(['-euc', command]);
 
     // executes shell command
-    var streams = await Process.start(executable, arguments, runInShell: true)
+    final streams = await Process.start(executable, arguments, runInShell: true)
         .then((process) {
-      var outStream = stdout.addStream(process.stdout);
-      var errStream = stderr.addStream(process.stderr);
+      final outStream = stdout.addStream(process.stdout);
+      final errStream = stderr.addStream(process.stderr);
 
       return [process.exitCode, outStream, errStream];
     });
 
     // waits for exit code
-    var exitCode = await streams[0];
+    final exitCode = await streams[0];
 
     // waits for process logs to finish
     await streams[1];

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 apt_get_install() {
   # installs apt-get packages

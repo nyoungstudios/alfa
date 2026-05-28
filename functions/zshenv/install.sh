@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 append_to_zshenv() {
   # appends a line to zshenv file

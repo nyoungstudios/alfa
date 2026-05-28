@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 install_vscode_extensions() {
   # installs vs code extensions (needs to be installed in non sudo mode)
