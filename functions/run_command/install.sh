@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 install_run_command() {
   cmd=""
