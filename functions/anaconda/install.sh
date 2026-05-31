@@ -1,19 +1,19 @@
-#!/bin/bash
+#!/bin/sh
 
 install_anaconda3_common() {
   chmod +x ~/anaconda3.sh
   # eval command to support evaluating environment variable strings passed from the config
   installLocation="$(eval echo ${ANACONDA_PREFIX:-$HOME/anaconda3})"
-  bash ~/anaconda3.sh -b -p "$installLocation"
+  sh ~/anaconda3.sh -b -p "$installLocation"
   rm ~/anaconda3.sh
 
   echo "Initializing Anaconda3..."
   export PATH="$installLocation/bin:$PATH"
-  if [[ -f "$HOME/.bashrc" ]]; then
+  if [ -f "$HOME/.bashrc" ]; then
       conda init bash
   fi
 
-  if [[ -f "$HOME/.zshrc" ]]; then
+  if [ -f "$HOME/.zshrc" ]; then
       conda init zsh
   fi
 }

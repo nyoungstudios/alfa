@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 add_ohmyzsh_plugins_macos() {
   # adds ohmyzsh plugins to zshrc
@@ -9,7 +9,7 @@ add_ohmyzsh_plugins_macos() {
   plugins=""
   for name in "$@"
   do
-    if  [[ -z "$plugins" ]]; then
+    if [ -z "$plugins" ]; then
       plugins="$name"
     else
       plugins="${plugins}\n  $name"
@@ -34,7 +34,7 @@ add_ohmyzsh_plugins_linux() {
   plugins=""
   for name in "$@"
   do
-    if  [[ -z "$plugins" ]]; then
+    if [ -z "$plugins" ]; then
       plugins="$name"
     else
       plugins="${plugins}\n  $name"

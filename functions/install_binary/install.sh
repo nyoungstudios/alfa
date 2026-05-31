@@ -1,23 +1,22 @@
-#!/bin/bash
+#!/bin/sh
 
 install_binary() {
   url="$1"
 
   # checks if it is a remote or local file
-  if [[ "$url" =~ ^https?:// ]]; then
-    isHttp=true
-  else
-    isHttp=false
-  fi
+  case "$url" in
+    http://*|https://*) isHttp=true ;;
+    *) isHttp=false ;;
+  esac
 
-  if [[ -z "${ALFA_INSTALL_BINARY_NAME:-}" ]]; then
+  if [ -z "${ALFA_INSTALL_BINARY_NAME:-}" ]; then
     binaryName=$(basename "$url")
   else
     binaryName="$ALFA_INSTALL_BINARY_NAME"
   fi
 
   # downloads if it is a remote file
-  if [[ "$isHttp" == "true" ]]; then
+  if [ "$isHttp" = "true" ]; then
     tmpDir=$(mktemp -d)
     curl_or_wget "$url" "$tmpDir/$binaryName"
     binaryLocalPath="$tmpDir/$binaryName"
@@ -31,7 +30,7 @@ install_binary() {
   install -m "${ALFA_INSTALL_BINARY_PERMISSIONS:-755}" "$binaryLocalPath" "$installDir/$binaryName"
 
   # cleans up temporary directory
-  if [[ "$isHttp" == "true" ]]; then
+  if [ "$isHttp" = "true" ]; then
     rm -rf "$tmpDir"
   fi
 }
