@@ -29,7 +29,7 @@ install_git_clone_and_run_script() {
   )
 
   # removes repo's directory if the env var is set to 1 or true
-  if [ "${ALFA_REMOVE_REPO:-}" == "1" ] || [ "$(echo "${ALFA_REMOVE_REPO:-}" | tr '[:upper:]' '[:lower:]')" == "true" ];
+  if [ "${ALFA_REMOVE_REPO:-}" = "1" ] || [ "$(echo "${ALFA_REMOVE_REPO:-}" | tr '[:upper:]' '[:lower:]')" == "true" ];
   then
     rm -rf "$repoDir"
   fi
