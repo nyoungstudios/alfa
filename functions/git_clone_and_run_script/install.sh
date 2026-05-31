@@ -2,7 +2,12 @@
 
 install_git_clone_and_run_script() {
   # creates parent directory and cd's into it
-  dir="${1/#\~/$HOME}"
+  dir="$1"
+  case "$dir" in
+    '~'*)
+      dir="$HOME${dir#\~}"
+      ;;
+  esac
   shift
   mkdir -p "$dir"
   cd "$dir"
