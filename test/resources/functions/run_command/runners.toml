@@ -2,7 +2,7 @@
 
 assert-install-names = ["run_command"]
 assert-log-contains = [
-  "bash -ceu pwd && echo Hi $NAME && echo 'word with space'",
+  "bash -ceu 'pwd && echo Hi $NAME && echo '\\''word with space'\\'''",
   "Hi Maverick\nword with space",
 ]
 
