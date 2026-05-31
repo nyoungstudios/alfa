@@ -1,14 +1,24 @@
 [common.test]
 
 assert-install-names = ["run_command"]
-assert-log-contains = [
-  "bash -ceu 'pwd && echo Hi $NAME && echo '\\''word with space'\\'''",
-  "Hi Maverick\nword with space",
-]
 
 # runs on both linux and macos since the function uses sed
 [case.linux]
 os = "ubuntu-24.04"
 
+# escaping is handled differently by sh on linux vs macos
+[case.linux.test]
+assert-log-contains = [
+  "bash -ceu pwd && echo Hi $NAME && echo 'word with space'",
+  "Hi Maverick\nword with space",
+]
+
 [case.macos]
 os = "macos-15-intel"
+
+# escaping is handled differently by sh on linux vs macos
+[case.macos.test]
+assert-log-contains = [
+  "bash -ceu 'pwd && echo Hi $NAME && echo '\\''word with space'\\'''",
+  "Hi Maverick\nword with space",
+]
