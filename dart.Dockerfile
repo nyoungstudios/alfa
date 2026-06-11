@@ -9,19 +9,15 @@ ARG _USER="gitpod"
 USER root
 
 # install dart
-RUN find /etc/apt/sources.list.d/ -name "*nginx*" -delete; \
-    apt-get update && \
-    apt-get install -y --no-install-recommends gnupg2 curl git ca-certificates apt-transport-https openssh-client && \
-    curl https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
-    curl https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list && \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends ca-certificates curl gnupg && \
+    install -d -m 0755 /etc/apt/keyrings && \
+    curl -fsSL https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /etc/apt/keyrings/dart.gpg && \
+    chmod a+r /etc/apt/keyrings/dart.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/dart.gpg] https://storage.googleapis.com/download.dartlang.org/linux/debian stable main" > /etc/apt/sources.list.d/dart_stable.list && \
     apt-get update && \
     apt-get install -y --no-install-recommends dart && \
-    apt-get clean -y && \
-    rm -rf \
-	    /var/cache/debconf/* \
-	    /var/lib/apt/lists/* \
-	    /tmp/* \
-	    /var/tmp/*
+    rm -rf /var/lib/apt/lists/*
 
 # sets path
 ENV PATH="$PATH:/usr/lib/dart/bin"
