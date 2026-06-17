@@ -21,7 +21,7 @@ is_macos_admin_user() {
 }
 
 install_brew() {
-  local target_user="${ALFA_USER:-${SUDO_USER:-${USER:-}}}"
+  local target_user="${ALFA_USER:-${SUDO_USER:-${USER:-$(id -un 2>/dev/null || true)}}}"
 
   if [ "$(uname -s)" = 'Darwin' ] && ! is_macos_admin_user "$target_user"; then
     echo "Need sudo access on macOS (e.g. the user ${target_user} needs to be an Administrator)!"
