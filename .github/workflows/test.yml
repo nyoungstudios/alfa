@@ -37,7 +37,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: dart-lang/setup-dart@v1
+      - uses: dart-lang/setup-dart@v1.7.2
         with:
           sdk: ${{ matrix.sdk }}
 
@@ -61,7 +61,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: dart-lang/setup-dart@v1
+      - uses: dart-lang/setup-dart@v1.7.2
         with:
           sdk: stable
 
@@ -218,7 +218,7 @@ jobs:
 
           docker exec "$ALFA_TEST_CONTAINER_NAME" "${GITHUB_WORKSPACE}/run.sh"
 
-      - uses: dart-lang/setup-dart@v1
+      - uses: dart-lang/setup-dart@v1.7.2
         with:
           sdk: stable
 
